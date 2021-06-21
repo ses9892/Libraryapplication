@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.application.mapper.UserMapper">
+
+    <insert id="save" parameterType="String">
+        insert into `HyoHyunJinHo`.`test` values (#{test})
+    </insert>
+    <insert id="register" parameterType="com.library.application.dto.UserDto">
+        insert into `HyoHyunJinHo`.`Users`(userId,name,pwd,phone,email,gender)
+         values (#{userId},#{name},#{password},#{phone},#{email},#{gender})
+    </insert>
+
+
+
+</mapper>

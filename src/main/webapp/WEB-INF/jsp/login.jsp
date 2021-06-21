@@ -23,10 +23,10 @@
                     <form accept-charset="UTF-8" role="form">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="yourmail@example.com" name="email" type="text">
+                                <input class="form-control" placeholder="yourmail@example.com" id="userId" name="email" type="text">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                <input class="form-control" placeholder="Password" name="password" id="pwd" type="password" value="">
                             </div>
                             <div class="checkbox">
                                 <label>
@@ -34,7 +34,7 @@
                                 </label>
                                 <a style="float: right" href="/register">회원가입</a>
                             </div>
-                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                            <input class="btn btn-lg btn-success btn-block" id="login" type="button" value="Login">
                         </fieldset>
                     </form>
                     <hr/>
@@ -44,5 +44,6 @@
         </div>
     </div>
 </div>
+<script src="/js/index.js"></script>
 </body>
 </html>

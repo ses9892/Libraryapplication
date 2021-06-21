@@ -19,4 +19,6 @@ spring:
 mybatis:
   type-aliases-package: com/library/application/ResponseVo/**
   mapper-locations: mapper/**.xml
-
+token:
+  expiration_time: 864000000 #10 days
+  secret: user_login

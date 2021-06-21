@@ -10,6 +10,10 @@
          values (#{userId},#{name},#{password},#{phone},#{email},#{gender})
     </insert>
 
+    <select id="findByUserId" parameterType="java.util.HashMap" resultType="com.library.application.dto.UserDto">
+        SELECT * FROM `HyoHyunJinHo`.`Users` where userId=#{userId};
+    </select>
+
 
 
 </mapper>

@@ -62,7 +62,8 @@ var main = {
                 alert('반가워요!')
                 location.href='/home'
             }
-        }).error(function () {
+        }).error(function (meg) {
+            alert(meg.responseText)
 
         })
     }

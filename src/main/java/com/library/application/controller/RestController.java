@@ -18,8 +18,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.Optional;
 
 @org.springframework.web.bind.annotation.RestController
 @Slf4j
@@ -58,10 +60,9 @@ public class RestController {
     @PostMapping(value = "/login")
     public ResponseEntity<ResponseToken> login(@RequestBody HashMap<String,Object> requestLogin) throws JSONException {
         //Login 유효성 검사후 Token 발급
-        String Token = userService.login(requestLogin);
-        if(Token==null){
-            throw new UserLoginErrorException("ID&PW를 다시 확인해주세요!");
-        }
+        String Token = String.valueOf(Optional.ofNullable(userService.login(requestLogin))
+                .orElseThrow(() -> new UserLoginErrorException("ID&PW를 다시확인해주세요!")));
+
         // status = OK , bearer 토큰 응답 ==> JS에서 sessionStorage 저장
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseToken(Token,"bearer"));
     }

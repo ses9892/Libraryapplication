@@ -1,7 +1,6 @@
 package com.library.application.service;
 
 import com.library.application.dto.UserDto;
-import com.library.application.exception.UserLoginErrorException;
 import com.library.application.mapper.UserMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -44,13 +43,13 @@ public class UserServiceImpl implements UserService {
         if(userDto==null){      // 회원정보가 없을시
             return null;
         }else if(!userDto.getPwd().trim().equals(requestLogin.get("pwd"))){    //비밀번호 일치하지 않을경우
-            throw new UserLoginErrorException("비밀번호가 맞지 않습니다!");
+            return null;
         }
         //로그인 성공시 토큰 발급
-        String Token = Jwts.builder()
+       String Token = Jwts.builder()
                 .setSubject(userDto.getUserId())
-                .setExpiration(new Date(System.currentTimeMillis()+Long.parseLong(env.getProperty("token.expiration_time"))))
-                .signWith(SignatureAlgorithm.HS512,env.getProperty("token.secret")).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(env.getProperty("token.expiration_time"))))
+                .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret")).compact();
         return Token;
     }
 }

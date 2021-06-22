@@ -1,18 +1,23 @@
-
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<div class="[ container ]">
+    <div class="[ row ]">
+        <div class="[ col-xs-12 col-md-offset-1 col-md-10 text-center ]">
+            <p>I created this because I loved the design done by <a href="http://bootsnipp.com/maridlcrmn" target="_blank">maridlcrmn</a> on her <a href="http://bootsnipp.com/snippets/ZkpRl" target="_blank">Toggle navbar</a> but wanted a fancier slide down naviation when you click on the toggle button. However my code does come with a limitation, you will not be able to use dropdowns within your navigation if using this method because <code>overflow</code> is set to <strong>hidden</strong>. You can see this in action by trying to use the very last navigation on this snippet.</p>
+        </div>
+    </div>
+</div>
 
 <!--index.js 추가-->
-<script src="/js/index.js"></script>
+<script src="/js/Token.js"></script>
 <script>
-    if(localStorage.getItem('jwt')!=null){
-        $('#login').text('LogOut').attr('href','/logout').attr('id','logout').attr('href','#').attr('onclick','logout()');
-    }
     function logout() {
         alert("로그아웃 완료!")
         localStorage.removeItem('jwt');
+        localStorage.removeItem('Type');
         location.reload();
+        location.href='/'
     }
 </script>
+
 </body>
 </html>

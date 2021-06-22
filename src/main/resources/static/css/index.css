@@ -1,110 +1,59 @@
-/* make sidebar nav vertical */
-@media (min-width: 768px){
-    .affix-content .container {
-        width: 700px;
-    }
+.navbar-brand { position: relative; z-index: 2; }
 
-    html,body{
-        background-color: #f8f8f8;
-        height: 100%;
-        overflow: hidden;
-    }
-    .affix-content .container .page-header{
-        margin-top: 0;
-    }
-    .sidebar-nav{
-        position:fixed;
-        width:100%;
-    }
-    .affix-sidebar{
-        padding-right:0;
-        font-size:small;
-        padding-left: 0;
-    }
-    .affix-row, .affix-container, .affix-content{
-        height: 100%;
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .affix-content{
-        background-color:white;
-    }
-    .sidebar-nav .navbar .navbar-collapse {
-        padding: 0;
-        max-height: none;
-    }
-    .sidebar-nav .navbar{
-        border-radius:0;
-        margin-bottom:0;
-        border:0;
-    }
-    .sidebar-nav .navbar ul {
-        float: none;
-        display: block;
-    }
-    .sidebar-nav .navbar li {
-        float: none;
-        display: block;
-    }
-    .sidebar-nav .navbar li a {
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
+.navbar-nav.navbar-right .btn { position: relative; z-index: 2; padding: 4px 20px; margin: 10px auto; transition: transform 0.3s; }
+
+.navbar .navbar-collapse { position: relative; overflow: hidden !important; }
+.navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 22px; }
+
+.navbar .nav-collapse { position: absolute; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 80px; width: 100%; }
+.navbar.navbar-default .nav-collapse { background-color: #f8f8f8; }
+.navbar.navbar-inverse .nav-collapse { background-color: #222; }
+.navbar .nav-collapse .navbar-form { border-width: 0; box-shadow: none; }
+.nav-collapse>li { float: right; }
+
+.btn.btn-circle { border-radius: 50px; }
+.btn.btn-outline { background-color: transparent; }
+
+.navbar-nav.navbar-right .btn:not(.collapsed) {
+    background-color: rgb(111, 84, 153);
+    border-color: rgb(111, 84, 153);
+    color: rgb(255, 255, 255);
 }
 
-@media (min-width: 769px){
-    .affix-content .container {
-        width: 600px;
-    }
-    .affix-content .container .page-header{
-        margin-top: 0;
-    }
+.navbar.navbar-default .nav-collapse,
+.navbar.navbar-inverse .nav-collapse {
+    height: auto !important;
+    transition: transform 0.3s;
+    transform: translate(0px,-50px);
+}
+.navbar.navbar-default .nav-collapse.in,
+.navbar.navbar-inverse .nav-collapse.in {
+    transform: translate(0px,0px);
 }
 
-@media (min-width: 992px){
-    .affix-content .container {
-        width: 900px;
-    }
-    .affix-content .container .page-header{
-        margin-top: 0;
-    }
-}
 
-@media (min-width: 1220px){
-    .affix-row{
-        overflow: hidden;
-    }
+@media screen and (max-width: 767px) {
+    .navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 15px; padding-right: 15px; }
 
-    .affix-content{
-        overflow: auto;
-    }
+    .navbar .nav-collapse { margin: 7.5px auto; padding: 0; }
+    .navbar .nav-collapse .navbar-form { margin: 0; }
+    .nav-collapse>li { float: none; }
 
-    .affix-content .container {
-        width: 1000px;
+    .navbar.navbar-default .nav-collapse,
+    .navbar.navbar-inverse .nav-collapse {
+        transform: translate(-100%,0px);
+    }
+    .navbar.navbar-default .nav-collapse.in,
+    .navbar.navbar-inverse .nav-collapse.in {
+        transform: translate(0px,0px);
     }
 
-    .affix-content .container .page-header{
-        margin-top: 0;
+    .navbar.navbar-default .nav-collapse.slide-down,
+    .navbar.navbar-inverse .nav-collapse.slide-down {
+        transform: translate(0px,-100%);
     }
-    .affix-content{
-        padding-right: 30px;
-        padding-left: 30px;
-    }
-    .affix-title{
-        border-bottom: 1px solid #ecf0f1;
-        padding-bottom:10px;
-    }
-    .navbar-nav {
-        margin: 0;
-    }
-    .navbar-collapse{
-        padding: 0;
-    }
-    .sidebar-nav .navbar li a:hover {
-        background-color: #428bca;
-        color: white;
-    }
-    .sidebar-nav .navbar li a > .caret {
-        margin-top: 8px;
+    .navbar.navbar-default .nav-collapse.in.slide-down,
+    .navbar.navbar-inverse .nav-collapse.in.slide-down {
+        transform: translate(0px,0px);
     }
 }

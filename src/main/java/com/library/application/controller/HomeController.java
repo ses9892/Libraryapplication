@@ -13,8 +13,14 @@ public class HomeController {
         log.info("tq");
         return "login";
     }
+    @RequestMapping(value = "/library")
+    public String Home(){
+
+        return "home";
+    }
     @RequestMapping(value = "/register")
     public String register() { ;
         return "register";
     }
+
 }

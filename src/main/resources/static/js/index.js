@@ -60,7 +60,7 @@ var main = {
                 localStorage.setItem("jwt",token.accessToken)
                 localStorage.setItem("Type",token.tokenType)
                 alert('반가워요!')
-                location.href='/home'
+                location.href='/library'
             }
         }).error(function (meg) {
             alert(meg.responseText)

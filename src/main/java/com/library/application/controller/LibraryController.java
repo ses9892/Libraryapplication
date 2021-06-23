@@ -21,12 +21,13 @@ public class LibraryController {
     @Autowired
     BookService bookService;
 
+    //도서 등록페이지 이동
     @RequestMapping(value = "/book")
     public String LibraryHome(){
 
         return "booksave";
     }
-
+    //Post 도서등록
     @PostMapping(value = "/book")
     public String saveBook(BookSaveRequest bookSaveRequest , MultipartFile[] files , Model model){
         BookDto bookDto = new ModelMapper().map(bookSaveRequest,BookDto.class);

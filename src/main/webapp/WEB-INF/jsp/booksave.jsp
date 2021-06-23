@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="LayOut/header.jsp"></jsp:include>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/booksave.css">
 <div class="container">
         <form class="form-horizontal" action="/library/book" method="post" enctype="multipart/form-data">
@@ -26,18 +27,19 @@
                         <input type="text" id="publisher" name="publisher" class="form-control" placeholder="출판사 입력해 주세요."></input>
                     </div>
                 </div>
-            <div class="form-group">
-                <label for="publisher_date" class="col-sm-2 control-label">발행년도</label>
-                <div class="col-sm-10">
-                    <input type="text" id="publisher_date" name="publisher_date" class="form-control" placeholder="출판사 입력해 주세요."></input>
-                </div>
-            </div>
+
             <div data-name="fileDiv" class="form-group filebox bs3-primary">
                 <label for="file_0" class="col-sm-2 control-label">파일1</label>
                 <div class="col-sm-10">
                     <input type="text" class="upload-name" value="파일 찾기" readonly />
                     <label for="file_0" class="control-label">찾아보기</label>
                     <input type="file" name="files" id="file_0" class="upload-hidden" onchange="changeFilename(this)" />
+                    <button type="button" onclick="addFile()" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" onclick="removeFile(this)" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+                        <i class="fa fa-minus" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
             <div id="btnDiv" class="btn_wrap text-center" th:object="${params}">
@@ -49,6 +51,45 @@
 </div>
 </div><!-- /.container-fluid -->
 <script>
+    let fileIdx = 0; /*[- 파일 인덱스 처리용 전역 변수 -]*/
+    let fileCnt = 1;
+    function addFile(){
+        fileCnt++;
+        if (fileCnt > 3) {
+            alert('파일은 최대 세 개까지 업로드 할 수 있습니다.');
+            return false;
+        }
+        fileIdx++;
+        var fileHtml = '<div data-name="fileDIv" class="form-group filebox bs3-primary">'+
+                        '<label for="file_'+fileIdx+'" class="col-sm-2 control-label"></label>'+
+                        '<div class="col-sm-10">'+
+                        '<input type="text" class="upload-name" value="파일 찾기" readonly />'+
+                        '<label for="file_'+fileIdx+'" class="control-label">찾아보기</label>'+
+                        '<input type="file" name="files" id="file_'+fileIdx+'" class="upload-hidden" onchange="changeFilename(this)" />'
+        +'<button type="button" onclick="removeFile(this)" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">'+
+            '<i class="fa fa-minus" aria-hidden="true"></i>'+
+            '</button></div></div>';
+        $('#btnDiv').before(fileHtml);
+    }
+    function removeFile(elem) {
+
+        const prevTag = $(elem).prev().prop('tagName');
+        // console.log(prevTag)
+        if (prevTag === 'BUTTON') {
+            const file = $(elem).prevAll('input[type="file"]');
+            const filename = $(elem).prevAll('input[type="text"]');
+            // console.log(file.val())
+            file.val(''); //진짜 값을바꾸고
+            filename.val('파일 찾기'); //바뀐 텍스트 값도 바꾸고
+            return false;
+        }
+
+        const target = $(elem).parent().parent();
+        console.log(target);
+        target.remove();
+        fileCnt--;
+        console.log(fileCnt)
+    }
     function changeFilename(file) {
 
         file = $(file);

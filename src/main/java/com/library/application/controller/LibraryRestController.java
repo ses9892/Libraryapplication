@@ -15,6 +15,7 @@ public class LibraryRestController {
     @Autowired
     BookService bookService;
 
+    //토큰 검사 -> 도서 등록 AJAX -> LibraryController
     @GetMapping(value = "/book")
     public String LibrarySave(){
         String url = "/library/book";

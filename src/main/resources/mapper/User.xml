@@ -13,6 +13,9 @@
     <select id="findByUserId" parameterType="java.util.HashMap" resultType="com.library.application.dto.UserDto">
         SELECT * FROM `HyoHyunJinHo`.`Users` where userId=#{userId};
     </select>
+    <select id="duplication" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM `HyoHyunJinHo`.`Users` where userId=#{userId};
+    </select>
 
 
 

@@ -52,4 +52,14 @@ public class UserServiceImpl implements UserService {
                 .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret")).compact();
         return Token;
     }
+
+    @Override
+    public String duplication(String idCheck) {
+        // idCheck의 중복갯수
+        int Cnt = userMapper.duplication(idCheck);
+        if(Cnt ==0){
+            return "true";
+        }
+        return "false";
+    }
 }

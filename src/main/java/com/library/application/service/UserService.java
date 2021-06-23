@@ -10,4 +10,6 @@ public interface UserService {
     Boolean register(UserDto user);
 
     String login(HashMap<String, Object> requestLogin);
+
+    String duplication(String idCheck);
 }

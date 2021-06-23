@@ -56,6 +56,13 @@ public class RestController {
         //JSON 응답
         return ResponseEntity.status(HttpStatus.CREATED).body(jsonObject.toString());
     }
+    //ID 중복확인
+    @PostMapping(value = "/duplication")
+    public String duplication(@RequestBody HashMap<String,Object> userId){
+        String idCheck = (String) userId.get("userId");
+        String result = userService.duplication(idCheck);
+        return result;
+    }
     //로그인 요청
     @PostMapping(value = "/login")
     public ResponseEntity<ResponseToken> login(@RequestBody HashMap<String,Object> requestLogin) throws JSONException {

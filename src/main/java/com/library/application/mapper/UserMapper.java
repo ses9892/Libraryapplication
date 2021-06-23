@@ -15,4 +15,6 @@ public interface UserMapper {
     void register(UserDto user);
 
     UserDto findByUserId(Object userId);
+
+    int duplication(String idCheck);
 }

@@ -6,15 +6,15 @@
         insert into users values (#{test})
     </insert>
     <insert id="register" parameterType="com.library.application.dto.UserDto">
-        insert into `HyoHyunJinHo`.`Users`(userId,name,pwd,phone,email,gender)
-        values (#{userId},#{name},#{pwd},#{phone},#{email},#{gender})
+        insert into users (idx,userId,name,pwd,phone,email,gender)
+         values (users_idx_seq.nextval,#{userId},#{name},#{password},#{phone},#{email},#{gender})
     </insert>
 
     <select id="findByUserId" parameterType="java.util.HashMap" resultType="com.library.application.dto.UserDto">
-        SELECT * FROM `HyoHyunJinHo`.`Users` where userId=#{userId}
+        SELECT * FROM users where userId=#{userId}
     </select>
     <select id="duplication" parameterType="String" resultType="int">
-        SELECT COUNT(*) FROM `HyoHyunJinHo`.`Users` where userId=#{userId}
+        SELECT COUNT(*) FROM users where userId like '%'+#{userId}+'%'
     </select>
 
 

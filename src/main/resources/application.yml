@@ -1,5 +1,9 @@
 server:
   port: 10004
+  servlet:
+    encoding:
+      charset: UTF-8
+
 
 spring:
   mvc:
@@ -7,10 +11,18 @@ spring:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://gyguswlsgh.ciiiy3dtxwx4.ap-northeast-2.rds.amazonaws.com:1521/HyoHyunJinHo
-    username: gyguswlsgh
-    password: gyguswlsgh
+    driver-class-name:
+      com.mysql.cj.jdbc.Driver
+    #oracle.jdbc.driver.OracleDriver
+    url:
+      jdbc:mysql://gyguswlsgh.ciiiy3dtxwx4.ap-northeast-2.rds.amazonaws.com:1521/HyoHyunJinHo?useUnicode=true&characterEncoding=utf8
+    #jdbc:oracle:thin:@localhost:1521/xe
+    username:
+      gyguswlsgh
+    #ses9892
+    password:
+      gyguswlsgh
+    #1234
   h2:
     console:
       enabled: true
@@ -19,6 +31,10 @@ spring:
 mybatis:
   type-aliases-package: com/library/application/ResponseVo/**
   mapper-locations: mapper/**.xml
+
 token:
   expiration_time: 864000000 #10 days
   secret: user_login
+custom:
+  path:
+    upload-imges: 'D:/library/'

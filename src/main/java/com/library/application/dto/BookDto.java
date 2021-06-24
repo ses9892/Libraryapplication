@@ -10,6 +10,10 @@ public class BookDto {
     private String author;
     private String publisher;
     private String topic;
+    private String topic2;
+
+    private Boolean borrow;
+    private String save_name;
 
 
 

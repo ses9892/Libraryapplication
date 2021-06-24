@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.library.application.mapper.BookMapper">
     <sql id="BookImgColums">
-         board_idx
-		, original_name
+        board_idx
+        , original_name
 		, save_name
 		, size
 		, delete_yn
@@ -19,26 +19,60 @@
         )values
         <foreach collection="list" item="img" separator=",">
             (
-             #{img.boardIdx},
-             #{img.originalName},
-             #{img.saveName},
-             #{img.size}
-             ,'N'
-             ,NOW()
-             ,NULL
+            #{img.boardIdx},
+            #{img.originalName},
+            #{img.saveName},
+            #{img.size}
+            ,'N'
+            ,NOW()
+            ,NULL
             )
         </foreach>
     </insert>
     <select id="selectByIdx" resultType="int" parameterType="com.library.application.dto.BookDto">
         select idx from `HyoHyunJinHo`.`Book` where userId =#{userId} and name = #{name}
-
     </select>
     <insert id="insertBook" parameterType="com.library.application.dto.BookDto">
-        insert into `HyoHyunJinHo`.`Book`(name,author,publisher,userId)
+        insert into `HyoHyunJinHo`.`Book`(name,author,publisher,userId,topic,topic2)
         values
-        (#{name},#{author},#{publisher},#{userId})
+            (#{name},#{author},#{publisher},#{userId},#{topic},#{topic2})
 
     </insert>
+<!--    <select id="selectAll" resultType="com.library.application.dto.BookDto">-->
+<!--        select a1.idx,a1.name,a1.publisher,a1.author,a1.topic,a1.userId,a1.topic2,a2.save_name-->
+<!--        FROM-->
+<!--            `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2-->
+<!--        WHERE a2.board_idx = a1.idx;-->
+<!--    </select>-->
+<!--    <select id="selectByTopic" resultType="com.library.application.dto.BookDto" parameterType="String">-->
+<!--        select a1.idx,a1.name,a1.publisher,a1.author,a1.topic,a1.userId,a1.topic2,a2.save_name-->
+<!--        FROM-->
+<!--            `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2-->
+<!--        WHERE a2.board_idx = a1.idx and (a1.topic =#{topic} or a1.topic2=#{topic});-->
+<!--    </select>-->
+    <select id="selectAll" resultType="com.library.application.dto.BookDto" parameterType="String">
+        <choose>
+            <when test="flag=='all'">
+                select a1.idx,a1.name,a1.publisher,a1.author,a1.topic,a1.userId,a1.topic2,a2.save_name
+                FROM
+                `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
+                WHERE a2.board_idx = a1.idx;
+            </when>
+            <when test="flag!='all' and flag!='not'">
+                select a1.idx,a1.name,a1.publisher,a1.author,a1.topic,a1.userId,a1.topic2,a2.save_name
+                FROM
+                `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
+                WHERE a2.board_idx = a1.idx and (a1.topic =#{flag} or a1.topic2=#{flag});
+            </when>
+            <when test="flag=='not'">
+                select a1.idx,a1.name,a1.publisher,a1.author,a1.topic,a1.userId,a1.topic2,a1.borrow,a2.save_name
+                FROM
+                `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
+                WHERE a2.board_idx = a1.idx and a1.borrow=1;
+            </when>
+        </choose>
+
+    </select>
 
 
 

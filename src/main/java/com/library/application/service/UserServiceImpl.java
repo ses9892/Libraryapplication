@@ -38,11 +38,11 @@ public class UserServiceImpl implements UserService {
     //Login 요청 -> 검사 -> 토큰발급
     @Override
     public String login(HashMap<String, Object> requestLogin) {
-        UserDto userDto = userMapper.findByUserId(requestLogin.get("userId"));
+        UserDto userDto = userMapper.findByUserId(requestLogin);
         //로그인 실패시 null 리턴
         if(userDto==null){      // 회원정보가 없을시
             return null;
-        }else if(!userDto.getPwd().trim().equals(requestLogin.get("pwd"))){    //비밀번호 일치하지 않을경우
+        }else if(!userDto.getPwd().trim().equals(requestLogin.get("password"))){    //비밀번호 일치하지 않을경우
             return null;
         }
         //로그인 성공시 토큰 발급

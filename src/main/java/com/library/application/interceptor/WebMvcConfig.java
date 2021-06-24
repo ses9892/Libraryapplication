@@ -1,11 +1,14 @@
 package com.library.application.interceptor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 //인터셉터
@@ -13,10 +16,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     //토근을 복호화하고 유저의 토큰이맞는지 확인하는 클래스의 인스턴스
     private final BearerAuthInterceptor bearerAuthInterceptor;
+    private final String uploadImgesPath;
 
     @Autowired
-    public WebMvcConfig(BearerAuthInterceptor bearerAuthInterceptor) {
+    public WebMvcConfig(BearerAuthInterceptor bearerAuthInterceptor, @Value("${custom.path.upload-imges}") String uploadImgesPath) {
         this.bearerAuthInterceptor = bearerAuthInterceptor;
+        this.uploadImgesPath=uploadImgesPath;
     }
 
     @Override
@@ -24,6 +29,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(bearerAuthInterceptor).addPathPatterns("/check/book");
         //  user/login = 로그인 요청을 받으면 요청메소드를 처리전에 인터셉터에서 걸어둔 필터를 한번 거친다.
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/img/**")
+                .addResourceLocations("file:/"+uploadImgesPath);
+    }
+
     @Bean
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();

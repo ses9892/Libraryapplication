@@ -1,5 +1,6 @@
 package com.library.application.service.bookservice;
 
+import com.library.application.ResponseVo.ResponseBookData;
 import com.library.application.dto.BookDto;
 import com.library.application.dto.FileImgDto;
 import com.library.application.mapper.BookMapper;
@@ -48,4 +49,29 @@ public class BookServiceImpl implements BookService{
         }
         return (result>0);
     }
+
+    //전체 책을 가져오는 메소드
+    @Override
+    public ResponseBookData selectAllBook(String topic) {
+        //책정보 + 책번호에 맞는 이미지
+            ResponseBookData responseBookData = new ResponseBookData();
+        //전체책 정보
+//        if(topic.equals("all")) {
+//            responseBookData.setBookDtoList(bookMapper.selectAll());
+//            //UUID 변환할 필요 없음!
+//            return  responseBookData;
+//        }
+        //대출 불가능책 정보
+//        if(topic.equals("not")){
+//            responseBookData.setBookDtoList(bookMapper.notborrow());
+//        }
+        //주제에맞는 책정보
+//        responseBookData.setBookDtoList(bookMapper.selectByTopic(topic));
+
+        //합친것
+        responseBookData.setBookDtoList(bookMapper.selectAll(topic));
+        return responseBookData;
+    }
+    //책의 주제를 받고 주제에관한 데이터를 가져오는 메소드
+
 }

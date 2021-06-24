@@ -7,9 +7,6 @@ var main = {
         $('#login').click(function () {
             _this.login();
         });
-        $('.post-select').click(function () {
-            _this.select(this);
-        })
         $('#logout').click(function () {
             _this.logOut();
         })
@@ -26,7 +23,7 @@ var main = {
     register : function (){
         var vo ={
             userId: $('#userId').val(),
-            password: $('#password').val(),
+            pwd: $('#password').val(),
             name: $('#name').val(),
             phone: $('#phone').val(),
             email: $('#email').val(),
@@ -50,7 +47,7 @@ var main = {
     login : function () {
         var data = {
             userId: $('#userId').val(),
-            pwd: $('#pwd').val()
+            password: $('#pwd').val()
         }
         console.log(data);
         $.ajax({

@@ -4,6 +4,7 @@ import com.library.application.dto.BookDto;
 import com.library.application.dto.FileImgDto;
 import com.library.application.dto.UserDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +19,12 @@ public interface BookMapper {
     public void insertBook(BookDto bookDto);
 
     int selectByIdx(BookDto bookDto);
+
+    List<BookDto> selectAll(@Param("flag") String flag);
+
+//    List<BookDto> selectByTopic(String topic);
+//
+//    List<BookDto> notborrow();
+//
+//    List<BookDto> test(String flag);
 }

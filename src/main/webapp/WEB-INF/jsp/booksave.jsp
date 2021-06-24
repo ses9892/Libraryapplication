@@ -1,9 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="LayOut/header.jsp"></jsp:include>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/booksave.css">
 <div class="container">
-        <form class="form-horizontal" action="/library/book" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="/library/book" method="post" enctype="multipart/form-data"onsubmit="return bookSaveCheck()">
         <div class="card-content">
                 <!--/* update의 경우 서버로 전달할 게시글 번호 (PK) */-->
 
@@ -25,6 +25,29 @@
                     <label for="publisher" class="col-sm-2 control-label">출판사</label>
                     <div class="col-sm-10">
                         <input type="text" id="publisher" name="publisher" class="form-control" placeholder="출판사 입력해 주세요."></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="publisher" class="col-sm-2 control-label">분야</label>
+                    <div class="col-sm-10">
+                        <select name="topic" id="topic" class="form-control">
+                            <option value="IT">IT</option>
+                            <option value="health">건강</option>
+                            <option value="social">사회</option>
+                            <option value="religion">종교</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="publisher" class="col-sm-2 control-label">분야2</label>
+                    <div class="col-sm-10">
+                        <select name="topic2" id="topic2" class="form-control">
+                            <option value="" selected="selected">선택 안함</option>
+                            <option value="IT">IT</option>
+                            <option value="health">건강</option>
+                            <option value="social">사회</option>
+                            <option value="religion">종교</option>
+                        </select>
                     </div>
                 </div>
 
@@ -96,6 +119,23 @@
         const filename = file[0].files[0].name;
         const target = file.prevAll('input');
         target.val(filename);
+    }
+    function bookSaveCheck(){
+        var name = $('#name').val().trim();
+        var author = $('#writer').val().trim();
+        var publisher = $('#publisher').val().trim();
+        var topic = $('#topic').val().trim();
+        var topic2 = $('#topic2').val().trim();
+        if(name.length==0 || author.length==0 || publisher.length==0){
+            alert('필요한 정보를 모두 입력해주세요!');
+            return false;
+        }
+        if(topic == topic2){
+            alert('중복된 분야가 선택 되었습니다.')
+            return false;
+        }
+        return true;
+
     }
 </script>
 <jsp:include page="LayOut/footer.jsp"></jsp:include>

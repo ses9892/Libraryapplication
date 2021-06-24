@@ -12,6 +12,9 @@ public class BookSaveRequest {
     private String name;
     private String author;
     private String publisher;
+    private String topic;
+    private String topic2;
+
 
 
 }

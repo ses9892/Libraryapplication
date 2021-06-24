@@ -1,9 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/bootstrap.min.css">
+<%--<link rel="stylesheet" href="/css/bootstrap.min.css">--%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="/js/bootstrap.js"></script>
 <link rel="stylesheet" href="/css/index.css">
@@ -32,7 +34,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/library">Home</a></li>
                     <li><a id="btn-save">도서 등록</a></li>
-                    <li><a href="#">도서 대출</a></li>
+                    <li><a href="/library/booklend/all">도서 대출</a></li>
                     <li><a href="#">도서 반납</a></li>
                     <li>
                         <a class="collapsed"  data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">Search</a>

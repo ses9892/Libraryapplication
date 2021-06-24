@@ -20,5 +20,5 @@ var main = {
     notborrow : function (){
         location.href='/library/booklend/not';
     }
-}  /**  main ...
+}  /**  main ...end*/
 main.init();

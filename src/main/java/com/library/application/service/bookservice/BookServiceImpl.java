@@ -35,7 +35,7 @@ public class BookServiceImpl implements BookService{
         //책 정보 저장
         bookMapper.insertBook(bookDto);
         //책번호 가져오기
-       long book_idx =  bookMapper.selectByIdx(bookDto);
+       long book_idx =  bookMapper.selectBookIdx(bookDto);
         //가져온 책번호로 파일명,책번호 이미지 저장 + 경로에 이미지 업로드 (정보가 List<dto>로 들어옴)
         List<FileImgDto> fileList = fIleUtils.uploadFiles(files,book_idx);
 
@@ -71,6 +71,13 @@ public class BookServiceImpl implements BookService{
         //합친것
         responseBookData.setBookDtoList(bookMapper.selectAll(topic));
         return responseBookData;
+    }
+
+    @Override
+    public BookDto selectByIdx(int idx) {
+        BookDto bookDto = null;
+        bookDto = bookMapper.selectByIdx(idx);
+        return bookDto;
     }
     //책의 주제를 받고 주제에관한 데이터를 가져오는 메소드
 

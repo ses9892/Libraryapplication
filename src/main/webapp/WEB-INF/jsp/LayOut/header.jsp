@@ -35,11 +35,11 @@
                     <li><a href="/library">Home</a></li>
                     <li><a id="btn-save">도서 등록</a></li>
                     <li><a href="/library/booklend/all">도서 대출</a></li>
-                    <li><a href="#">도서 반납</a></li>
+                    <li><a href="/library/booktest">도서 반납</a></li>
                     <li>
                         <a class="collapsed"  data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">Search</a>
                     </li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">마이페이지</a></li>
                     <li>
                         <a class="btn btn-default btn-outline btn-circle" onclick="logout()">
                             LogOut

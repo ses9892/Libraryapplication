@@ -11,8 +11,7 @@
         <div class="form-horizontal">
             <div class="card-content">
                     <div class="form-group">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <p>
                                 <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                     대출가능 도서
@@ -20,6 +19,9 @@
                                 <button class="btn btn-danger" id="notborrow" type="button" >
                                     대출불가능 도서
                                 </button>
+                                <a class="btn btn-danger" href="/pdf/viewer.html?file=/preview">
+                                    테스트
+                                </a>
                             </p>
                             <div class="collapse" id="collapseExample">
                                 <div class="card card-body">
@@ -34,7 +36,6 @@
                                                     <option value="social">사회</option>
                                                     <option value="religion">종교</option>
                                                 </select>
-
                                             </div>
                                         </form>
                                     </div>
@@ -49,17 +50,23 @@
     <hr style="margin-top: 0"/>
     <div class="row">
         <c:forEach var="book" items="${bookList}">
+            <c:set var="bookSelect" value="/library/book/${book.idx}"></c:set>
             <div class="col-md-4 col-sm-6">
                 <div class="product-grid">
                     <div class="product-image">
-                        <a href="/img/${book.save_name}">
+                        <a href="${bookSelect}">
                             <img class="pic-1 pic" src="<c:url value="/img/${book.save_name}"/>" alt="${book.save_name}">
                         </a>
                         <ul class="social">
-                            <li><a href="" data-tip="상품 보기"><i class="fa fa-search"></i></a></li>
-                            <li><a onclick="" data-tip="장바구니" id="cart"><i class="fa fa-shopping-cart"></i></a></li>
+                            <li><a href="${bookSelect}" data-tip="도서 보기"><i class="fa fa-search"></i></a></li>
+                            <li><a onclick="" data-tip="찜하기" id="cart"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
-
+                        <c:if test="${book.borrow}">
+                        <span class="product-new-label" style="padding: 4px 10px; font-size: 20px; background-color: hotpink; font-weight: bold;">대출불가</span>
+                        </c:if>
+                        <c:if test="${!book.borrow}">
+                            <span class="product-new-label" style="padding: 4px 10px; font-size: 20px; background-color: #67b168; font-weight: bold;">대출가능</span>
+                        </c:if>
                     </div>
 
                     <ul class="rating">
@@ -70,18 +77,16 @@
 
 
                     <div class="product-content">
-                        <h3 class="title"><a href="">${book.name}</a></h3>
+                        <h3 class="title"><a href="${bookSelect}">${book.name}</a></h3>
                         <div class="price">${book.author}
                             <p>${book.topic},${book.topic2}</p>
                         </div>
-
                         <a class="add-to-cart" onclick="">찜하기</a>
                     </div>
                 </div>
             </div>
         </c:forEach>
     </div>
-    Test:${bookList}
 </div>
 <script>
     $(function (){

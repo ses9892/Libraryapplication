@@ -11,4 +11,5 @@ public interface BookService {
 
     public ResponseBookData selectAllBook(String topic);
 
+    BookDto selectByIdx(int idx);
 }

@@ -1,5 +1,6 @@
 package com.library.application.interceptor;
 
+import com.library.application.exception.TokenErrorException;
 import com.library.application.jwt.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,15 @@ public class BearerAuthInterceptor implements HandlerInterceptor {
         log.info("preHandle Start ( JWT Token Valid)");
         String Token = request.getHeader("Authorization");
         log.info(Token);
-        Token = Token.replace("bearer","");
         if(Token==null){
             return false;
         }
+        Token = Token.replace("bearer","");
         if(!jwtTokenProvider.validateToken(Token)){
-            throw new IllegalArgumentException("유효하지 않는 사용자입니다.");
+            throw new TokenErrorException("<script>" +
+                    "alert('유효한 회원이 아닙니다.');" +
+                    "history.back();" +
+                    "</script>");
         }
 
         return true;

@@ -18,10 +18,11 @@ public interface BookMapper {
 
     public void insertBook(BookDto bookDto);
 
-    int selectByIdx(BookDto bookDto);
+    int selectBookIdx(BookDto bookDto);
 
     List<BookDto> selectAll(@Param("flag") String flag);
 
+    BookDto selectByIdx(int idx);
 //    List<BookDto> selectByTopic(String topic);
 //
 //    List<BookDto> notborrow();

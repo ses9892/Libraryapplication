@@ -10,6 +10,18 @@
 		, insert_time
 		, delete_time
     </sql>
+    <sql id="BookDto">
+        a1.idx,
+        a1.idx,
+        a1.name,
+        a1.publisher,
+        a1.author,
+        a1.topic,
+        a1.userId,
+        a1.topic2,
+        a1.borrow,
+        a2.save_name
+    </sql>
 
 
 
@@ -29,8 +41,13 @@
             )
         </foreach>
     </insert>
-    <select id="selectByIdx" resultType="int" parameterType="com.library.application.dto.BookDto">
+    <select id="selectBookIdx" resultType="int" parameterType="com.library.application.dto.BookDto">
         select idx from `HyoHyunJinHo`.`Book` where userId =#{userId} and name = #{name}
+    </select>
+    <select id="selectByIdx" resultType="com.library.application.dto.BookDto" parameterType="int">
+        select  <include refid="BookDto"/>
+        from `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
+        where a2.board_idx = a1.idx and a1.idx = #{idx}
     </select>
     <insert id="insertBook" parameterType="com.library.application.dto.BookDto">
         insert into `HyoHyunJinHo`.`Book`(name,author,publisher,userId,topic,topic2)
@@ -38,34 +55,22 @@
             (#{name},#{author},#{publisher},#{userId},#{topic},#{topic2})
 
     </insert>
-<!--    <select id="selectAll" resultType="com.library.application.dto.BookDto">-->
-<!--        select a1.idx,a1.name,a1.publisher,a1.author,a1.topic,a1.userId,a1.topic2,a2.save_name-->
-<!--        FROM-->
-<!--            `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2-->
-<!--        WHERE a2.board_idx = a1.idx;-->
-<!--    </select>-->
-<!--    <select id="selectByTopic" resultType="com.library.application.dto.BookDto" parameterType="String">-->
-<!--        select a1.idx,a1.name,a1.publisher,a1.author,a1.topic,a1.userId,a1.topic2,a2.save_name-->
-<!--        FROM-->
-<!--            `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2-->
-<!--        WHERE a2.board_idx = a1.idx and (a1.topic =#{topic} or a1.topic2=#{topic});-->
-<!--    </select>-->
     <select id="selectAll" resultType="com.library.application.dto.BookDto" parameterType="String">
         <choose>
             <when test="flag=='all'">
-                select a1.idx,a1.name,a1.publisher,a1.author,a1.topic,a1.userId,a1.topic2,a2.save_name
+                select <include refid="BookDto"/>
                 FROM
                 `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
                 WHERE a2.board_idx = a1.idx;
             </when>
             <when test="flag!='all' and flag!='not'">
-                select a1.idx,a1.name,a1.publisher,a1.author,a1.topic,a1.userId,a1.topic2,a2.save_name
+                select <include refid="BookDto"/>
                 FROM
                 `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
                 WHERE a2.board_idx = a1.idx and (a1.topic =#{flag} or a1.topic2=#{flag});
             </when>
             <when test="flag=='not'">
-                select a1.idx,a1.name,a1.publisher,a1.author,a1.topic,a1.userId,a1.topic2,a1.borrow,a2.save_name
+                select <include refid="BookDto"/>
                 FROM
                 `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
                 WHERE a2.board_idx = a1.idx and a1.borrow=1;

@@ -1,5 +1,7 @@
 package com.library.application.exception.handler;
 
+import com.library.application.exception.BookNotFoundException;
+import com.library.application.exception.TokenErrorException;
 import com.library.application.exception.UserLoginErrorException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -11,6 +13,16 @@ public class BadResponseHandler {
     //핸들링이 저장되고 UserLoginError 처리를 할경우 핸들링이 에러처리+ JSON 으로 에러메세지를 응답한다.
     @ExceptionHandler(UserLoginErrorException.class)
     public String UserLoginException(UserLoginErrorException ex){
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public String BookNotFoundException(BookNotFoundException ex){
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(TokenErrorException.class)
+    public String TokenErrorException(BookNotFoundException ex){
         return ex.getMessage();
     }
 }

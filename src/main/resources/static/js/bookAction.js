@@ -37,8 +37,11 @@ var main = {
             contentType: 'application/json; charset=utf-8'
         }).done(function (meg){
                 alert(meg);
+                location.reload(true);
         }).error(function (meg){
-                alert('실패')
+                alert(meg.responseJSON.message);
+                location.reload(true);
+
         })
     }
 }  /**  main ...end*/

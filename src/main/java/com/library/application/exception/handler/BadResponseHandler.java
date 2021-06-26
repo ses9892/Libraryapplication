@@ -21,7 +21,7 @@ public class BadResponseHandler {
         return ex.getMessage();
     }
 
-    @ExceptionHandler(TokenErrorException.class)
+    @ExceptionHandler(IllegalStateException.class)
     public String TokenErrorException(BookNotFoundException ex){
         return ex.getMessage();
     }

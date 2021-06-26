@@ -17,6 +17,16 @@
         SELECT COUNT(*) FROM `HyoHyunJinHo`.`Users` where userId=#{userId}
     </select>
 
+    <update id="borrowBook" parameterType="HashMap">
+        update `HyoHyunJinHo`.`Users`
+        set borrowed_book =
+                (select count(*) from `HyoHyunJinHo`.`Borrowed_book` where borrower =
+                                                                           (select*from(select idx
+                                                                                        from `HyoHyunJinHo`.`Users`
+                                                                                        where userId=#{userId})a))
+        where userId= #{userId};
+    </update>
+
 
 
 </mapper>

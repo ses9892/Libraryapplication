@@ -3,6 +3,7 @@ package com.library.application.controller;
 import com.library.application.ResponseVo.BookSaveRequest;
 import com.library.application.ResponseVo.ResponseBookData;
 import com.library.application.dto.BookDto;
+import com.library.application.dto.UserDto;
 import com.library.application.exception.BookNotFoundException;
 import com.library.application.service.bookservice.BookService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class LibraryController {
 
     @Autowired
     BookService bookService;
+
 
     //도서 등록페이지 이동
     @RequestMapping(value = "/book")
@@ -54,9 +56,15 @@ public class LibraryController {
     }
     @ResponseBody
     @GetMapping(value = "/book/{idx}/lend")
-    public String booklend(@PathVariable int idx, Model model, HttpServletRequest request){
-
-        return String.valueOf(idx);
+    public String booklend(@PathVariable("idx") int book_idx, Model model, HttpServletRequest request){
+        //책번호 , userId를 받은상태 -> 대출해주기
+        //1. 유저정보 borrowed_book++
+        //2. book_idx 책의 borrow -> 1로
+        //3. Borrowed_book db 정보추가
+        if(bookService.lendBook(book_idx,request)) {
+            return "정상적으로 대출 되었습니다.";
+        }
+        return "현재 미 반납 도서이거나,이미 대출하신 도서입니다.";
     }
 
 

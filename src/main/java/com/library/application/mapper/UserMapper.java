@@ -17,4 +17,6 @@ public interface UserMapper {
     UserDto findByUserId(HashMap<String,Object> hashMap);
 
     int duplication(String idCheck);
+
+    void borrowBook(HashMap<String, Object> hmap);
 }

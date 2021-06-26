@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -23,9 +24,6 @@ public interface BookMapper {
     List<BookDto> selectAll(@Param("flag") String flag);
 
     BookDto selectByIdx(int idx);
-//    List<BookDto> selectByTopic(String topic);
-//
-//    List<BookDto> notborrow();
-//
-//    List<BookDto> test(String flag);
+
+    void borrowBook(HashMap<String, Object> hmap);
 }

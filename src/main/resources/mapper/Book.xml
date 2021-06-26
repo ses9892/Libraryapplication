@@ -79,6 +79,15 @@
 
     </select>
 
+    <update id="borrowBook" parameterType="HashMap">
+        update `HyoHyunJinHo`.`Book`
+        set borrow =
+                if(
+                            (select count(*) from `HyoHyunJinHo`.`Borrowed_book` where ref_idx=#{book_idx}) > 0,1,0
+                    )
+        where idx= #{book_idx};
+    </update>
+
 
 
 

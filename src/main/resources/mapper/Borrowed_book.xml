@@ -22,8 +22,17 @@
         )
     </insert>
 
-
-
+    <select id="autoBookReturn" resultType="com.library.application.dto.BorrowedBookDto">
+        select ref_idx,borrower
+        from Borrowed_book
+        where DATE_FORMAT(borrowed_date,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d');
+    </select>
+    <delete id="deleteByBookIdxList" parameterType="list">
+      <foreach collection="list" item="i" index="index" open="" separator=";" close=";">
+        delete from `HyoHyunJinHo`.`Borrowed_book`
+        where ref_idx =#{i.ref_idx}
+      </foreach>
+    </delete>
 
 
 </mapper>

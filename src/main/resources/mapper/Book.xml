@@ -88,6 +88,16 @@
         where idx= #{book_idx};
     </update>
 
+    <update id="autoBookReturn" parameterType="java.util.Map">
+        <foreach collection="list" item="i" index="index" open="" separator=";" close=";">
+        update `HyoHyunJinHo`.`Book`
+        set borrow =
+                if(
+                            (select count(*) from `HyoHyunJinHo`.`Borrowed_book` where ref_idx=#{i.ref_idx}) > 0,1,0
+                    )
+        where idx = #{i.ref_idx}
+        </foreach>
+    </update>
 
 
 

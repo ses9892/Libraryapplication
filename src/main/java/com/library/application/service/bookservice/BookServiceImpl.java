@@ -2,6 +2,7 @@ package com.library.application.service.bookservice;
 
 import com.library.application.ResponseVo.ResponseBookData;
 import com.library.application.dto.BookDto;
+import com.library.application.dto.BorrowedBookDto;
 import com.library.application.dto.FileImgDto;
 import com.library.application.exception.BookNotFoundException;
 import com.library.application.mapper.BookMapper;
@@ -10,15 +11,15 @@ import com.library.application.mapper.UserMapper;
 import com.library.application.util.FIleUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -119,6 +120,23 @@ public class BookServiceImpl implements BookService{
         }
 
         return true;
+    }
+    @Scheduled(fixedRate = 10000) // 1초 마다 실행
+//    @Scheduled(cron = "0 0 0 * * *")
+    @Override
+    public void AutoBookReturn() {      // 1일기준 00시00분 자동실행되는 도서 자동반납메소드
+        //Borrowed_book -> 반납일자가 오늘날짜인 (도서의 번호+빌린유저번호) select-> List<HasMap>
+        //index 당 book_idx , userIdx의 key를 가진 list
+        List<BorrowedBookDto> list = borrowedBookMapper.autoBookReturn();
+        log.info(list.toString());
+        if(list.size()>0){
+        //Borrowed_book 해당데이터삭제
+        borrowedBookMapper.deleteByBookIdxList(list);
+        bookMapper.autoBookReturn(list);
+        userMapper.autoBookReturn(list);
+        //book_idx 와 userIdx로 반납
+        }
+
     }
     //책의 주제를 받고 주제에관한 데이터를 가져오는 메소드
 

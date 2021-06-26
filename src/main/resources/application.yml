@@ -15,7 +15,7 @@ spring:
       com.mysql.cj.jdbc.Driver
     #oracle.jdbc.driver.OracleDriver
     url:
-      jdbc:mysql://gyguswlsgh.ciiiy3dtxwx4.ap-northeast-2.rds.amazonaws.com:1521/HyoHyunJinHo?useUnicode=true&characterEncoding=utf8
+      jdbc:mysql://gyguswlsgh.ciiiy3dtxwx4.ap-northeast-2.rds.amazonaws.com:1521/HyoHyunJinHo?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
     #jdbc:oracle:thin:@localhost:1521/xe
     username:
       gyguswlsgh

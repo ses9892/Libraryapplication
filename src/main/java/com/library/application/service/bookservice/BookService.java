@@ -15,4 +15,6 @@ public interface BookService {
     BookDto selectByIdx(int idx);
 
     Boolean lendBook(int book_idx, HttpServletRequest request);
+
+    void AutoBookReturn();
 }

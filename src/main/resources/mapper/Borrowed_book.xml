@@ -34,5 +34,11 @@
       </foreach>
     </delete>
 
+    <select id="selectBorrowedBookList" parameterType="String" resultType="int">
+        select ref_idx
+        from Borrowed_book
+        where borrower = (select idx from Users where userId = #{userId});
+    </select>
+
 
 </mapper>

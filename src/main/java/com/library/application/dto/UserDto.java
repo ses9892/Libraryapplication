@@ -13,6 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
+    private String idx;
     private String userId;
     private String pwd;
     private String encryptPassword;

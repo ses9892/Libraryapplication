@@ -30,4 +30,6 @@ public interface BookMapper {
     void autoBookReturn(List<BorrowedBookDto> list);
 
     void borrowBook(HashMap<String, Object> hmap);
+
+    List<BookDto> selectByIdxList(List<Integer> bookIdxList);
 }

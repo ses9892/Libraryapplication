@@ -4,6 +4,7 @@ import com.library.application.ResponseVo.ResponseBookData;
 import com.library.application.dto.BookDto;
 import com.library.application.dto.BorrowedBookDto;
 import com.library.application.dto.FileImgDto;
+import com.library.application.dto.UserDto;
 import com.library.application.exception.BookNotFoundException;
 import com.library.application.mapper.BookMapper;
 import com.library.application.mapper.BorrowedBookMapper;
@@ -17,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.print.Book;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -121,8 +123,8 @@ public class BookServiceImpl implements BookService{
 
         return true;
     }
-    @Scheduled(fixedRate = 10000) // 1초 마다 실행
-//    @Scheduled(cron = "0 0 0 * * *")
+//    @Scheduled(fixedRate = 10000) // 1초 마다 실행
+    @Scheduled(cron = "0 0 0 * * *")
     @Override
     public void AutoBookReturn() {      // 1일기준 00시00분 자동실행되는 도서 자동반납메소드
         //Borrowed_book -> 반납일자가 오늘날짜인 (도서의 번호+빌린유저번호) select-> List<HasMap>
@@ -136,8 +138,22 @@ public class BookServiceImpl implements BookService{
         userMapper.autoBookReturn(list);
         //book_idx 와 userIdx로 반납
         }
-
+        int size = list.size();
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+        log.info(size+"개의 책이"+sdf.format(new Date(System.currentTimeMillis()))+" 반납 완료되었습니다.");
     }
     //책의 주제를 받고 주제에관한 데이터를 가져오는 메소드
 
+    //도서 반납 -> userId의 대출한목록을 되돌려줄 메소드
+    @Override
+    public List<BookDto> selectBorrowedBookList(String userId) {
+        List<Integer> BookIdxList = borrowedBookMapper.selectBorrowedBookList(userId);
+        //대출내역 없을시 핸들링
+        if(BookIdxList.size()==0){
+            throw new BookNotFoundException("<script>alert('대출내역이 존재하지 않습니다.'); history.back();</script>");
+        }
+        List<BookDto> bookDtoList = bookMapper.selectByIdxList(BookIdxList);
+
+        return bookDtoList;
+    }
 }

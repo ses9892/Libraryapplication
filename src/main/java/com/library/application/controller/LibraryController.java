@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -31,9 +32,9 @@ public class LibraryController {
 
 
     //도서 등록페이지 이동
-    @RequestMapping(value = "/book")
-    public String Librarysave(){
-
+    @RequestMapping(value = "/booksave/{userId}")
+    public String Librarysave(@PathVariable("userId") String userId,Model model){
+        model.addAttribute("userId",userId);
         return "booksave";
     }
 
@@ -77,6 +78,13 @@ public class LibraryController {
             return "failed";
         }
         return "booksave";
+    }
+
+    @GetMapping(value = "/bookreturn/{userId}")
+    public String returnBook(@PathVariable("userId") String userId,Model model){
+        List<BookDto> list = bookService.selectBorrowedBookList(userId);
+        model.addAttribute("list",list);
+        return "bookreturn";
     }
 
 

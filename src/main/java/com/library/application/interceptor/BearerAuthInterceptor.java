@@ -29,12 +29,17 @@ public class BearerAuthInterceptor implements HandlerInterceptor {
         // HandlerInterceptor의 메소드이며, 인터셉터로 해당 메소드의 재정의한 기능이 수행된다.
         log.info("preHandle Start ( JWT Token Valid)");
         String Token = request.getHeader("Authorization");
+        String flag = request.getHeader("flag");
         Token = Token.replace("bearer","");
         if(!jwtTokenProvider.validateToken(Token) || Token==null){
              throw new IllegalAccessException("로그인 상태가 유효 하지 않습니다.");
         }
         String userId = jwtTokenProvider.getSubject(Token);     //토큰에담긴 subject = userId
-        request.setAttribute("userId",userId);
+        if(flag!=null && userId!=null){
+            request.setAttribute("flag",flag);
+        }
+            request.setAttribute("userId",userId);
+
         return true;
     }
 }

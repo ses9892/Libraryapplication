@@ -5,6 +5,7 @@ import com.library.application.dto.BookDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public interface BookService {
 
@@ -17,4 +18,6 @@ public interface BookService {
     Boolean lendBook(int book_idx, HttpServletRequest request);
 
     void AutoBookReturn();
+
+    List<BookDto> selectBorrowedBookList(String userId);
 }

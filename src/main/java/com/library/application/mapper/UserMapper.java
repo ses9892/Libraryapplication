@@ -18,10 +18,12 @@ public interface UserMapper {
     void register(UserDto user);
 
     UserDto findByUserId(HashMap<String,Object> hashMap);
+//    UserDto findByUserId(String userId);
 
     int duplication(String idCheck);
 
     void borrowBook(HashMap<String, Object> hmap);
 
     void autoBookReturn(List<BorrowedBookDto> list);
+
 }

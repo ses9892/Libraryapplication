@@ -49,6 +49,14 @@
         from `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
         where a2.board_idx = a1.idx and a1.idx = #{idx}
     </select>
+    <select id="selectByIdxList" resultType="com.library.application.dto.BookDto" parameterType="list">
+        select * from Book
+        where idx in 
+        <foreach collection="list" item="idx" open="(" separator="," close=")">
+            #{idx}
+        </foreach>
+        order by idx desc
+    </select>
     <insert id="insertBook" parameterType="com.library.application.dto.BookDto">
         insert into `HyoHyunJinHo`.`Book`(name,author,publisher,userId,topic,topic2)
         values

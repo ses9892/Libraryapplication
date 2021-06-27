@@ -4,18 +4,39 @@ var main = {
         $('#btn-save').click(function () {
             _this.bookSave();
         });
+        $('#btn-return').click(function () {
+            _this.bookReturn();
+        });
     },
     bookSave : function (){
         $.ajax({
             type: 'GET',
             headers:{
                 'content-type':'application/json',
-                'Authorization':'bearer'+localStorage.getItem('jwt')
+                'Authorization':'bearer'+localStorage.getItem('jwt'),
+                'flag':'bookSave'
             },
             url: '/check/book',
             contentType: 'application/json; charset=utf-8',
         }).done(function (url){
-            location.href=url;
+            location.href=url;  //    /library/book/**(userId)
+        }).error(function (){
+            alert('유효하지 않는 회원입니다.')
+            location.href='/library'
+        })
+    },
+    bookReturn : function (){
+        $.ajax({
+            type: 'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':'bearer'+localStorage.getItem('jwt'),
+                'flag':'bookReturn'
+            },
+            url: '/check/book',
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (url){
+            location.href=url;  //   /library/bookreturn/**(userId)
         }).error(function (){
             alert('유효하지 않는 회원입니다.')
             location.href='/library'

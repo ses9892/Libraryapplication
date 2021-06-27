@@ -38,3 +38,8 @@ token:
 custom:
   path:
     upload-imges: 'D:/library/'
+  location:
+    bookSave: /library/booksave
+    bookReturn: /library/bookreturn
+
+

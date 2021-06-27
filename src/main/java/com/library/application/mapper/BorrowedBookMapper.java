@@ -20,4 +20,6 @@ public interface BorrowedBookMapper {
     List<BorrowedBookDto> autoBookReturn();
 
     void deleteByBookIdxList(List<BorrowedBookDto> list);
+
+    List<Integer> selectBorrowedBookList(String userId);
 }

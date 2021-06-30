@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,11 +94,19 @@ public class LibraryController {
     @ResponseBody
     @DeleteMapping(value = "/book/return/{idx}")
     public ResponseEntity<String> returnBookOK(@PathVariable("idx") int Book_idx, HttpServletRequest request,Model model){
+        ResponseEntity<String> entity = null;
         //JWT 토큰 suject=userId 가 넘어온것을 받아온다.
-        String userId = ""+request.getAttribute("userId");
         // userId + Book_idx 를 Service에 넘긴다.
-
-        return ResponseEntity.status(HttpStatus.OK).body("");
+        HashMap<String,Object> hmap = new HashMap<>();
+        hmap.put("userId",""+request.getAttribute("userId"));
+        hmap.put("book_idx",Book_idx);
+        Boolean result = bookService.returnBook(hmap);
+        if(result){
+            entity = ResponseEntity.status(HttpStatus.OK).body("정상적으로 반납 완료 되었습니다!");
+        }else{
+            entity = ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("error : BookIdx Not Found!!");
+        }
+        return entity;
     }
 
 

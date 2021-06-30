@@ -22,4 +22,9 @@ public interface BorrowedBookMapper {
     void deleteByBookIdxList(List<BorrowedBookDto> list);
 
     List<Integer> selectBorrowedBookList(String userId);
+
+    void deleteByBookIdx(HashMap<String, Object> hmap);
+
+
+    BorrowedBookDto selectBorrowedBook(HashMap<String, Object> hmap);
 }

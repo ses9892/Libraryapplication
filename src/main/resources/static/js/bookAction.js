@@ -61,10 +61,13 @@ var main = {
             contentType: 'application/json; charset=utf-8'
 
         }).done(function (data){
-
+            alert(data)
         }).error(function (data){
             alert(data.responseJSON.message)
+        }).complete(function (){
+            location.reload();
         })
+
     }
 
 }  /**  main ...end*/

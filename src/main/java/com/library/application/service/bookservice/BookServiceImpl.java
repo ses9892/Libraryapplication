@@ -159,4 +159,21 @@ public class BookServiceImpl implements BookService{
         List<BookDto> bookDtoList = bookMapper.selectByIdxList(BookIdxList);
         return bookDtoList;
     }
+
+    @Override
+    public Boolean returnBook(HashMap<String, Object> hmap) {
+        //userId, book_idx
+        //현재 대출중인 책인지 조회 ( borrowed_book에서 해당 book_idx에 정보를 가져온다.)
+        //왜 이렇게 햇나? = 자동반납시스템과 겹쳐 null을 반환할경우를 대비함.
+       BorrowedBookDto dto =  Optional.ofNullable(borrowedBookMapper.selectBorrowedBook(hmap))
+        .orElseThrow(()->new BookNotFoundException("해당 도서는 현재 대출중인 도서가 아닙니다!"));
+        //Borrowed_book의 데이터를 삭제한다.
+        borrowedBookMapper.deleteByBookIdx(hmap);
+        //Book의 borrow를 false로 돌린다.
+        bookMapper.borrowBook(hmap);
+        //UserId의 대출한 도서 량을 수정한다.
+        userMapper.borrowBook(hmap);
+        return true;
+
+    }
 }

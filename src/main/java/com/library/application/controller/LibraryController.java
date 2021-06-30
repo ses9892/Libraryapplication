@@ -90,12 +90,12 @@ public class LibraryController {
         model.addAttribute("now",new Date());
         return "bookreturn";
     }
-
     @ResponseBody
     @DeleteMapping(value = "/book/return/{idx}")
-    @RequestMapping(value = "/book/return/{idx}",method = RequestMethod.DELETE)
     public ResponseEntity<String> returnBookOK(@PathVariable("idx") int Book_idx, HttpServletRequest request,Model model){
-
+        //JWT 토큰 suject=userId 가 넘어온것을 받아온다.
+        String userId = ""+request.getAttribute("userId");
+        // userId + Book_idx 를 Service에 넘긴다.
 
         return ResponseEntity.status(HttpStatus.OK).body("");
     }

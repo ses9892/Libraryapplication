@@ -52,18 +52,18 @@ var main = {
         var idx = $('input[type=checkbox]:checked').val();
 
         $.ajax({
-            method: "delete",
-            url: "/library/book/"+idx,
+            type: "DELETE",
+            url: "/library/book/return/"+idx,
             headers:{
                 'content-type':'application/json',
                 'Authorization':'bearer'+localStorage.getItem('jwt')
             },
             contentType: 'application/json; charset=utf-8'
 
-        }).done(function (){
+        }).done(function (data){
 
-        }).error(function (){
-
+        }).error(function (data){
+            alert(data.responseJSON.message)
         })
     }
 

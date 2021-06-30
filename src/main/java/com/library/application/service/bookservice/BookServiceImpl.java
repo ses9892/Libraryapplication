@@ -20,6 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.awt.print.Book;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -147,13 +150,13 @@ public class BookServiceImpl implements BookService{
     //도서 반납 -> userId의 대출한목록을 되돌려줄 메소드
     @Override
     public List<BookDto> selectBorrowedBookList(String userId) {
+        //userId를 이용해 userId가 빌린 책번호를 list에 담아온다.
         List<Integer> BookIdxList = borrowedBookMapper.selectBorrowedBookList(userId);
         //대출내역 없을시 핸들링
         if(BookIdxList.size()==0){
             throw new BookNotFoundException("<script>alert('대출내역이 존재하지 않습니다.'); history.back();</script>");
         }
         List<BookDto> bookDtoList = bookMapper.selectByIdxList(BookIdxList);
-
         return bookDtoList;
     }
 }

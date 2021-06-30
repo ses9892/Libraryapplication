@@ -10,6 +10,9 @@ var main = {
         $('#booklend').click(function () {
             _this.booklend();
         });
+        $('#book-return').click(function (){
+            _this.bookReturn();
+        })
 
     },
     changeTopic : function (){
@@ -43,6 +46,26 @@ var main = {
                 location.reload(true);
 
         })
+    },
+    //반납하기 버튼 -->  체크박스 검사 --> 책반납
+    bookReturn : function (){
+        var idx = $('input[type=checkbox]:checked').val();
+
+        $.ajax({
+            method: "delete",
+            url: "/library/book/"+idx,
+            headers:{
+                'content-type':'application/json',
+                'Authorization':'bearer'+localStorage.getItem('jwt')
+            },
+            contentType: 'application/json; charset=utf-8'
+
+        }).done(function (){
+
+        }).error(function (){
+
+        })
     }
+
 }  /**  main ...end*/
 main.init();

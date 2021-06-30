@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,12 +82,24 @@ public class LibraryController {
         return "booksave";
     }
 
+    //도서반납 -> 유저의 대출목록 가져오기
     @GetMapping(value = "/bookreturn/{userId}")
     public String returnBook(@PathVariable("userId") String userId,Model model){
         List<BookDto> list = bookService.selectBorrowedBookList(userId);
         model.addAttribute("list",list);
+        model.addAttribute("now",new Date());
         return "bookreturn";
     }
+
+    @ResponseBody
+    @DeleteMapping(value = "/book/return/{idx}")
+    @RequestMapping(value = "/book/return/{idx}",method = RequestMethod.DELETE)
+    public ResponseEntity<String> returnBookOK(@PathVariable("idx") int Book_idx, HttpServletRequest request,Model model){
+
+
+        return ResponseEntity.status(HttpStatus.OK).body("");
+    }
+
 
 
 }

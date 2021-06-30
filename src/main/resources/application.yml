@@ -10,6 +10,9 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+    hiddenmethod:
+      filter:
+        enabled: true
   datasource:
     driver-class-name:
       com.mysql.cj.jdbc.Driver

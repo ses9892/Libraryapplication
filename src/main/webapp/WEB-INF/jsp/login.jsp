@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -12,12 +14,19 @@
     <link type="text/css" rel="stylesheet" href="/css/login.css"></link>
 </head>
 <body>
+<div align = "center">
+	<p>
+		${clientLocale }
+		<a href = "./?lang=ko">한국어</a>
+		<a href = "./?lang=en">English</a>
+	</p>
+</div>
 <div class="container" style="margin-top: 100px">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">도서관 로그인</h3>
+                    <h3 class="panel-title"><spring:message code="login.title" text="default text"/></h3>
                 </div>
                 <div class="panel-body">
                     <form accept-charset="UTF-8" role="form">
@@ -30,15 +39,18 @@
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="remember" type="checkbox" value="Remember Me"> Remember Me
+                                    <input name="remember" type="checkbox" value="Remember Me">
+                                    <spring:message code = "login.remember" text="default text"/>
                                 </label>
-                                <a style="float: right" href="/register">회원가입</a>
+                                <a style="float: right" href="/register"><spring:message code = "login.join" text="default text"/></a>
                             </div>
-                            <input class="btn btn-lg btn-success btn-block" id="login" type="button" value="Login">
+                            <input class="btn btn-lg btn-success btn-block" id="login" type="button" 
+                            value= '<spring:message code = "login.login" text="default text"/>'>
                         </fieldset>
                     </form>
                     <hr/>
-                    <input class="btn btn-lg btn-facebook btn-block" type="submit" value="Login Google">
+                    <input class="btn btn-lg btn-facebook btn-block" type="submit" 
+                    	value="<spring:message code = 'login.google' text="default text"/>">
                 </div>
             </div>
         </div>

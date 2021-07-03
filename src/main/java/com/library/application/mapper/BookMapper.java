@@ -32,4 +32,6 @@ public interface BookMapper {
     void borrowBook(HashMap<String, Object> hmap);
 
     List<BookDto> selectByIdxList(List<Integer> bookIdxList);
+
+    void favoritesToggle(HashMap<String, Object> hmap);
 }

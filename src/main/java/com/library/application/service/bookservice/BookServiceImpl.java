@@ -190,4 +190,13 @@ public class BookServiceImpl implements BookService{
         borrowedBookMapper.extendReturnDate(dto);
         return true;
     }
+
+    @Override
+    public Boolean favoritesBook(HashMap<String, Object> hmap) {
+        BorrowedBookDto dto =  Optional.ofNullable(borrowedBookMapper.selectBorrowedBook(hmap))
+                .orElseThrow(()->new BookNotFoundException("해당 도서는 현재 대출중인 도서가 아닙니다!"));
+
+        bookMapper.favoritesToggle(hmap);
+        return true;
+    }
 }

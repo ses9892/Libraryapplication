@@ -17,4 +17,5 @@ public class BorrowedBookDto {
     private Date return_date;
     private int borrower;
     private Boolean extend;
+
 }

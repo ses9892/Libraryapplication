@@ -30,4 +30,6 @@ public interface BorrowedBookMapper {
 
 
     void extendReturnDate(BorrowedBookDto dto);
+
+    void favoritesToggle(HashMap<String, Object> hmap);
 }

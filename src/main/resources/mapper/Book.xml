@@ -20,6 +20,7 @@
         a1.userId,
         a1.topic2,
         a1.borrow,
+        a1.favorites
         a2.save_name
     </sql>
 
@@ -120,6 +121,13 @@
                     )
         where idx = #{i.ref_idx}
         </foreach>
+    </update>
+    <update id="favoritesToggle" parameterType="HashMap">
+        update Book
+        set favorites = if(
+                favorites = 0 , 1 , 0
+            )
+        where idx = #{book_idx}
     </update>
 
 

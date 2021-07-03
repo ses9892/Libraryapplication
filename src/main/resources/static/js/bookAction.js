@@ -16,6 +16,9 @@ var main = {
         $('#book-extend').click(function (){
             _this.bookExtend();
         })
+        $('a[name=favorites]').click(function (){
+            _this.favorites(this);
+        })
 
     },
     changeTopic : function (){
@@ -86,6 +89,24 @@ var main = {
             contentType: 'application/json; charset=utf-8'
         }).done(function (data){
             alert(data)
+        }).error(function (error){
+            alert(error)
+        }).complete(function (){
+            location.reload();
+        })
+    },
+    favorites : function (star){
+        var idx = star.id;
+        idx = idx.replace("favorites",""); // idx
+        $.ajax({
+            type: "PUT",
+            url: "/library/book/favorites/"+idx,
+            headers:{
+                'content-type':'application/json',
+                'Authorization':'bearer'+localStorage.getItem('jwt')
+            },
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (data){
         }).error(function (error){
             alert(error)
         }).complete(function (){

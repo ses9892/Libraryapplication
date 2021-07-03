@@ -126,6 +126,24 @@ public class LibraryController {
         return entity;
     }
 
+    @ResponseBody
+    @PutMapping(value = "/book/favorites/{idx}")
+    public ResponseEntity<String> favoritesBook(@PathVariable("idx") int Book_idx, HttpServletRequest request,Model model){
+        ResponseEntity<String> entity = null;
+        //JWT 토큰 suject=userId 가 넘어온것을 받아온다.
+        // userId + Book_idx 를 Service에 넘긴다.
+        HashMap<String,Object> hmap = new HashMap<>();
+        hmap.put("userId",""+request.getAttribute("userId"));
+        hmap.put("book_idx",Book_idx);
+        Boolean result = bookService.favoritesBook(hmap);
+        if(result){
+            entity = ResponseEntity.status(HttpStatus.OK).body("Favorites Add OK!");
+        }else{
+            entity = ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("error : BookIdx Not Found!!");
+        }
+        return entity;
+    }
+
 
 
 }

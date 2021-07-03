@@ -25,4 +25,6 @@ public interface BookService {
     Boolean returnBook(HashMap<String, Object> hmap);
 
     Boolean extendBook(HashMap<String, Object> hmap);
+
+    Boolean favoritesBook(HashMap<String, Object> hmap);
 }

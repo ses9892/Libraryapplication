@@ -39,7 +39,7 @@
                     <li>
                         <a class="collapsed"  data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">번역</a>
                     </li>
-                    <li><a href="#">마이페이지</a></li>
+                    <li><a href="/user-service/mypage">마이페이지</a></li>
                     <li>
                         <a class="btn btn-default btn-outline btn-circle" onclick="logout()">
                             LogOut
@@ -63,5 +63,6 @@
                 </div>
             </div><!-- /.navbar-collapse -->
 
-        </div><!-- /.container -->
     </nav>
+        </div><!-- /.container -->
+

@@ -1,5 +1,6 @@
 package com.library.application.exception.handler;
 
+import com.library.application.exception.BookExtendException;
 import com.library.application.exception.BookNotFoundException;
 import com.library.application.exception.TokenErrorException;
 import com.library.application.exception.UserLoginErrorException;
@@ -23,6 +24,11 @@ public class BadResponseHandler {
 
     @ExceptionHandler(IllegalStateException.class)
     public String TokenErrorException(BookNotFoundException ex){
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(BookExtendException.class)
+    public String BookExtendException(BookExtendException ex ){
         return ex.getMessage();
     }
 }

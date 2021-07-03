@@ -5,6 +5,7 @@ import com.library.application.dto.BookDto;
 import com.library.application.dto.BorrowedBookDto;
 import com.library.application.dto.FileImgDto;
 import com.library.application.dto.UserDto;
+import com.library.application.exception.BookExtendException;
 import com.library.application.exception.BookNotFoundException;
 import com.library.application.mapper.BookMapper;
 import com.library.application.mapper.BorrowedBookMapper;
@@ -175,5 +176,18 @@ public class BookServiceImpl implements BookService{
         userMapper.borrowBook(hmap);
         return true;
 
+    }
+
+    @Override
+    public Boolean extendBook(HashMap<String, Object> hmap) {
+        BorrowedBookDto dto =  Optional.ofNullable(borrowedBookMapper.selectBorrowedBook(hmap))
+                .orElseThrow(()->new BookNotFoundException("해당 도서는 현재 대출중인 도서가 아닙니다!"));
+        //도서 기한 연장 유무 확인
+        if(dto.getExtend()){
+            throw new BookExtendException("해당 도서는 이미 한번 기간을 연장 하였습니다.");
+        }
+        //도서 기한 연장 (이름과 , return_Date 받아온다)
+        borrowedBookMapper.extendReturnDate(dto);
+        return true;
     }
 }

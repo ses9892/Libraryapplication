@@ -49,5 +49,12 @@
         where ref_idx = #{book_idx}
     </delete>
 
+    <update id="extendReturnDate" parameterType="com.library.application.dto.BorrowedBookDto">
+        update Borrowed_book
+        set extend = 1 ,
+        return_date = (select*from(select DATE_ADD(return_date ,INTERVAL 7 DAY) from Borrowed_book where ref_idx = #{ref_idx})a)
+        where ref_idx = #{ref_idx} and borrower = #{borrower};
+    </update>
+
 
 </mapper>

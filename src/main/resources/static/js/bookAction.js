@@ -13,6 +13,9 @@ var main = {
         $('#book-return').click(function (){
             _this.bookReturn();
         })
+        $('#book-extend').click(function (){
+            _this.bookExtend();
+        })
 
     },
     changeTopic : function (){
@@ -68,6 +71,26 @@ var main = {
             location.reload();
         })
 
+    },
+
+    bookExtend : function (){
+        var idx = $('input[type=checkbox]:checked').val();
+
+        $.ajax({
+            type: "PUT",
+            url: "/library/book/return/"+idx,
+            headers:{
+                'content-type':'application/json',
+                'Authorization':'bearer'+localStorage.getItem('jwt')
+            },
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (data){
+            alert(data)
+        }).error(function (error){
+            alert(error)
+        }).complete(function (){
+            location.reload();
+        })
     }
 
 }  /**  main ...end*/

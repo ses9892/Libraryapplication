@@ -23,4 +23,6 @@ public interface BookService {
     List<BookDto> selectBorrowedBookList(String userId);
 
     Boolean returnBook(HashMap<String, Object> hmap);
+
+    Boolean extendBook(HashMap<String, Object> hmap);
 }

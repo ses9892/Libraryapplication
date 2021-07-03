@@ -27,4 +27,7 @@ public interface BorrowedBookMapper {
 
 
     BorrowedBookDto selectBorrowedBook(HashMap<String, Object> hmap);
+
+
+    void extendReturnDate(BorrowedBookDto dto);
 }

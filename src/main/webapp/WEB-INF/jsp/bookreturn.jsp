@@ -65,7 +65,7 @@
                     <div class="panel-footer">
                         <div class="text-right">
                             <a id="book-return" class="btn btn-danger">반납하기</a>
-                            <a href="#" class="btn btn-primary">연장하기</a>
+                            <a id="book-extend" class="btn btn-primary">연장하기</a>
                         </div>
                     </div>
                 </div>

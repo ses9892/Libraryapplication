@@ -37,7 +37,7 @@
                     <li><a href="/library/booklend/all">도서 대출</a></li>
                     <li><a id="btn-return">도서 반납</a></li>
                     <li>
-                        <a class="collapsed"  data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">Search</a>
+                        <a class="collapsed"  data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">번역</a>
                     </li>
                     <li><a href="#">마이페이지</a></li>
                     <li>
@@ -47,13 +47,18 @@
                     </li>
                 </ul>
                 </div>
-                <div class="collapse nav navbar-nav nav-collapse slide-down" id="nav-collapse3" style="z-index: 2">
-                    <form class="navbar-form navbar-right" role="search">
+                <div class="collapse nav navbar-nav nav-collapse slide-down justify-content-center" id="nav-collapse3" style="z-index: 2">
+                    <form class="navbar-form" role="search">
+                        <ul class="centered text-center">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search" />
+                            <button class="btn btn-default btn-circle active">한국어</button>
+                            <button class="btn btn-default btn-circle">日本</button>
+                            <button class="btn btn-default btn-circle">English</button>
                         </div>
-                        <button type="submit" class="btn btn-danger">Go</button>
-                        <a class="btn btn-danger collapsed"  data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">닫기</a>
+                        <div class="form-group" style="float: right">
+                            <a class="btn btn-danger collapsed"  data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">닫기</a>
+                        </div>
+                        </ul>
                     </form>
                 </div>
             </div><!-- /.navbar-collapse -->

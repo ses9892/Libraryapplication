@@ -56,4 +56,7 @@
     .navbar.navbar-inverse .nav-collapse.in.slide-down {
         transform: translate(0px,0px);
     }
+
+    .outerDivFull { margin:50px; }
+
 }

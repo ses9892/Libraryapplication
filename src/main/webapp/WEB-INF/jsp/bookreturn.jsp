@@ -12,7 +12,7 @@
                     <div class="panel-body">
                         <div class="pull-right">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-success btn-filter active" data-target="book-all">전체</button>
+                                <button type="button" class="btn btn-success btn-filter active" id="allbtn" data-target="book-all">전체</button>
                                 <button type="button" class="btn btn-warning btn-filter" data-target="book-favorites">즐겨찾기</button>
                             </div>
                         </div>
@@ -96,6 +96,10 @@ $('.btn-filter').on('click', function () {
     if ($target != 'book-all') {
         $('.table tr').css('display', 'none');
         $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+        if($('.table tr[data-status="' + $target + '"]')[0]==null){
+            alert('즐겨찾기한 항목이 존재하지 않습니다.');
+            $('#allbtn').click();
+        }
     } else {
         $('.table tr').css('display', 'none').fadeIn('slow');
     }

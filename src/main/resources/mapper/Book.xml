@@ -12,7 +12,6 @@
     </sql>
     <sql id="BookDto">
         a1.idx,
-        a1.idx,
         a1.name,
         a1.publisher,
         a1.author,
@@ -20,7 +19,6 @@
         a1.userId,
         a1.topic2,
         a1.borrow,
-        a1.favorites
         a2.save_name
     </sql>
 

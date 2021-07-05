@@ -1,6 +1,7 @@
 package com.library.application.service;
 
 import com.library.application.dto.UserDto;
+import com.library.application.exception.UserLoginErrorException;
 import com.library.application.mapper.UserMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Optional;
 
 @org.springframework.stereotype.Service
 @Transactional
@@ -61,5 +63,29 @@ public class UserServiceImpl implements UserService {
             return "true";
         }
         return "false";
+    }
+
+    @Override
+    public UserDto pwdCheck(HashMap<String, Object> hmap) {
+        UserDto dto = userMapper.selectByUserIdAndPwd(hmap);
+        return dto;
+    }
+
+    @Override
+    public UserDto selectUserId(String userId) {
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("userId",userId);
+        UserDto userDto = userMapper.findByUserId(hashMap);
+        return userDto;
+    }
+
+    @Override
+    public Boolean updateUser(UserDto userDto) {
+        HashMap hashMap = new HashMap();
+        hashMap.put("userId", userDto.getUserId());
+        UserDto dto = Optional.ofNullable(userMapper.findByUserId(hashMap))
+                .orElseThrow(()-> new UserLoginErrorException("존재하지 않는 회원입니다."));
+        userMapper.updateUserDate(userDto);
+        return true;
     }
 }

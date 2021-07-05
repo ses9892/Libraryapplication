@@ -26,4 +26,7 @@ public interface UserMapper {
 
     void autoBookReturn(List<BorrowedBookDto> list);
 
+    UserDto selectByUserIdAndPwd(HashMap<String, Object> hmap);
+
+    void updateUserDate(UserDto userDto);
 }

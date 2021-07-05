@@ -9,12 +9,12 @@ nav.sidebar, .main{
     padding: 10px 10px 0 20px;
 }
 
-@media (min-width: 765px) {
+@media (min-width: 765px) and (min-device-width: 481px){
 
     .main{
         position: absolute;
         width: calc(100% - 40px);
-        margin-left: 40px;
+        margin-left: 210px;
         float: right;
     }
 

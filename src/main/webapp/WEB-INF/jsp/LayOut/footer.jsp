@@ -10,6 +10,7 @@
 <!--index.js 추가-->
 <script src="/js/Token.js"></script>
 <script src="/js/bookAction.js"></script>
+<script src="/js/userAction.js"></script>
 <script>
     function logout() {
         alert("로그아웃 완료!")

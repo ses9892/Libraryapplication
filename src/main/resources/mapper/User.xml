@@ -40,6 +40,18 @@
         where idx= #{i.borrower}
         </foreach>
     </update>
+    <select id="selectByUserIdAndPwd" parameterType="HashMap" resultType="com.library.application.dto.UserDto">
+        select * from Users
+        where userId = #{userId} and pwd = #{pwd};
+    </select>
+    <update id="updateUserDate" parameterType="com.library.application.dto.UserDto">
+        update Users
+        set pwd = #{pwd},
+            phone = #{phone},
+            email = #{email},
+            gender = #{gender}
+        where userId = #{userId}
+    </update>
 
 
 

@@ -12,4 +12,10 @@ public interface UserService {
     String login(HashMap<String, Object> requestLogin);
 
     String duplication(String idCheck);
+
+    UserDto pwdCheck(HashMap<String, Object> hmap);
+
+    UserDto selectUserId(String userId);
+
+    Boolean updateUser(UserDto userDto);
 }

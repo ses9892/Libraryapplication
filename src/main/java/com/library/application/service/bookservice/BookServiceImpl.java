@@ -127,7 +127,6 @@ public class BookServiceImpl implements BookService{
 
         return true;
     }
-//    @Scheduled(fixedRate = 10000) // 1초 마다 실행
     @Scheduled(cron = "0 0 0 * * *")
     @Override
     public void AutoBookReturn() {      // 1일기준 00시00분 자동실행되는 도서 자동반납메소드

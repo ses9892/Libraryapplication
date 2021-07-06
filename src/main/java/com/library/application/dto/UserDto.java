@@ -24,6 +24,7 @@ public class UserDto {
     private Date createdAt;
     private String borrowed_book;
     private String overdue_num;
+    private Boolean autoReturn;
 
     @Enumerated(EnumType.STRING)
     private Role role;

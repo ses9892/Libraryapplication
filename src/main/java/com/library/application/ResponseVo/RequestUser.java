@@ -23,5 +23,6 @@ public class RequestUser {
     private String phone;
     private String email;
     private String gender;
+    private Boolean autoReturn;
 
 }

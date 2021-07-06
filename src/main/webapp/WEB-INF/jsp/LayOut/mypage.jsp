@@ -19,7 +19,7 @@
                         <li><a href="#">등록한 도서</a></li>
                         <li><a href="/user-service/info?flag=userDelete">회원 탈퇴</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">자동반납 설정</a></li>
+                        <li><a href="/user-service/info?flag=autoReturn">자동반납 설정</a></li>
                     </ul>
                 </li>
                 <li ><a id="btn-return">빌린 도서<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>

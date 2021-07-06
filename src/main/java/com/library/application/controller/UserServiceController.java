@@ -86,8 +86,17 @@ public class UserServiceController {
             case "userDelete":
                 url = env.getProperty("custom.location.userDelete") + userDto.getUserId();
                 break;
+            case "autoReturn":
+                url = env.getProperty("custom.location.autoReturn") + userDto.getUserId();
         }
         return ResponseEntity.status(HttpStatus.OK).body(url);
+    }
+    //자동반납설정 페이지 이동
+    @GetMapping(value = "/autoreturn/{userId}")
+    public String autoReturnChange(@PathVariable("userId") String userId , Model model){
+        UserDto userDto = userService.selectUserId(userId);
+        model.addAttribute("user",userDto);
+        return "user-service/autoReturnChange";
     }
     //대출받은 도서 조회
 

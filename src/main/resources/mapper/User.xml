@@ -46,11 +46,16 @@
     </select>
     <update id="updateUserDate" parameterType="com.library.application.dto.UserDto">
         update Users
+        <if test="autoReturn==null">
         set pwd = #{pwd},
             phone = #{phone},
             email = #{email},
             gender = #{gender}
-        where userId = #{userId}
+        </if>
+        <if test="autoReturn!=null">
+            set autoReturn = #{autoReturn}
+        </if>
+            where userId = #{userId}
     </update>
     <delete id="deleteByUserId" parameterType="HashMap">
         delete from Users

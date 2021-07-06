@@ -40,7 +40,7 @@ var main = {
                         return true;
                     }
                 }
-                if($('input[name="flag"]' ).val()=='infoChange'){
+                if($('input[name="flag"]' ).val()=='infoChange' || $('input[name="flag"]' ).val()=='autoReturn' ){
                  location.href= data
                 }
             }

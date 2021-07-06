@@ -46,5 +46,6 @@ custom:
     bookReturn: /library/bookreturn
     userInfo: /user-service/info/
     userDelete: /user-service/delete/
+    autoReturn: /user-service/autoreturn/
 #http://localhost:10004/user-service/info/admin
 

@@ -27,9 +27,10 @@
     </insert>
 
     <select id="autoBookReturn" resultType="com.library.application.dto.BorrowedBookDto">
-        select ref_idx,borrower
-        from Borrowed_book
-        where DATE_FORMAT(borrowed_date,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d');
+        select a1.ref_idx,a1.borrower
+        from Borrowed_book a1 , Users a2
+        where DATE_FORMAT(borrowed_date,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d')
+          and a2.idx = a1.borrower and a2.autoReturn=true;
     </select>
     <delete id="deleteByBookIdxList" parameterType="list">
       <foreach collection="list" item="i" index="index" open="" separator=";" close=";">

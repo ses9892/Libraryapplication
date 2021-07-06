@@ -1,7 +1,11 @@
 package com.library.application.service;
 
 import com.library.application.dto.UserDto;
+import com.library.application.exception.BookNotFoundException;
 import com.library.application.exception.UserLoginErrorException;
+import com.library.application.exception.UserNotDeleteException;
+import com.library.application.mapper.BookMapper;
+import com.library.application.mapper.BorrowedBookMapper;
 import com.library.application.mapper.UserMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,17 +15,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @org.springframework.stereotype.Service
 @Transactional
 public class UserServiceImpl implements UserService {
-    @Autowired
     UserMapper userMapper;
 
-    @Autowired
-    Environment env;
+    BookMapper bookMapper;
 
+    BorrowedBookMapper borrowedBookMapper;
+
+    Environment env;
+    @Autowired
+    public UserServiceImpl(UserMapper userMapper, BookMapper bookMapper, BorrowedBookMapper borrowedBookMapper, Environment env) {
+        this.userMapper = userMapper;
+        this.bookMapper = bookMapper;
+        this.borrowedBookMapper = borrowedBookMapper;
+        this.env = env;
+    }
     @Override
     public void save(String test) {
         userMapper.save(test);
@@ -87,5 +100,29 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(()-> new UserLoginErrorException("존재하지 않는 회원입니다."));
         userMapper.updateUserDate(userDto);
         return true;
+    }
+
+    //회원탈퇴
+    @Override
+    public void deleteUser(String userId) {
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("userId",userId);
+//        1. 빌린 book 조회 및 반납
+        try{
+        List<Integer> bookIdxList = borrowedBookMapper.selectBorrowedBookList(userId);  //조회
+        borrowedBookMapper.deleteByUserId(hashMap);                                     //userId 비교 후 정보삭제
+
+        if(bookIdxList.size()!=0){                                                      //list가 아무것도 안들어있으면 에러가난다.
+        bookMapper.bookReturn(bookIdxList);                                             //대출받은 bookList 반납완료
+        }
+//        2. 유저가 등록한 book 삭제
+        bookMapper.deleteByUserId(hashMap);
+//        3. 회원테이블 해당유저삭제
+        userMapper.deleteByUserId(hashMap);
+        }catch (Exception e){
+            throw new UserNotDeleteException("회원을 탈퇴 할 수 없습니다. 관리자에게 문의해 주세요");
+        }
+
+
     }
 }

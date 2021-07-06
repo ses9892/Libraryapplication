@@ -18,4 +18,6 @@ public interface UserService {
     UserDto selectUserId(String userId);
 
     Boolean updateUser(UserDto userDto);
+
+    void deleteUser(String userId);
 }

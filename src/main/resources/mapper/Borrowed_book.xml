@@ -55,6 +55,11 @@
         return_date = (select*from(select DATE_ADD(return_date ,INTERVAL 7 DAY) from Borrowed_book where ref_idx = #{ref_idx})a)
         where ref_idx = #{ref_idx} and borrower = #{borrower};
     </update>
+    <delete id="deleteByUserId" parameterType="HashMap">
+        delete from Borrowed_book
+        where borrower = (select idx from Users where userId=#{userId})
+    </delete>
+
 
 
 

@@ -22,8 +22,6 @@
         a2.save_name
     </sql>
 
-
-
     <insert id="insertBookImg" parameterType="list">
         insert into `HyoHyunJinHo`.`Book_img`(
                     <include refid="BookImgColums"/>
@@ -43,19 +41,12 @@
     <select id="selectBookIdx" resultType="int" parameterType="com.library.application.dto.BookDto">
         select idx from `HyoHyunJinHo`.`Book` where userId =#{userId} and name = #{name}
     </select>
+
     <select id="selectByIdx" resultType="com.library.application.dto.BookDto" parameterType="int">
         select  <include refid="BookDto"/>
         from `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
         where a2.board_idx = a1.idx and a1.idx = #{idx}
     </select>
-<!--    <select id="selectByIdxList" resultType="com.library.application.dto.BookDto" parameterType="list">-->
-<!--        select * from Book-->
-<!--        where idx in -->
-<!--        <foreach collection="list" item="idx" open="(" separator="," close=")">-->
-<!--            #{idx}-->
-<!--        </foreach>-->
-<!--        order by idx desc-->
-<!--    </select>-->
 
     <select id="selectByIdxList" resultType="com.library.application.dto.BookDto" parameterType="list">
         select
@@ -127,9 +118,18 @@
             )
         where idx = #{book_idx}
     </update>
-
-
-
-
+    <update id="bookReturn" parameterType="list">
+        <foreach collection="list" item="idx" index="index" open="" separator=";" close=";">
+        update Book
+        set borrow = ifnull(
+                    (select ref_idx from Borrowed_book where ref_idx = #{idx}) , 0
+            )
+        where idx = #{idx}
+        </foreach>
+    </update>
+    <delete id="deleteByUserId" parameterType="HashMap">
+        delete from Book
+        where userId = #{userId}
+    </delete>
 
 </mapper>

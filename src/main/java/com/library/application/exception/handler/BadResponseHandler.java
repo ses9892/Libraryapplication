@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class BadResponseHandler {
 
     //핸들링이 저장되고 UserLoginError 처리를 할경우 핸들링이 에러처리+ JSON 으로 에러메세지를 응답한다.
-    @ExceptionHandler(UserLoginErrorException.class)
+    @ExceptionHandler({UserLoginErrorException.class,UserNotDeleteException.class})
     public String UserLoginException(UserLoginErrorException ex){
         return ex.getMessage();
     }

@@ -46,8 +46,6 @@ public class UserServiceController {
         model.addAttribute("flag",request.getParameter("flag"));
         return "user-service/pwdCheck";
     }
-
-
     //정보조회
     @GetMapping(value = "/info/{userId}")
     public String info(@PathVariable("userId") String userId, Model model) {
@@ -67,12 +65,9 @@ public class UserServiceController {
     @ResponseBody
     @DeleteMapping(value = "/delete/{userId}")
     public String deleteUser(@PathVariable("userId") String userId) {
-        //변환 -> 유저정보수정
-        return "시발 ㅋㅋ";
+        userService.deleteUser(userId);
+        return "정상적으로 탈퇴처리가 완료 되었습니다.";
     }
-
-    
-    
     //패스워드 체크 - > 정보조회
     //패스워드 체크 - > 회원탈퇴
     @ResponseBody
@@ -94,7 +89,7 @@ public class UserServiceController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(url);
     }
-
+    //대출받은 도서 조회
 
 
 

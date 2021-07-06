@@ -34,4 +34,8 @@ public interface BookMapper {
     List<BookDto> selectByIdxList(List<Integer> bookIdxList);
 
     void favoritesToggle(HashMap<String, Object> hmap);
+
+    void bookReturn(List<Integer> bookIdxList);
+
+    void deleteByUserId(HashMap<String, Object> hashMap);
 }

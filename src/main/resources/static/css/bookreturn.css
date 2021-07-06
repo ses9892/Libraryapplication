@@ -149,6 +149,10 @@ body {
 .table-filter .media .summary {
     font-size: 14px;
 }
+.table-filter > tbody > tr > td {
+    vertical-align: middle !important;
+}
 .media-body{
-    width: 100%;
+    width: 100% !important;
+
 }

@@ -25,11 +25,11 @@ public interface BorrowedBookMapper {
 
     void deleteByBookIdx(HashMap<String, Object> hmap);
 
-
     BorrowedBookDto selectBorrowedBook(HashMap<String, Object> hmap);
-
 
     void extendReturnDate(BorrowedBookDto dto);
 
     void favoritesToggle(HashMap<String, Object> hmap);
+
+    void deleteByUserId(HashMap<String, Object> hashMap);
 }

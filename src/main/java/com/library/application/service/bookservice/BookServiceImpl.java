@@ -200,4 +200,17 @@ public class BookServiceImpl implements BookService{
         bookMapper.favoritesToggle(hmap);
         return true;
     }
+
+    @Override
+    public String selectPdfFileName(HashMap<String, Object> hmap) {
+
+        // 1. 빌려져있는지 확인
+        // 2. 확인후 책이름 가져오기
+        // 한방에 확인
+        String fileName=bookMapper.borrowCheck(hmap);
+        if(fileName.equals("null")){
+            return null;
+        }
+        return fileName;
+    }
 }

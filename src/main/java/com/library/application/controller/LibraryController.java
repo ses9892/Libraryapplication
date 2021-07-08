@@ -136,6 +136,27 @@ public class LibraryController {
     }
 
     @ResponseBody
+    @GetMapping(value = "/book/select/{idx}")
+    public ResponseEntity<String> selectBook(@PathVariable("idx") int Book_idx , Model model , HttpServletRequest request){
+        /**
+         * http://localhost:10004/pdfview?file=/img/fileName.pdf
+         * */
+        //fileName을 넘겨주는 식으로 간다?
+        HashMap<String,Object> hmap = new HashMap<>();
+        hmap.put("userId",""+request.getAttribute("userId"));
+        hmap.put("book_idx",Book_idx);
+        String fileName = bookService.selectPdfFileName(hmap);
+        if(fileName==null){
+            throw new BookNotFoundException("대출받은 도서가 아닙니다. 다시확인해주세요");
+        }
+        String url = env.getProperty("custom.location.bookSelect")+"/img/"+fileName;
+        return ResponseEntity.status(HttpStatus.OK).body(url);
+
+    }
+
+
+
+    @ResponseBody
     @PutMapping(value = "/book/favorites/{idx}")
     public ResponseEntity<String> favoritesBook(@PathVariable("idx") int Book_idx, HttpServletRequest request,Model model){
         ResponseEntity<String> entity = null;

@@ -48,5 +48,6 @@ custom:
     userInfo: /user-service/info/
     userDelete: /user-service/delete/
     autoReturn: /user-service/autoreturn/
+    bookSelect: /pdfview?file=
 #http://localhost:10004/user-service/info/admin
 

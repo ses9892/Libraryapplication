@@ -19,6 +19,9 @@ var main = {
         $('a[name=favorites]').click(function (){
             _this.favorites(this);
         })
+        $('#book-select').click(function (){
+            _this.bookSelect(this);
+        })
 
     },
     changeTopic : function (){
@@ -111,6 +114,22 @@ var main = {
             alert(error)
         }).complete(function (){
             location.reload();
+        })
+    },
+    bookSelect : function (){
+        var idx = $('input[type=checkbox]:checked').val();
+        $.ajax({
+            type: "GET",
+            url: "/library/book/select/"+idx,
+            headers:{
+                'content-type':'application/json',
+                'Authorization':'bearer'+localStorage.getItem('jwt')
+            },
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (url){
+            window.open(url);
+        }).error(function (emeg){
+            alert(emeg);
         })
     }
 

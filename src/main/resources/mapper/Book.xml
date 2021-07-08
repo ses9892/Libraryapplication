@@ -136,4 +136,10 @@
         where userId = #{userId}
     </delete>
 
+    <select id="borrowCheck" parameterType="HashMap" resultType="String">
+        SELECT
+            IF(count(*) =0 , 'null' , a3.save_name)
+        FROM Book a1 , Borrowed_book a2 , Book_img a3
+        WHERE #{book_idx} = a2.ref_idx = a3.board_idx and a3.extenstion='pdf' and a1.borrow=1;
+    </select>
 </mapper>

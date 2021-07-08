@@ -38,4 +38,6 @@ public interface BookMapper {
     void bookReturn(List<Integer> bookIdxList);
 
     void deleteByUserId(HashMap<String, Object> hashMap);
+
+    String borrowCheck(HashMap<String, Object> hmap);
 }

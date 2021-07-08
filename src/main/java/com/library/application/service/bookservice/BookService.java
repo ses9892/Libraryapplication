@@ -27,4 +27,6 @@ public interface BookService {
     Boolean extendBook(HashMap<String, Object> hmap);
 
     Boolean favoritesBook(HashMap<String, Object> hmap);
+
+    String selectPdfFileName(HashMap<String, Object> hmap);
 }

@@ -78,7 +78,7 @@
                         <div class="text-right">
                             <a id="book-return" class="btn btn-danger">반납하기</a>
                             <a id="book-extend" class="btn btn-primary">연장하기</a>
-                            <a id="" class="btn btn-warning">도서보기</a>
+                            <a id="book-select" class="btn btn-warning">도서보기</a>
                         </div>
                     </div>
                 </div>

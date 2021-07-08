@@ -5,8 +5,10 @@ import com.library.application.ResponseVo.ResponseBookData;
 import com.library.application.dto.BookDto;
 import com.library.application.dto.UserDto;
 import com.library.application.exception.BookNotFoundException;
+import com.library.application.exception.UserNotDeleteException;
 import com.library.application.service.bookservice.BookService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.fileupload.FileUploadException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -74,11 +79,15 @@ public class LibraryController {
 
     //Post 도서등록
     @PostMapping(value = "/book")
-    public String saveBook(BookSaveRequest bookSaveRequest , MultipartFile[] files , Model model){
+    public String saveBook(BookSaveRequest bookSaveRequest , MultipartFile[] files , Model model
+                           , HttpServletResponse response) throws IOException {
         BookDto bookDto = new ModelMapper().map(bookSaveRequest,BookDto.class);
         boolean isSaved = bookService.saveBook(bookDto,files);
         if(isSaved==false){
-            return "failed";
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter pw = response.getWriter();
+            pw.println("<script>alert('업로드한 확장자명을 확인해주세요'); history.go(-1);</script>");
+            pw.flush();
         }
         return "booksave";
     }

@@ -1,6 +1,5 @@
 package com.library.application.interceptor;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,11 +16,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
     //토근을 복호화하고 유저의 토큰이맞는지 확인하는 클래스의 인스턴스
     private final BearerAuthInterceptor bearerAuthInterceptor;
     private final String uploadImgesPath;
+    private final String uploadPdfPath;
 
     @Autowired
-    public WebMvcConfig(BearerAuthInterceptor bearerAuthInterceptor, @Value("${custom.path.upload-imges}") String uploadImgesPath) {
+    public WebMvcConfig(BearerAuthInterceptor bearerAuthInterceptor, @Value("${custom.path.upload-imges}") String uploadImgesPath,
+                        @Value("${custom.path.upload-pdf}")String uploadPdfPath) {
         this.bearerAuthInterceptor = bearerAuthInterceptor;
         this.uploadImgesPath=uploadImgesPath;
+        this.uploadPdfPath = uploadPdfPath;
     }
 
     @Override
@@ -34,11 +36,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //  user/login = 로그인 요청을 받으면 요청메소드를 처리전에 인터셉터에서 걸어둔 필터를 한번 거친다.
     }
 
+        //인터셉터로 pdf 경로도 만들어보자!!
+    /** Resource Handler
+     *  PDF , IMG , text 수정 할것*/
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/img/**")
                 .addResourceLocations("file:/"+uploadImgesPath);
+        registry
+                .addResourceHandler("/pdf/**")
+                .addResourceLocations("file:/"+uploadPdfPath);
+        // img/filename , pdf/pdfFileName
     }
 
     @Bean

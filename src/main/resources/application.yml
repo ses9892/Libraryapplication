@@ -41,6 +41,7 @@ token:
 custom:
   path:
     upload-imges: 'D:/library/'
+    upload-pdf: 'D:/pdf/'
   location:
     bookSave: /library/booksave
     bookReturn: /library/bookreturn

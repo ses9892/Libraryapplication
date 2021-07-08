@@ -2,6 +2,7 @@ package com.library.application.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,14 @@ public class StartController {
     public String home() {
         log.info("tq");
         return "login";
+    }
+    @GetMapping("/pdfview")
+    public String viewTest(){
+        return "viewer";
+    }
+    @GetMapping("/compressed.tracemonkey-pldi-09.pdf")
+    public String testt(){
+        return "viewer";
     }
     @RequestMapping(value = "/preview")
     public void pdfStreamHandler(HttpServletResponse response) {
@@ -42,6 +51,10 @@ public class StartController {
                 }
             }
         }
+    }
+    @RequestMapping(value = "/view")
+    public void pdfViewHandler(HttpServletResponse response) {
+
     }
 
 

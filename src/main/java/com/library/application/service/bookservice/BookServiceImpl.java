@@ -12,6 +12,8 @@ import com.library.application.mapper.BorrowedBookMapper;
 import com.library.application.mapper.UserMapper;
 import com.library.application.util.FIleUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -50,6 +52,20 @@ public class BookServiceImpl implements BookService{
     @Override
     public boolean saveBook(BookDto bookDto, MultipartFile[] files) {
         int result =1;
+        //파일이 업로드 되기전 확장자명 검사
+        //첫번째 pdf 검사
+        if(!FilenameUtils.getExtension(files[0].getOriginalFilename()).equals("pdf")){
+            return false;
+        }
+        //그이후 다중업로드되는 그림파일검사
+        for (int i=1;i< files.length;i++){
+            if(FilenameUtils.getExtension(files[i].getOriginalFilename()).equals("jpg")||
+                    FilenameUtils.getExtension(files[i].getOriginalFilename()).equals("png")||
+                    FilenameUtils.getExtension(files[i].getOriginalFilename()).equals("gif")){
+            }else{
+                return false;
+            }
+        }
         bookDto.setUserId("admin");
         //책 정보 저장
         bookMapper.insertBook(bookDto);
@@ -57,9 +73,9 @@ public class BookServiceImpl implements BookService{
        long book_idx =  bookMapper.selectBookIdx(bookDto);
         //가져온 책번호로 파일명,책번호 이미지 저장 + 경로에 이미지 업로드 (정보가 List<dto>로 들어옴)
         List<FileImgDto> fileList = fIleUtils.uploadFiles(files,book_idx);
-
         //List가 비었는지 확인한다. 비어있지 않다면
-        if(CollectionUtils.isEmpty(fileList)==false){
+//        if(CollectionUtils.isEmpty(fileList)==false){
+        if(fileList.size()>1){
             result = bookMapper.insertBookImg(fileList);
             //저장
             if(result<1){
@@ -73,21 +89,7 @@ public class BookServiceImpl implements BookService{
     @Override
     public ResponseBookData selectAllBook(String topic) {
         //책정보 + 책번호에 맞는 이미지
-            ResponseBookData responseBookData = new ResponseBookData();
-        //전체책 정보
-//        if(topic.equals("all")) {
-//            responseBookData.setBookDtoList(bookMapper.selectAll());
-//            //UUID 변환할 필요 없음!
-//            return  responseBookData;
-//        }
-        //대출 불가능책 정보
-//        if(topic.equals("not")){
-//            responseBookData.setBookDtoList(bookMapper.notborrow());
-//        }
-        //주제에맞는 책정보
-//        responseBookData.setBookDtoList(bookMapper.selectByTopic(topic));
-
-        //합친것
+        ResponseBookData responseBookData = new ResponseBookData();
         responseBookData.setBookDtoList(bookMapper.selectAll(topic));
         return responseBookData;
     }

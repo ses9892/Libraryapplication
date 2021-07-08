@@ -1,8 +1,10 @@
 package com.library.application.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class FileImgDto {
     /** 파일 번호 (PK) */
     private Long idx;
@@ -18,4 +20,8 @@ public class FileImgDto {
 
     /** 파일 크기 */
     private long size;
+
+    /** 확장자 */
+    private String extenstion;
+
 }

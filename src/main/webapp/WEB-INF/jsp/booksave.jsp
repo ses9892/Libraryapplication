@@ -50,9 +50,20 @@
                         </select>
                     </div>
                 </div>
-
+            <div class="form-group filebox bs3-primary">
+                <label for="file_0" class="col-sm-2 control-label">PDF</label>
+                <div class="col-sm-10">
+                    <input type="text" class="upload-name" value="파일 찾기" readonly />
+                    <label for="pdf" class="control-label">찾아보기</label>
+                    <input type="file" name="files" id="pdf" class="upload-hidden" onchange="changeFilename(this)" accept=".pdf" />
+                    <button type="button" onclick="removeFile(this)" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+                        <i class="fa fa-minus" aria-hidden="true"></i>
+                    </button>
+                    <hr>
+                </div>
+            </div>
             <div data-name="fileDiv" class="form-group filebox bs3-primary">
-                <label for="file_0" class="col-sm-2 control-label">파일1</label>
+                <label for="pdf" class="col-sm-2 control-label">이미지</label>
                 <div class="col-sm-10">
                     <input type="text" class="upload-name" value="파일 찾기" readonly />
                     <label for="file_0" class="control-label">찾아보기</label>
@@ -97,8 +108,9 @@
     function removeFile(elem) {
 
         const prevTag = $(elem).prev().prop('tagName');
+        console.log(prevTag);
         // console.log(prevTag)
-        if (prevTag === 'BUTTON') {
+        if (prevTag === 'BUTTON' || prevTag==='INPUT') {
             const file = $(elem).prevAll('input[type="file"]');
             const filename = $(elem).prevAll('input[type="text"]');
             // console.log(file.val())
@@ -106,6 +118,7 @@
             filename.val('파일 찾기'); //바뀐 텍스트 값도 바꾸고
             return false;
         }
+
 
         const target = $(elem).parent().parent();
         console.log(target);

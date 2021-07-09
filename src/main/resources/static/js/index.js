@@ -31,7 +31,7 @@ var main = {
         }
         //console.log(vo);
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '/user/register',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -49,25 +49,24 @@ var main = {
             userId: $('#userId').val(),
             password: $('#pwd').val()
         }
+        var new_data = "userId="+$('#userId').val()+"&password="+$('#pwd').val()
         console.log(data);
         $.ajax({
             type: 'POST',
             url: '/user/login',
             dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function (token) {
-            if(token==null){
-                alert('아이디/비밀번호를 확인해 주세요!');
-            }else{
-                localStorage.setItem("jwt",token.accessToken)
-                localStorage.setItem("Type",token.tokenType)
-                alert('반가워요!')
-                location.href='/library'
+            // data: JSON.stringify(data)
+            data : {
+                userId: $('#userId').val(),
+                password: $('#pwd').val()
             }
-        }).error(function (meg) {
-            alert(meg.responseText)
+        }).done(function (token) {
+            console.log(token)
+                localStorage.setItem("jwt",token.item.token);
+                alert(token.item.meg);
+                location.href=token.item.url
 
+        }).error(function (error) {
         })
     },
     duplication : function (){

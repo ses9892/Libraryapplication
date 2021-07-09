@@ -15,6 +15,7 @@ public class RequestUser {
     @Size(min = 8 , max = 15)
     private String userId;
 
+    private String password;
     @Size(min = 8 , max = 15)
     private String pwd;
     @Size(min = 3 , max = 4)

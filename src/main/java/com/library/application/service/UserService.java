@@ -1,10 +1,11 @@
 package com.library.application.service;
 
 import com.library.application.dto.UserDto;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.HashMap;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
     public void save(String test);
 
     Boolean register(UserDto user);

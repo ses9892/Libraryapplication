@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Component
 @Slf4j
-public class BearerAuthInterceptor implements HandlerInterceptor {
+public class    BearerAuthInterceptor implements HandlerInterceptor {
 
     private JwtTokenProvider jwtTokenProvider;
 

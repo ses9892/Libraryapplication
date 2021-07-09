@@ -11,13 +11,15 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @org.springframework.stereotype.Service
 @Transactional
@@ -132,5 +134,17 @@ public class UserServiceImpl implements UserService {
         }
 
 
+    }
+    //UserDetail 인증
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        HashMap<String,Object> hmap = new HashMap<>();
+        hmap.put("userId",s);
+        UserDto dto = userMapper.findByUserId(hmap);
+        dto.setAuth("ROLE_USER");
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(dto.getAuth()));
+        return new User(dto.getUserId(),dto.getPwd(),authorities);
+        //리턴된 데이터(유저)는 SecurityContext 의 Authentication에 등록되어 인증정보를 갖춘다.
     }
 }

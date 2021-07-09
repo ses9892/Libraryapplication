@@ -3,11 +3,17 @@ package com.library.application.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -25,9 +31,9 @@ public class UserDto {
     private String borrowed_book;
     private String overdue_num;
     private Boolean autoReturn;
+    private String auth;
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
 
 }

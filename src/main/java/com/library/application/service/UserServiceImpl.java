@@ -11,6 +11,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -28,12 +29,17 @@ public class UserServiceImpl implements UserService {
     BorrowedBookMapper borrowedBookMapper;
 
     Environment env;
+
+    BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    public UserServiceImpl(UserMapper userMapper, BookMapper bookMapper, BorrowedBookMapper borrowedBookMapper, Environment env) {
+    public UserServiceImpl(UserMapper userMapper, BookMapper bookMapper,
+                           BorrowedBookMapper borrowedBookMapper, Environment env,
+                           BCryptPasswordEncoder passwordEncoder ) {
         this.userMapper = userMapper;
         this.bookMapper = bookMapper;
         this.borrowedBookMapper = borrowedBookMapper;
         this.env = env;
+        this.passwordEncoder = passwordEncoder;
     }
     @Override
     public void save(String test) {
@@ -43,9 +49,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean register(UserDto user) {
         //user password 암호화 해서 꼭 저장하기!
+        user.setPwd(passwordEncoder.encode(user.getPwd()));
         try{
         userMapper.register(user);
         }catch (Exception e ){
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -57,7 +65,7 @@ public class UserServiceImpl implements UserService {
         //로그인 실패시 null 리턴
         if(userDto==null){      // 회원정보가 없을시
             return null;
-        }else if(!userDto.getPwd().trim().equals(requestLogin.get("password"))){    //비밀번호 일치하지 않을경우
+        }else if(!passwordEncoder.matches((String)requestLogin.get("password"),userDto.getPwd())){    //비밀번호 일치하지 않을경우
             return null;
         }
         //로그인 성공시 토큰 발급

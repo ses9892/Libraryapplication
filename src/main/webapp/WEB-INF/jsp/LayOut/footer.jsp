@@ -13,7 +13,6 @@
 <script src="/js/userAction.js"></script>
 <script>
     function logout() {
-        alert("로그아웃 완료!")
         localStorage.removeItem('jwt');
         localStorage.removeItem('Type');
         location.reload();

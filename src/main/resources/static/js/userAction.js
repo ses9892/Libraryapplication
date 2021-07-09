@@ -4,7 +4,9 @@ var main = {
         $('#user-pwdCheck').click(function () {
             _this.pwdCheck();
         });
-
+        $('#myPage').click(function (){
+            _this.myPage();
+        })
     },
     pwdCheck : function (){
         var pwd= $('#user-password').val();
@@ -47,6 +49,14 @@ var main = {
         }).complete(function (){
             $('#user-password').val("").focus();
         })
+    },
+    myPage : function (){
+        if(localStorage.getItem("jwt")==null){
+            alert('정상적인 로그인후 마이페이지를 이용해주세요!');
+            $('#logOut').click();
+            return null;
+        }
+        location.href = '/user-service/mypage'
     }
 
 

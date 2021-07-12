@@ -16,7 +16,7 @@
         localStorage.removeItem('jwt');
         localStorage.removeItem('Type');
         location.reload();
-        location.href='/'
+        location.href = "/logout";
     }
 </script>
 

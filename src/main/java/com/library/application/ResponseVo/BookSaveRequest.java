@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookSaveRequest {
-
+    private String userId;
     private String name;
     private String author;
     private String publisher;

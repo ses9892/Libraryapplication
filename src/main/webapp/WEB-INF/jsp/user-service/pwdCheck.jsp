@@ -4,7 +4,6 @@
 <input type="hidden" name="flag" value="${flag}">
 </div><!-- /.container-fluid -->
 <div class='span8 main'>
-    <input type="hidden" name="flag" value="infoChange">
     <div class="col-lg-3 col-sm-2"></div>
     <div class="col-lg-5 col-sm-6">
         <div class="well login-box">

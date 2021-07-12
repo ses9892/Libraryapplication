@@ -30,7 +30,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(bearerAuthInterceptor).addPathPatterns("/check/book")
         .addPathPatterns("/library/book/*/lend")
-        .addPathPatterns("/library/book/return/**")
+        .addPathPatterns("/library/save")
+        .addPathPatterns("/library/return")
+        .addPathPatterns("/library/book/*")
         .addPathPatterns("/library/book/favorites/**")
         .addPathPatterns("/user-service/pwdCheck");
         //  user/login = 로그인 요청을 받으면 요청메소드를 처리전에 인터셉터에서 걸어둔 필터를 한번 거친다.

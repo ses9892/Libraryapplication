@@ -4,7 +4,7 @@ var main = {
         $('#btn-save').click(function () {
             _this.bookSave();
         });
-        $('#btn-return').click(function () {
+        $('#returnPage').click(function () {
             _this.bookReturn();
         });
     },
@@ -13,13 +13,12 @@ var main = {
             type: 'GET',
             headers:{
                 'content-type':'application/json',
-                'Authorization':'bearer'+localStorage.getItem('jwt'),
-                'flag':'bookSave'
+                'Authorization':'bearer'+localStorage.getItem('jwt')
             },
-            url: '/check/book',
+            url: '/library/save',
             contentType: 'application/json; charset=utf-8',
-        }).done(function (url){
-            location.href=url;  //    /library/book/**(userId)
+        }).done(function (userId){
+            location.href="/library/save/"+userId;
         }).error(function (){
             alert('유효하지 않는 회원입니다.')
             location.href='/library'
@@ -30,13 +29,13 @@ var main = {
             type: 'GET',
             headers:{
                 'content-type':'application/json',
-                'Authorization':'bearer'+localStorage.getItem('jwt'),
-                'flag':'bookReturn'
+                'Authorization':'bearer'+localStorage.getItem('jwt')
             },
-            url: '/check/book',
+            // url: '/check/book',
+            url: '/library/return',
             contentType: 'application/json; charset=utf-8',
-        }).done(function (url){
-            location.href=url;  //   /library/bookreturn/**(userId)
+        }).done(function (userId){
+            location.href="/library/return/"+userId;
         }).error(function (){
             alert('유효하지 않는 회원입니다.')
             location.href='/library'

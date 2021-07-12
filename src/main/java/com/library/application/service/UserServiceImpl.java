@@ -1,5 +1,6 @@
 package com.library.application.service;
 
+import com.library.application.dto.Role;
 import com.library.application.dto.UserDto;
 import com.library.application.exception.BookNotFoundException;
 import com.library.application.exception.UserLoginErrorException;
@@ -52,6 +53,7 @@ public class UserServiceImpl implements UserService {
     public Boolean register(UserDto user) {
         //user password 암호화 해서 꼭 저장하기!
         user.setPwd(passwordEncoder.encode(user.getPwd()));
+        user.setRole(Role.USER.getKey());
         try{
         userMapper.register(user);
         }catch (Exception e ){
@@ -90,7 +92,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto pwdCheck(HashMap<String, Object> hmap) {
-        UserDto dto = userMapper.selectByUserIdAndPwd(hmap);
+        UserDto dto = userMapper.findByUserId(hmap);
+        if(!passwordEncoder.matches((CharSequence) hmap.get("pwd"),dto.getPwd())){
+            return null;
+        }
         return dto;
     }
 
@@ -108,6 +113,9 @@ public class UserServiceImpl implements UserService {
         hashMap.put("userId", userDto.getUserId());
         UserDto dto = Optional.ofNullable(userMapper.findByUserId(hashMap))
                 .orElseThrow(()-> new UserLoginErrorException("존재하지 않는 회원입니다."));
+        if(userDto.getPwd()!=null) {
+            userDto.setPwd(passwordEncoder.encode(userDto.getPwd()));
+        }
         userMapper.updateUserDate(userDto);
         return true;
     }
@@ -141,9 +149,8 @@ public class UserServiceImpl implements UserService {
         HashMap<String,Object> hmap = new HashMap<>();
         hmap.put("userId",s);
         UserDto dto = userMapper.findByUserId(hmap);
-        dto.setAuth("ROLE_USER");
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(dto.getAuth()));
+        authorities.add(new SimpleGrantedAuthority(dto.getRole()));
         return new User(dto.getUserId(),dto.getPwd(),authorities);
         //리턴된 데이터(유저)는 SecurityContext 의 Authentication에 등록되어 인증정보를 갖춘다.
     }

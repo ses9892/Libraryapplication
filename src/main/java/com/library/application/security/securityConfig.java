@@ -33,18 +33,25 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/","/register","/user/**").permitAll()
-                .antMatchers("/library/**").hasRole("USER")
+        http.authorizeRequests().antMatchers("/","/register","/duplication").permitAll()
+                .antMatchers("/library/**","/user-service/**").hasRole("USER")
+                .antMatchers("/admin-service/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()
-                    .loginPage("/")
-                    .loginProcessingUrl("/user/login")
-                    .usernameParameter("userId")
-                    .passwordParameter("password")
-                    .successHandler(new LoginSuccessHandler(env))
-                    .failureHandler(new LoginFailedHandler(env));
-
+                        .loginPage("/")
+                        .loginProcessingUrl("/login")
+                        .usernameParameter("userId")
+                        .passwordParameter("password")
+                        .successHandler(new LoginSuccessHandler(env))
+                        .failureHandler(new LoginFailedHandler(env))
+                        .and()
+                    .logout()
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true);
+                    //invalidateHttpSession = 브라우저가 종료될시 로그인했던 모든정보를 삭제하는것을 허용
+                    // 즉 , 세션 삭제
     }
 
     @Override

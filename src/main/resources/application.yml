@@ -51,8 +51,8 @@ custom:
     bookSave: /library/booksave
     bookReturn: /library/bookreturn
     userInfo: /user-service/info/
-    userDelete: /user-service/delete/
-    autoReturn: /user-service/autoreturn/
+    userDelete: /user-service/user/
+    autoReturn: /user-service/user/auto_return/
     bookSelect: /pdfview?file=
 #http://localhost:10004/user-service/info/admin
 

@@ -36,7 +36,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/library">Home</a></li>
                     <li><a id="btn-save">도서 등록</a></li>
-                    <li><a href="/library/booklend/all">도서 대출</a></li>
+                    <li><a href="/library/list/all">도서 대출</a></li>
 <%--                    <li><a id="btn-return">도서 반납</a></li>--%>
                     <li>
                         <a class="collapsed"  data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">번역</a>

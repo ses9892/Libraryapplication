@@ -55,7 +55,7 @@ public class UserServiceController {
     }
     //정보조회 -> 수정
     //수정이필요함 alert() 라던지 확인창 이 아직없음
-    @PostMapping(value = "/info/{userId}")
+    @PostMapping(value = "/user/{userId}")
     public String infoChange(@PathVariable("userId") String userId, @ModelAttribute RequestUser user) {
         UserDto userDto = new ModelMapper().map(user,UserDto.class);
         //변환 -> 유저정보수정
@@ -63,7 +63,7 @@ public class UserServiceController {
         return "redirect:/user-service/mypage";
     }
     @ResponseBody
-    @DeleteMapping(value = "/delete/{userId}")
+    @DeleteMapping(value = "/user/{userId}")
     public String deleteUser(@PathVariable("userId") String userId) {
         userService.deleteUser(userId);
         return "정상적으로 탈퇴처리가 완료 되었습니다.";
@@ -92,7 +92,7 @@ public class UserServiceController {
         return ResponseEntity.status(HttpStatus.OK).body(url);
     }
     //자동반납설정 페이지 이동
-    @GetMapping(value = "/autoreturn/{userId}")
+    @GetMapping(value = "/user/auto_return/{userId}")
     public String autoReturnChange(@PathVariable("userId") String userId , Model model){
         UserDto userDto = userService.selectUserId(userId);
         model.addAttribute("user",userDto);

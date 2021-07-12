@@ -12,15 +12,11 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class RequestUser {
 
-    @Size(min = 8 , max = 15)
     private String userId;
 
     private String password;
-    @Size(min = 8 , max = 15)
     private String pwd;
-    @Size(min = 3 , max = 4)
     private String name;
-    @Size(min = 11,max=13)
     private String phone;
     private String email;
     private String gender;

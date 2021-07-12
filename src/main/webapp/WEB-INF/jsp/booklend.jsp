@@ -50,7 +50,7 @@
     <hr style="margin-top: 0"/>
     <div class="row">
         <c:forEach var="book" items="${bookList}">
-            <c:set var="bookSelect" value="/library/book/${book.idx}"></c:set>
+            <c:set var="bookSelect" value="/library/book?idx=${book.idx}"></c:set>
             <div class="col-md-4 col-sm-6">
                 <div class="product-grid">
                     <div class="product-image">

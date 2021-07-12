@@ -29,10 +29,10 @@ var main = {
             email: $('#email').val(),
             gender: $('input:checkbox[name=gender]:checked').val()
         }
-        //console.log(vo);
+        console.log(vo);
         $.ajax({
-            type: 'GET',
-            url: '/user/register',
+            type: 'POST',
+            url: '/register',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(vo)
@@ -41,7 +41,7 @@ var main = {
             location.href='/'
         }).error(function (){
             alert('회원가입에 실패 하였습니다.')
-            location.href='/register'
+            // location.href='/register'
         })
     },
     login : function () {
@@ -53,7 +53,7 @@ var main = {
         console.log(data);
         $.ajax({
             type: 'POST',
-            url: '/user/login',
+            url: '/login',
             dataType: 'json',
             // data: JSON.stringify(data)
             data : {
@@ -75,7 +75,7 @@ var main = {
         }
         $.ajax({
             type: "POST",
-            url: "/user/duplication",
+            url: "/duplication",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)

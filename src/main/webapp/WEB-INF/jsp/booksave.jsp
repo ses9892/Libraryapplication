@@ -6,7 +6,7 @@
         <form class="form-horizontal" action="/library/book" method="post" enctype="multipart/form-data"onsubmit="return bookSaveCheck()">
         <div class="card-content">
                 <!--/* update의 경우 서버로 전달할 게시글 번호 (PK) */-->
-
+                <input type="hidden" name="userId" value="${userId}">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">제목</label>
                     <div class="col-sm-10">

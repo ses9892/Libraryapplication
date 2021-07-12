@@ -31,9 +31,7 @@ public class UserDto {
     private String borrowed_book;
     private String overdue_num;
     private Boolean autoReturn;
-    private String auth;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
 
 }

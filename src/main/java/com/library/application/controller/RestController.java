@@ -25,7 +25,6 @@ import java.util.Optional;
 
 @org.springframework.web.bind.annotation.RestController
 @Slf4j
-@RequestMapping(value = "/user")
 public class RestController {
     Environment env;
     UserService userService;
@@ -36,15 +35,10 @@ public class RestController {
         this.userService = service;
     }
 
-    @GetMapping(value = "/check")
-    public String checkking() {
-        return "OK!!!!!!!!!";
-    }
-
     //회원가입요청
     @ResponseBody
     @PostMapping(value = "/register")
-    public ResponseEntity<String> register(@Valid @RequestBody RequestUser user) throws JSONException {
+    public ResponseEntity<String> register(@RequestBody RequestUser user) throws JSONException {
         UserDto userDto = new ModelMapper().map(user,UserDto.class);
         //회원가입 요청 처리 (true,false)
         Boolean registerCheck = userService.register(userDto);
@@ -63,14 +57,5 @@ public class RestController {
         String result = userService.duplication(idCheck);
         return result;
     }
-    //로그인 요청
-    @PostMapping(value = "/login")
-    public ResponseEntity<ResponseToken> login(@RequestBody HashMap<String,Object> requestLogin) throws JSONException {
-        //Login 유효성 검사후 Token 발급
-        String Token = String.valueOf(Optional.ofNullable(userService.login(requestLogin))
-                .orElseThrow(() -> new UserLoginErrorException("ID&PW를 다시확인해주세요!")));
 
-        // status = OK , bearer 토큰 응답 ==> JS에서 sessionStorage 저장
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseToken(Token,"bearer"));
-    }
 }

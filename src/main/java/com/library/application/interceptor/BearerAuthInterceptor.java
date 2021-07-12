@@ -35,10 +35,7 @@ public class    BearerAuthInterceptor implements HandlerInterceptor {
              throw new IllegalAccessException("로그인 상태가 유효 하지 않습니다.");
         }
         String userId = jwtTokenProvider.getSubject(Token);     //토큰에담긴 subject = userId
-        if(flag!=null && userId!=null){
-            request.setAttribute("flag",flag);
-        }
-            request.setAttribute("userId",userId);
+        request.setAttribute("userId",userId);
 
         return true;
     }

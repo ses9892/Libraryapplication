@@ -9,6 +9,7 @@ import com.library.application.exception.UserNotDeleteException;
 import com.library.application.service.bookservice.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.ibatis.annotations.Param;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -39,23 +40,40 @@ public class LibraryController {
     BookService bookService;
 
 
-    //도서 등록페이지 이동
-    @RequestMapping(value = "/booksave/{userId}")
-    public String Librarysave(@PathVariable("userId") String userId,Model model){
+    @RequestMapping("/save/{userId}")
+    public String bookSave(@PathVariable("userId")String userId,Model model){
         model.addAttribute("userId",userId);
         return "booksave";
     }
 
+    //도서 등록페이지 이동
+//    @RequestMapping(value = "/booksave/{userId/}")
+    //restController 이동예정
+    @ResponseBody
+    @RequestMapping(value = "/save")
+    public String savePage(HttpServletRequest request,Model model){
+        String userId = ""+request.getAttribute("userId");
+        return userId;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/return")
+    public String returnPage(HttpServletRequest request){
+        String userId = ""+request.getAttribute("userId");
+        return userId;
+    }
+
     //도서 대출 클릭시 페이지이동 + 모든 도서 열람
-    @RequestMapping(value = "/booklend/{topic}")
+    @RequestMapping(value = "/list/{topic}",method = RequestMethod.GET)
     public String Librarylend(@PathVariable String topic,Model model){
         ResponseBookData responseBookData= bookService.selectAllBook(topic);
         model.addAttribute("bookList",responseBookData.getBookDtoList());
         return "booklend";
     }
-    @GetMapping(value = "/book/{idx}")
-    public String bookSelect(@PathVariable int idx,Model model){
-        BookDto bookDto = Optional.ofNullable(bookService.selectByIdx(idx))
+
+    @GetMapping(value = "/book")
+    public String bookSelect(HttpServletRequest request,Model model){
+        BookDto bookDto = Optional.ofNullable(bookService.selectByIdx(Integer.parseInt(request.getParameter("idx"))))
                 .orElseThrow(()->new BookNotFoundException("<script>\n" +
                         "    alert(\"해당도서목록은 존재하지 않습니다!\");\n" +
                         "    history.back();\n" +
@@ -63,19 +81,6 @@ public class LibraryController {
         model.addAttribute("data",bookDto);
         return "bookselect";
     }
-    @ResponseBody
-    @GetMapping(value = "/book/{idx}/lend")
-    public String booklend(@PathVariable("idx") int book_idx, Model model, HttpServletRequest request){
-        //책번호 , userId를 받은상태 -> 대출해주기
-        //1. 유저정보 borrowed_book++
-        //2. book_idx 책의 borrow -> 1로
-        //3. Borrowed_book db 정보추가
-        if(bookService.lendBook(book_idx,request)) {
-            return "정상적으로 대출 되었습니다.";
-        }
-        return "현재 미 반납 도서이거나,이미 대출하신 도서입니다.";
-    }
-
 
     //Post 도서등록
     @PostMapping(value = "/book")
@@ -92,16 +97,35 @@ public class LibraryController {
         return "booksave";
     }
 
+    @ResponseBody
+    @PostMapping(value = "/book/{idx}")
+    public String booklend(@PathVariable("idx") int book_idx, Model model, HttpServletRequest request){
+        //책번호 , userId를 받은상태 -> 대출해주기
+        //1. 유저정보 borrowed_book++
+        //2. book_idx 책의 borrow -> 1로
+        //3. Borrowed_book db 정보추가
+        if(bookService.lendBook(book_idx,request)) {
+            return "정상적으로 대출 되었습니다.";
+        }
+        return "현재 미 반납 도서이거나,이미 대출하신 도서입니다.";
+    }
+
+    //책삭제 delete "library/book"
+    //책수정 PUT "library/book"
+
+
     //도서반납 -> 유저의 대출목록 가져오기
-    @GetMapping(value = "/bookreturn/{userId}")
+    @GetMapping(value = "/return/{userId}")
     public String returnBook(@PathVariable("userId") String userId,Model model){
         List<BookDto> list = bookService.selectBorrowedBookList(userId);
         model.addAttribute("list",list);
         model.addAttribute("now",new Date());
         return "bookreturn";
     }
+    //도서반납OK
     @ResponseBody
-    @DeleteMapping(value = "/book/return/{idx}")
+//    @DeleteMapping(value = "/book/return/{idx}")
+    @DeleteMapping(value = "/book/{idx}")
     public ResponseEntity<String> returnBookOK(@PathVariable("idx") int Book_idx, HttpServletRequest request,Model model){
         ResponseEntity<String> entity = null;
         //JWT 토큰 suject=userId 가 넘어온것을 받아온다.
@@ -117,8 +141,10 @@ public class LibraryController {
         }
         return entity;
     }
+    //도서 연장 OK
     @ResponseBody
-    @PutMapping(value = "/book/return/{idx}")
+//    @PutMapping(value = "/book/return/{idx}")
+    @PutMapping(value = "/book/{idx}")
     public ResponseEntity<String> extendBookOK(@PathVariable("idx") int Book_idx, HttpServletRequest request,Model model){
         ResponseEntity<String> entity = null;
         //JWT 토큰 suject=userId 가 넘어온것을 받아온다.
@@ -135,8 +161,9 @@ public class LibraryController {
         return entity;
     }
 
+    //도서 조회
     @ResponseBody
-    @GetMapping(value = "/book/select/{idx}")
+    @GetMapping(value = "/book/{idx}")
     public ResponseEntity<String> selectBook(@PathVariable("idx") int Book_idx , Model model , HttpServletRequest request){
         /**
          * http://localhost:10004/pdfview?file=/img/fileName.pdf

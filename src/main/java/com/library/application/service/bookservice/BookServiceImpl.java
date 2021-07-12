@@ -66,7 +66,6 @@ public class BookServiceImpl implements BookService{
                 return false;
             }
         }
-        bookDto.setUserId("admin");
         //책 정보 저장
         bookMapper.insertBook(bookDto);
         //책번호 가져오기

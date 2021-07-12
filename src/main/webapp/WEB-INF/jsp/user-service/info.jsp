@@ -6,7 +6,7 @@
 <jsp:include page="../LayOut/mypage.jsp"></jsp:include>
 </div><!-- /.container-fluid -->
 <div class='span8 main'>
-    <form action="/user-service/info/${user.userId}" method="post" onsubmit="return check()" >
+    <form action="/user-service/user/${user.userId}" method="post" onsubmit="return check()" >
         <div class="panel panel-default">
             <div class="panel-heading">Info</div>
             <div class="panel-body">

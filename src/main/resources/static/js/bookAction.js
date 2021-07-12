@@ -27,25 +27,24 @@ var main = {
     changeTopic : function (){
         var topic = $('#select-topic').select().val();
         if(topic=='All'){
-            location.href='/library/booklend/all';
+            location.href='/library/list/all';
         }else{
-            location.href='/library/booklend/'+topic;
+            location.href='/library/list/'+topic;
         }
     },
     notborrow : function (){
         location.href='/library/booklend/not';
     },
-    selectBook : function (){
 
-    },
     booklend : function () {
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             headers:{
                 'content-type':'application/json',
                 'Authorization':'bearer'+localStorage.getItem('jwt')
             },
-            url: '/library/book/'+$('#book-idx').val()+'/lend',
+            // url: '/library/book/'+$('#book-idx').val()+'/lend',
+            url: '/library/book/'+$('#book-idx').val(),
             contentType: 'application/json; charset=utf-8'
         }).done(function (meg){
                 alert(meg);
@@ -62,7 +61,7 @@ var main = {
 
         $.ajax({
             type: "DELETE",
-            url: "/library/book/return/"+idx,
+            url: "/library/book/"+idx,
             headers:{
                 'content-type':'application/json',
                 'Authorization':'bearer'+localStorage.getItem('jwt')
@@ -84,7 +83,8 @@ var main = {
 
         $.ajax({
             type: "PUT",
-            url: "/library/book/return/"+idx,
+            // url: "/library/book/return/"+idx,
+            url: "/library/book/"+idx,
             headers:{
                 'content-type':'application/json',
                 'Authorization':'bearer'+localStorage.getItem('jwt')
@@ -120,7 +120,7 @@ var main = {
         var idx = $('input[type=checkbox]:checked').val();
         $.ajax({
             type: "GET",
-            url: "/library/book/select/"+idx,
+            url: "/library/book/"+idx,
             headers:{
                 'content-type':'application/json',
                 'Authorization':'bearer'+localStorage.getItem('jwt')

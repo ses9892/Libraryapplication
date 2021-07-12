@@ -29,15 +29,15 @@ See https://github.com/adobe-type-tools/cmap-resources
     <title>PDF.js viewer</title>
 
 
-    <link rel="stylesheet" href="web/viewer.css">
+    <link rel="stylesheet" href="/web/viewer.css">
 
 
 <!-- This snippet is used in production (included from viewer.jsp) -->
-<link rel="resource" type="application/l10n" href="web/locale/locale.properties">
-<script src="build/pdf.js"></script>
+<link rel="resource" type="application/l10n" href="/web/locale/locale.properties">
+<script src="/build/pdf.js"></script>
 
 
-  <script src="web/viewer.js"></script>
+  <script src="/web/viewer.js"></script>
 
   </head>
 

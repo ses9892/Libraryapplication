@@ -3,13 +3,9 @@ package com.library.application.controller;
 import com.library.application.ResponseVo.BookSaveRequest;
 import com.library.application.ResponseVo.ResponseBookData;
 import com.library.application.dto.BookDto;
-import com.library.application.dto.UserDto;
 import com.library.application.exception.BookNotFoundException;
-import com.library.application.exception.UserNotDeleteException;
 import com.library.application.service.bookservice.BookService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.ibatis.annotations.Param;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -43,7 +39,7 @@ public class LibraryController {
     @RequestMapping("/save/{userId}")
     public String bookSave(@PathVariable("userId")String userId,Model model){
         model.addAttribute("userId",userId);
-        return "booksave";
+        return "library/booksave";
     }
 
     //도서 등록페이지 이동
@@ -68,7 +64,7 @@ public class LibraryController {
     public String Librarylend(@PathVariable String topic,Model model){
         ResponseBookData responseBookData= bookService.selectAllBook(topic);
         model.addAttribute("bookList",responseBookData.getBookDtoList());
-        return "booklend";
+        return "library/booklend";
     }
 
     @GetMapping(value = "/book")
@@ -79,7 +75,7 @@ public class LibraryController {
                         "    history.back();\n" +
                         "</script>"));
         model.addAttribute("data",bookDto);
-        return "bookselect";
+        return "library/bookselect";
     }
 
     //Post 도서등록
@@ -94,7 +90,7 @@ public class LibraryController {
             pw.println("<script>alert('업로드한 확장자명을 확인해주세요'); history.go(-1);</script>");
             pw.flush();
         }
-        return "booksave";
+        return "library/booksave";
     }
 
     @ResponseBody
@@ -120,7 +116,7 @@ public class LibraryController {
         List<BookDto> list = bookService.selectBorrowedBookList(userId);
         model.addAttribute("list",list);
         model.addAttribute("now",new Date());
-        return "bookreturn";
+        return "library/bookreturn";
     }
     //도서반납OK
     @ResponseBody

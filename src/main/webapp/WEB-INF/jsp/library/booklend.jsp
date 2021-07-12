@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="LayOut/header.jsp"></jsp:include>
+<jsp:include page="../LayOut/header.jsp"></jsp:include>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/booksave.css">
 <link rel="stylesheet" href="/css/booklend.css">
@@ -19,9 +19,6 @@
                                 <button class="btn btn-danger" id="notborrow" type="button" >
                                     대출불가능 도서
                                 </button>
-                                <a class="btn btn-danger" href="/pdf/viewer.html?file=/preview">
-                                    테스트
-                                </a>
                             </p>
                             <div class="collapse" id="collapseExample">
                                 <div class="card card-body">
@@ -96,4 +93,4 @@
 
     })
 </script>
-<jsp:include page="LayOut/footer.jsp"></jsp:include>
+<jsp:include page="../LayOut/footer.jsp"></jsp:include>

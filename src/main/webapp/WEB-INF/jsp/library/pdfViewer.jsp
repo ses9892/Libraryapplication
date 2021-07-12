@@ -11,6 +11,6 @@
     //     window.open('../../../resources/static/js/web/viewer.jsp')
     // })
 </script>
-<a href="viewer.jsp?file=compressed.tracemonkey-pldi-09.pdf">dassdsa</a>
+<a href="../viewer.jsp?file=compressed.tracemonkey-pldi-09.pdf">dassdsa</a>
 </body>
 </html>

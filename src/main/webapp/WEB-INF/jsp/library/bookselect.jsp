@@ -1,12 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="LayOut/header.jsp"></jsp:include>
+<jsp:include page="../LayOut/header.jsp"></jsp:include>
 <style>
     .bookline{
         border-top: 1px solid silver;
     }
 </style>
-${data}
 <div class="container">
     <h1 class="well text-center">도서 상세</h1>
     <div class="col-lg-12 well">
@@ -66,10 +65,6 @@ ${data}
                         </div>
                     </div>
                         <hr size="2" class="bookline" style="margin-top: 0px">
-                    <div class="form-group">
-                        <label>책 소개</label>
-                        <textarea class="form-control" style="resize: none; min-height: 300px;"></textarea>
-                    </div>
                     <div class="col text-center">
                         <c:choose>
                             <c:when test="${data.borrow}">
@@ -89,4 +84,4 @@ ${data}
 
 
 </div><!-- /.container-fluid -->
-<jsp:include page="LayOut/footer.jsp"></jsp:include>
+<jsp:include page="../LayOut/footer.jsp"></jsp:include>

@@ -1,13 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="LayOut/header.jsp"></jsp:include>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bookreturn.css">
-<div class="container">
+<jsp:include page="../LayOut/header.jsp"></jsp:include>
+<jsp:include page="../LayOut/mypage.jsp"></jsp:include>
+
+</div><!-- /.container-fluid -->
+<div class='span8 main' style="padding-left: 10px; text-align: center">
     <div class="row">
         <section class="content">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 col-lg-8 col-sm-8">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="pull-right">
@@ -75,6 +78,7 @@
                         <div class="text-right">
                             <a id="book-return" class="btn btn-danger">반납하기</a>
                             <a id="book-extend" class="btn btn-primary">연장하기</a>
+                            <a id="book-select" class="btn btn-warning">도서보기</a>
                         </div>
                     </div>
                 </div>
@@ -82,6 +86,18 @@
         </section>
 
     </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7 col-md-7 text-center">
+                    <p>I created this because I loved the design done by <a href="http://bootsnipp.com/maridlcrmn" target="_blank">maridlcrmn</a> on her <a href="http://bootsnipp.com/snippets/ZkpRl" target="_blank">Toggle navbar</a> but wanted a fancier slide down naviation when you click on the toggle button. However my code does come with a limitation, you will not be able to use dropdowns within your navigation if using this method because <code>overflow</code> is set to <strong>hidden</strong>. You can see this in action by trying to use the very last navigation on this snippet.</p>
+                </div>
+            </div>
+        </div>
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/css/mypage.css">
+
+
 </div>
 <script>
 $('input[name=checkbox]').click(function (){
@@ -104,7 +120,19 @@ $('.btn-filter').on('click', function () {
         $('.table tr').css('display', 'none').fadeIn('slow');
     }
 });
-
+function logout() {
+    alert("로그아웃 완료!")
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('Type');
+    location.reload();
+    location.href='../../..'
+}
 </script>
+<!--index.js 추가-->
+<script src="/js/Token.js"></script>
+<script src="/js/bookAction.js"></script>
+<script src="/js/userAction.js"></script>
 
-<jsp:include page="LayOut/footer.jsp"></jsp:include>
+</body>
+</html>
+

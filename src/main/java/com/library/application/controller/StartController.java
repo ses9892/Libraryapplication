@@ -61,7 +61,7 @@ public class StartController {
     @RequestMapping(value = "/library")
     public String Home(){
 
-        return "home";
+        return "library/home";
     }
     @RequestMapping(value = "/register")
     public String register() { ;

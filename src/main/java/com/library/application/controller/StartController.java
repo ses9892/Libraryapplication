@@ -1,18 +1,26 @@
 package com.library.application.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Locale;
 
 @Controller
 @Slf4j
 public class StartController {
+
+    @Autowired
+    MessageSource messageSource;
 
     @RequestMapping(value = "/")
     public String home() {
@@ -59,8 +67,8 @@ public class StartController {
 
 
     @RequestMapping(value = "/library")
-    public String Home(){
-
+    public String Home(Locale locale , HttpServletRequest request , Model model){
+        model.addAttribute("clientLocale",locale);
         return "library/home";
     }
     @RequestMapping(value = "/register")

@@ -1,7 +1,7 @@
 var main = {
     init: function () {
         var _this = this;
-        $('#btn-save').click(function () {
+        $('a[name=btn-save]').click(function () {
             _this.bookSave();
         });
         $('#returnPage').click(function () {

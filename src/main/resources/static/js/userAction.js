@@ -4,7 +4,7 @@ var main = {
         $('#user-pwdCheck').click(function () {
             _this.pwdCheck();
         });
-        $('#myPage').click(function (){
+        $('a[name=myPage]').click(function (){
             _this.myPage();
         })
     },

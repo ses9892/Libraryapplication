@@ -174,5 +174,21 @@
     section{
         padding-left: 15px;
     }
+    .navbar{
+        border:none;
+        border-radius: 0px;
+    }
+
+    .navbar-footer{
+        margin-bottom:0px !important;
+        position: static;
+        bottom: 0px;
+    }
+
+    .navbar-footer:after{
+        content:"";
+        margin:0px auto;
+        padding:0px;
+    }
 
 }

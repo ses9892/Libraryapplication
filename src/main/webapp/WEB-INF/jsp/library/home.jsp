@@ -1,9 +1,158 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <jsp:include page="../LayOut/header.jsp"></jsp:include>
+<div class="container-fluid">
+    <div class="masthead">
+        <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#bs-carousel" data-slide-to="1"></li>
+                <li data-target="#bs-carousel" data-slide-to="2"></li>
+            </ol>
 
-
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item slides active">
+                    <div class="slide-1"></div>
+                    <div class="hero">
+                        <hgroup>
+                            <h1><spring:message code="sliderImg.firstMain"/> </h1>
+                            <h3><spring:message code="sliderImg.firstMain.subtext"/></h3>
+                        </hgroup>
+                        <a name="btn-save" class="btn btn-hero btn-lg" role="button"><spring:message code="sliderImg.btn1"/></a>
+                    </div>
+                </div>
+                <div class="item slides">
+                    <div class="slide-2"></div>
+                    <div class="hero">
+                        <hgroup>
+                            <h1><spring:message code="sliderImg.SecondMain"/></h1>
+                            <h3><spring:message code="sliderImg.SecondMain.subText"/></h3>
+                        </hgroup>
+                        <a name="myPage" class="btn btn-hero btn-lg" role="button"><spring:message code="sliderImg.btn2"/></a>
+                    </div>
+                </div>
+                <div class="item slides">
+                    <div class="slide-3"></div>
+                    <div class="hero">
+                        <hgroup>
+                            <h1><spring:message code="sliderImg.ThirdMain"/></h1>
+                            <h3><spring:message code="sliderImg.ThirdMain.subText"/></h3>
+                        </hgroup>
+                        <button class="btn btn-hero btn-lg" role="button" id="itemLang"
+                                data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">
+                            <spring:message code="sliderImg.btn3"/>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 
 
 
 </div><!-- /.container-fluid -->
+<script>
+    $(document).ready(function()
+    {
+        /* smooth scrolling for scroll to top */
+        $('#to-top').bind('click', function()
+        {
+            $('body,html').animate({
+                    scrollTop: 0},
+                2500);
+        });
+
+        //Easing Scroll replace Anchor name in URL and Offset Position
+        $(function(){
+            $('a[href*=#]:not([href=#])').click(function()
+            {
+                if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top -420
+                        }, 3500, 'easeOutBounce');
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+    $(document).ready(function(){
+        $(".dropdown").hover(
+            function() {
+                $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
+                $(this).toggleClass('open');
+            },
+            function() {
+                $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
+                $(this).toggleClass('open');
+            }
+        );
+    });
+    $(document).ready(function()
+    {
+
+        // Closes the sidebar menu on menu-close button click event
+        $("#menu-close").click(function(e)							//declare the element event ...'(e)' = event (shorthand)
+        {
+            // - will not work otherwise")
+            $("#sidebar-wrapper").toggleClass("active");			//instead on click event toggle active CSS element
+            e.preventDefault(); 									//prevent the default action ("Do not remove as the code
+
+            /*!
+            ======================= Notes ===============================
+            * see: .sidebar-wrapper.active in: style.css
+            ==================== END Notes ==============================
+            */
+        });															//Close 'function()'
+
+        // Open the Sidebar-wrapper on Hover
+        $("#menu-toggle").hover(function(e)							//declare the element event ...'(e)' = event (shorthand)
+        {
+            $("#sidebar-wrapper").toggleClass("active",true);		//instead on click event toggle active CSS element
+            e.preventDefault();										//prevent the default action ("Do not remove as the code
+        });
+
+        $("#menu-toggle").bind('click',function(e)					//declare the element event ...'(e)' = event (shorthand)
+        {
+            $("#sidebar-wrapper").toggleClass("active",true);		//instead on click event toggle active CSS element
+            e.preventDefault();										//prevent the default action ("Do not remove as the code
+        });															//Close 'function()'
+
+        $('#sidebar-wrapper').mouseleave(function(e)				//declare the jQuery: mouseleave() event
+            // - see: ('//api.jquery.com/mouseleave/' for details)
+        {
+            /*! .toggleClass( className, state ) */
+            $('#sidebar-wrapper').toggleClass('active',false);		/* toggleClass: Add or remove one or more classes from each element
+																in the set of matched elements, depending on either the class's
+																presence or the value of the state argument */
+            e.stopPropagation();									//Prevents the event from bubbling up the DOM tree
+            // - see: ('//api.jquery.com/event.stopPropagation/' for details)
+
+            e.preventDefault();										// Prevent the default action of the event will not be triggered
+            // - see: ('//api.jquery.com/event.preventDefault/' for details)
+        });
+    });
+    // Closes the sidebar menu on menu-close button click event
+    $("#menu-close").click(function(e)							//declare the element event ...'(e)' = event (shorthand)
+    {
+        // - will not work otherwise")
+        $("#sidebar-wrapper").toggleClass("active");			//instead on click event toggle active CSS element
+        e.preventDefault(); 									//prevent the default action ("Do not remove as the code
+
+        /*!
+        ======================= Notes ===============================
+        * see: .sidebar-wrapper.active in: style.css
+        ==================== END Notes ==============================
+        */
+    });
+</script>
 <jsp:include page="../LayOut/footer.jsp"></jsp:include>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:replace="/LayOut/header"></div>
-<div th:replace="/LayOut/mypage"></div>
+<div th:replace="LayOut/header"></div>
+<div th:replace="LayOut/mypage"></div>
 </div><!-- /.container-fluid -->
 <div class='span8 main'>
     <input type="hidden" name="flag" value="infoChange">
@@ -33,7 +33,7 @@
         </div>
     </form>
 
-<div th:replace="/LayOut/footer"></div>
+<div th:replace="LayOut/footer"></div>
 <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
 <link rel="stylesheet" th:href="@{/css/mypage.css}">
 </div>

@@ -46,7 +46,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler i
         responseData.setCode(ResponseDataStatus.SUCCESS);
         responseData.setStatus(ResponseDataStatus.SUCCESS);
         HashMap<String,Object> items = new HashMap<>();
-        items.put("url" , "/library");
+        items.put("url" , "/library?lang=kr");
         items.put("meg","반가워요^^");
         items.put("token",Token);
         responseData.setItem(items);

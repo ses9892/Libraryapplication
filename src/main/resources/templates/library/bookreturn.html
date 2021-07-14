@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{/css/bookreturn.css}">
+<div th:replace="/LayOut/header"></div>
+<div th:replace="/LayOut/mypage"></div>
+</div><!-- /.container-fluid -->
+<div class='span8 main' style="padding-left: 10px; text-align: center">
+    <div class="row">
+        <section class="content">
+            <div class="col-md-8 col-lg-8 col-sm-8">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success btn-filter active" id="allbtn" data-target="book-all">전체</button>
+                                <button type="button" class="btn btn-warning btn-filter" data-target="book-favorites">즐겨찾기</button>
+                            </div>
+                        </div>
+                        <table class="table table-filter">
+                            <th:block th:each="book:${list}">
+                                    <div th:switch="${book.favorites}">
+                                        <tr th:case="true" data-status="book-favorites">
+                                        <tr th:case="false" data-status="book-all">
+                                    </div>
+                                    <td>
+                                        <div class="ckbox">
+                                            <input name="checkbox" type="checkbox" th:id="'checkbox'+${book.idx}" th:value="${book.idx}">
+                                            <label th:for="'checkbox'+${book.idx}"></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div th:switch="${book.favorites}">
+                                        <a class="star" name="favorites" th:case="false" th:id="'favorites'+${book.idx}">
+                                            <i class="glyphicon glyphicon-star"></i>
+                                        </a>
+                                        <a class="star-checked" style="color:#F0AD4E;" name="favorites" th:case="true" th:id="'favorites'+${book.idx}">
+                                            <i class="glyphicon glyphicon-star"></i>
+                                        </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                        <span class="media-meta pull-right" th:text="${#dates.format(book.borrowedBookDto.return_date,'yyyy-MM-dd')}">
+                                                        </span>
+                                                <div class="title">
+                                                    [[${book.name}]]
+                                                    <a class="media-meta">[[${book.author}]]</a>
+                                                    <span class="pull-right pagado">
+                                                            <font color="red" th:if="${book.borrow &&
+                                                            (now.month+1)==(book.borrowedBookDto.return_date.month+1) &&
+                                                            (now.date+1)==(book.borrowedBookDto.return_date.date+1)}">반납예정</font>
+                                                            <p th:unless="${book.borrow &&
+                                                            (now.month+1)==(book.borrowedBookDto.return_date.month+1) &&
+                                                            (now.date+1)==(book.borrowedBookDto.return_date.date+1)}">대출중</p>
+                                                     </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    </tr> <!-- tr.....end -->
+                            </th:block>
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="text-right">
+                            <a id="book-return" class="btn btn-danger">반납하기</a>
+                            <a id="book-extend" class="btn btn-primary">연장하기</a>
+                            <a id="book-select" class="btn btn-warning">도서보기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 col-md-7 text-center">
+                <p>I created this because I loved the design done by <a th:href="@{http://bootsnipp.com/maridlcrmn}" target="_blank">maridlcrmn</a> on her <a href="http://bootsnipp.com/snippets/ZkpRl" target="_blank">Toggle navbar</a> but wanted a fancier slide down naviation when you click on the toggle button. However my code does come with a limitation, you will not be able to use dropdowns within your navigation if using this method because <code>overflow</code> is set to <strong>hidden</strong>. You can see this in action by trying to use the very last navigation on this snippet.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+
+
+</div>
+<script>
+    $('input[name=checkbox]').click(function (){
+        if($(this).prop('checked')){
+            $('input[type="checkbox"][name="checkbox"]').prop('checked',false);
+            $(this).prop('checked',true);
+        }
+    })
+    $('.btn-filter').on('click', function () {
+        var $target = $(this).data('target');
+        console.log($target)
+        if ($target != 'book-all') {
+            $('.table tr').css('display', 'none');
+            $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+            if($('.table tr[data-status="' + $target + '"]')[0]==null){
+                alert('즐겨찾기한 항목이 존재하지 않습니다.');
+                $('#allbtn').click();
+            }
+        } else {
+            $('.table tr').css('display', 'none').fadeIn('slow');
+        }
+    });
+    function logout() {
+        alert("로그아웃 완료!")
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('Type');
+        location.reload();
+        location.href='../../..'
+    }
+</script>
+<script th:src="@{/js/Token.js}"></script>
+<script th:src="@{/js/bookAction.js}"></script>
+<script th:src="@{/js/userAction.js}"></script>
+</html>

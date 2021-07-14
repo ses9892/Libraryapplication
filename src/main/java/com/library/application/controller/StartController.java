@@ -22,6 +22,7 @@ public class StartController {
     @Autowired
     MessageSource messageSource;
 
+
     @RequestMapping(value = "/")
     public String home() {
         log.info("tq");

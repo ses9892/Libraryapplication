@@ -54,7 +54,7 @@ public class BookServiceImpl implements BookService{
         int result =1;
         //파일이 업로드 되기전 확장자명 검사
         //첫번째 pdf 검사
-        if(!FilenameUtils.getExtension(files[0].getOriginalFilename()).equals("pdf")){
+        if(!FilenameUtils.getExtension(files[0].getOriginalFilename()).equalsIgnoreCase("pdf")){
             return false;
         }
         //그이후 다중업로드되는 그림파일검사

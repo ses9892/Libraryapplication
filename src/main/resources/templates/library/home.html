@@ -1,6 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<jsp:include page="../LayOut/header.jsp"></jsp:include>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/LayOut/header"></div>
 <div class="container-fluid">
     <div class="masthead">
         <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
@@ -17,32 +17,33 @@
                     <div class="slide-1"></div>
                     <div class="hero">
                         <hgroup>
-                            <h1><spring:message code="sliderImg.firstMain"/> </h1>
-                            <h3><spring:message code="sliderImg.firstMain.subtext"/></h3>
+                            <h1 th:text="${#messages.msg('sliderImg.firstMain')}"></h1>
+                            <h3 th:text="${#messages.msg('sliderImg.firstMain.subtext')}"></h3>
                         </hgroup>
-                        <a name="btn-save" class="btn btn-hero btn-lg" role="button"><spring:message code="sliderImg.btn1"/></a>
+                        <a name="btn-save" class="btn btn-hero btn-lg" role="button"
+                           th:text="${#messages.msg('sliderImg.btn1')}"></a>
                     </div>
                 </div>
                 <div class="item slides">
                     <div class="slide-2"></div>
                     <div class="hero">
                         <hgroup>
-                            <h1><spring:message code="sliderImg.SecondMain"/></h1>
-                            <h3><spring:message code="sliderImg.SecondMain.subText"/></h3>
+                            <h1 th:text="${#messages.msg('sliderImg.SecondMain')}"></h1>
+                            <h3 th:text="${#messages.msg('sliderImg.SecondMain.subText')}"></h3>
                         </hgroup>
-                        <a name="myPage" class="btn btn-hero btn-lg" role="button"><spring:message code="sliderImg.btn2"/></a>
+                        <a name="myPage" class="btn btn-hero btn-lg" role="button" th:text="${#messages.msg('sliderImg.btn2')}"></a>
                     </div>
                 </div>
                 <div class="item slides">
                     <div class="slide-3"></div>
                     <div class="hero">
                         <hgroup>
-                            <h1><spring:message code="sliderImg.ThirdMain"/></h1>
-                            <h3><spring:message code="sliderImg.ThirdMain.subText"/></h3>
+                            <h1 th:text="${#messages.msg('sliderImg.ThirdMain')}"></h1>
+                            <h3 th:text="${#messages.msg('sliderImg.ThirdMain.subText')}"></h3>
                         </hgroup>
                         <button class="btn btn-hero btn-lg" role="button" id="itemLang"
-                                data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">
-                            <spring:message code="sliderImg.btn3"/>
+                                data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3"
+                                th:text="${#messages.msg('sliderImg.btn3')}">
                         </button>
                     </div>
                 </div>
@@ -56,6 +57,7 @@
 
 
 </div><!-- /.container-fluid -->
+<div th:replace="/LayOut/footer"></div>
 <script>
     $(document).ready(function()
     {
@@ -155,4 +157,4 @@
         */
     });
 </script>
-<jsp:include page="../LayOut/footer.jsp"></jsp:include>
+</html>

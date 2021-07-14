@@ -37,18 +37,18 @@ body {
     background-color: #eee;
 }
 .table-filter .star {
-    color: #ccc;
+    color: #ccc !important;
     text-align: center;
     display: block;
 }
 .table-filter .star.star-checked {
-    color: #F0AD4E;
+    color: #F0AD4E !important;
 }
 .table-filter .star:hover {
     color: #ccc;
 }
 .table-filter .star.star-checked:hover {
-    color: #F0AD4E;
+    color: #F0AD4E !important;
 }
 .table-filter tbody tr td {
     padding: 10px;

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/LayOut/header"></div>
+<link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{/css/booksave.css}">
+<link rel="stylesheet" th:href="@{/css/booklend.css}">
+<div class="container">
+    <div class="form-horizontal">
+        <div class="card-content">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <p>
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            대출가능 도서
+                        </a>
+                        <button class="btn btn-danger" id="notborrow" type="button" >
+                            대출불가능 도서
+                        </button>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <div class="col-xs-8 col-sm-8">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="items">분야</label>
+                                        <select name="topic" id="select-topic" class="form-control items" style="float: left">
+                                            <option value="all" selected>목록을 선택해주세요</option>
+                                            <option value="IT">IT</option>
+                                            <option value="health">건강</option>
+                                            <option value="social">사회</option>
+                                            <option value="religion">종교</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!--container-->
+<div class="container" style="padding-bottom: 20px">
+    <hr style="margin-top: 0"/>
+    <div class="row">
+            <div class="col-md-4 col-sm-6" th:each="book:${bookList}">
+                <div th:with="bookSelect='/library/book?idx='+${book.idx}">
+                    <div class="product-grid">
+                        <div class="product-image">
+                            <a th:href="${bookSelect}">
+                                <img class="pic-1 pic" th:src="@{'/img/'+${book.save_name}}" th:alt="${book.save_name}">
+                            </a>
+                            <ul class="social">
+                                <li><a th:href="${bookSelect}" data-tip="도서 보기"><i class="fa fa-search"></i></a></li>
+                                <li><a onclick="" data-tip="찜하기" id="cart"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                                <span class="product-new-label" th:if="${book.borrow}" style="padding: 4px 10px; font-size: 20px; background-color: hotpink; font-weight: bold;">대출불가</span>
+                                <span class="product-new-label"  th:if="${!book.borrow}" style="padding: 4px 10px; font-size: 20px; background-color: #67b168; font-weight: bold;">대출가능</span>
+                        </div>
+
+                        <ul class="rating">
+                            <li>
+                                <span class="glyphicon glyphicon-heart">&nbsp;</span>
+                            </li>
+                        </ul>
+
+
+
+                        <div class="product-content">
+                            <h3 class="title"><a th:href="${bookSelect}" th:text="${book.name}"></a></h3>
+                            <div class="price">
+                            <div th:text="${book.author}"/>
+                                <p th:text="|${book.topic},${book.topic2}|"/>
+                            </div>
+                            <a class="add-to-cart" onclick="">찜하기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<script>
+    $(function (){
+        var data=window.location.pathname;
+        const words = data.split('/');
+        $('#select-topic').select().val(words[3]);
+
+    })
+</script>
+<div th:replace="/LayOut/footer"></div>
+</html>

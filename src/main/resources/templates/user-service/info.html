@@ -1,69 +1,63 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="../LayOut/header.jsp"></jsp:include>
-<jsp:include page="../LayOut/mypage.jsp"></jsp:include>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/LayOut/header"></div>
+<div th:replace="/LayOut/mypage"></div>
 </div><!-- /.container-fluid -->
 <div class='span8 main'>
-    <form action="/user-service/user/${user.userId}" method="post" onsubmit="return check()" >
+    <form th:action="@{'/user-service/user/'+${user.userId}}" method="post" onsubmit="return check()" >
         <div class="panel panel-default">
             <div class="panel-heading">Info</div>
             <div class="panel-body">
                 <div class="form-group">
                     <div class="col-md-12"><strong>성명</strong></div>
                     <div class="col-md-12">
-                        <input type="text" class="form-control" name="name" value="${user.name}" readonly />
-                        <input type="hidden" name="idx" value="${user.idx}"/>
+                        <input type="text" class="form-control" name="name" th:value="${user.name}" readonly />
+                        <input type="hidden" name="idx" th:value="${user.idx}"/>
                     </div>
                 </div>
-                    <div class="form-group">
-                        <div class="col-md-12"><strong>ID</strong></div>
-                        <div class="col-md-12">
-                            <input type="text" name="userId" class="form-control" value="${user.userId}" readonly />
-                        </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>ID</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="userId" class="form-control" th:value="${user.userId}" readonly />
                     </div>
+                </div>
                 <div class="form-group">
                     <div class="col-md-6 col-xs-12">
                         <strong>비밀번호</strong>
-                        <input type="password" name="pwd" class="form-control" value="" />
+                        <input type="password" name="pwd" class="form-control" th:value="null" />
                     </div>
                     <div class="span1"></div>
                     <div class="col-md-6 col-xs-12">
                         <strong>비밀번호 확인</strong>
-                        <input type="password" name="pwdCheck" class="form-control" value="" />
+                        <input type="password" name="pwdCheck" class="form-control" th:value="null" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12"><strong>Email</strong></div>
                     <div class="col-md-12">
-                        <input type="text" name="email" class="form-control" value="${user.email}" />
+                        <input type="text" name="email" class="form-control" th:value="${user.email}" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12"><strong>P.H</strong></div>
                     <div class="col-md-12">
-                        <input type="text" name="phone" class="form-control" value="${user.phone}" />
+                        <input type="text" name="phone" class="form-control" th:value="${user.phone}" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-3"><strong>대출 도서</strong></div>
                     <div class="col-md-3"><strong>성별</strong></div>
                     <div class="col-md-6"><strong>가입 날짜</strong></div>
-                    <div class="col-md-3"><input type="text" name="borrowed_book" class="form-control" value="${user.borrowed_book} 권"
-                    readonly/></div>
+                    <div class="col-md-3"><input type="text" name="borrowed_book" class="form-control" th:value="${user.borrowed_book} +'권'"
+                                                 readonly/></div>
                     <div class="col-md-3">
                         <select name="gender" class="form-control">
-                            <option value="men"
-                                    <c:if test="${user.gender eq 'men'}">selected</c:if>
-                            >남</option>
-                            <option value="women"
-                                    <c:if test="${user.gender eq 'women'}">selected</c:if>
-                            >여</option>
+                            <option value="men" th:if="${user.gender.equals('men')}" th:text="남"></option>
+                            <option value="women" th:if="${user.gender.equals('women')}" th:text="여"></option>
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" value="<fmt:formatDate value="${user.createdAt}" pattern="YYYY-MM-dd"/>" readonly>
+                        <input type="text" class="form-control" th:value="${#dates.format(user.createdAt,'yyyy-MM-dd')}" readonly>
                     </div>
                 </div>
                 <div class="form-group">
@@ -93,6 +87,7 @@
         return true;
     }
 </script>
-<jsp:include page="../LayOut/footer.jsp"></jsp:include>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/mypage.css">
+<div th:replace="/LayOut/footer"></div>
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+</html>

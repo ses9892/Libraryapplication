@@ -16,6 +16,7 @@ import org.springframework.boot.json.JsonParser;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
@@ -34,7 +35,6 @@ public class RestController {
         this.env = env;
         this.userService = service;
     }
-
     //회원가입요청
     @ResponseBody
     @PostMapping(value = "/register")

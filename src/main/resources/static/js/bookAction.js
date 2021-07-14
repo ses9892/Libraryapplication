@@ -33,7 +33,7 @@ var main = {
         }
     },
     notborrow : function (){
-        location.href='/library/booklend/not';
+        location.href='/library/list/not';
     },
 
     booklend : function () {

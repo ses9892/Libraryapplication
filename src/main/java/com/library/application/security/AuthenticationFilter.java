@@ -32,7 +32,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private Environment env;
 
     public AuthenticationFilter(UserService userService, Environment env, AuthenticationManager authenticationManager) {
-        super((AuthenticationManager) authenticationManager);
         this.userService = userService;
         this.env = env;
     }

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<div th:replace="/LayOut/header"></div>
+<html 	lang="ko"
+         xmlns:th="http://www.thymeleaf.org"
+         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div th:replace="LayOut/header"></div>
 <div class="container-fluid">
     <div class="masthead">
         <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
@@ -57,7 +60,7 @@
 
 
 </div><!-- /.container-fluid -->
-<div th:replace="/LayOut/footer"></div>
+<div th:replace="LayOut/footer"></div>
 <script>
     $(document).ready(function()
     {
@@ -103,6 +106,7 @@
     {
 
         // Closes the sidebar menu on menu-close button click event
+
         $("#menu-close").click(function(e)							//declare the element event ...'(e)' = event (shorthand)
         {
             // - will not work otherwise")

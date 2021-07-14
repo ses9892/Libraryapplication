@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 10004
   servlet:
     encoding:
       charset: UTF-8
@@ -8,12 +8,11 @@ server:
 
 spring:
   mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
     hiddenmethod:
       filter:
         enabled: true
+  thymeleaf:
+    prefix: classpath:/templates/
   datasource:
     driver-class-name:
       com.mysql.cj.jdbc.Driver

@@ -47,7 +47,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String os = System.getProperty("os.name").toLowerCase();
-        if(os.equals("win")){ }else{ LinuxChange(); }
+        if(os.equals("windows 10")){ }else{ LinuxChange(); }
         registry
                 .addResourceHandler("/img/**")
                 .addResourceLocations("file:/"+uploadImgesPath);

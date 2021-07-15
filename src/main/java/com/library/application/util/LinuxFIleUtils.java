@@ -20,7 +20,7 @@ public class LinuxFIleUtils {
     /**오늘날짜*/
     private final String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
     /** 업로드 경로*/
-    private final String LinuxUploadPath = "home/ec2-user/Library-Data/img";
+    private final String LinuxUploadPath = "/home/ec2-user/Library-Data/img";
 
     /** 서버에 생성할 파일명을 처리할 랜덤 문자열 반환*/
     private final String getRandomString(){

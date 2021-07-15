@@ -11,6 +11,7 @@ import com.library.application.mapper.BookMapper;
 import com.library.application.mapper.BorrowedBookMapper;
 import com.library.application.mapper.UserMapper;
 import com.library.application.util.FIleUtils;
+import com.library.application.util.LinuxFIleUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.io.FilenameUtils;
@@ -34,6 +35,7 @@ import java.util.*;
 public class BookServiceImpl implements BookService{
 
     private FIleUtils fIleUtils;
+    private LinuxFIleUtils linuxFIleUtils;
 
     private BookMapper bookMapper;
 
@@ -42,8 +44,9 @@ public class BookServiceImpl implements BookService{
     private BorrowedBookMapper borrowedBookMapper;
 
     @Autowired
-    public BookServiceImpl(FIleUtils fIleUtils, BookMapper bookMapper,UserMapper userMapper,BorrowedBookMapper borrowedBookMapper) {
+    public BookServiceImpl(FIleUtils fIleUtils,LinuxFIleUtils linuxFIleUtils, BookMapper bookMapper,UserMapper userMapper,BorrowedBookMapper borrowedBookMapper) {
         this.fIleUtils = fIleUtils;
+        this.linuxFIleUtils = linuxFIleUtils;
         this.bookMapper = bookMapper;
         this.userMapper = userMapper;
         this.borrowedBookMapper = borrowedBookMapper;
@@ -51,6 +54,7 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public boolean saveBook(BookDto bookDto, MultipartFile[] files) {
+        String os = System.getProperty("os.name").toLowerCase();
         int result =1;
         //파일이 업로드 되기전 확장자명 검사
         //첫번째 pdf 검사
@@ -71,7 +75,13 @@ public class BookServiceImpl implements BookService{
         //책번호 가져오기
        long book_idx =  bookMapper.selectBookIdx(bookDto);
         //가져온 책번호로 파일명,책번호 이미지 저장 + 경로에 이미지 업로드 (정보가 List<dto>로 들어옴)
-        List<FileImgDto> fileList = fIleUtils.uploadFiles(files,book_idx);
+        List<FileImgDto> fileList = null;
+        //리눅스 , 윈도우 서버별 처리
+        if(os.equals("windows 10")){
+            fileList= fIleUtils.uploadFiles(files,book_idx);
+        }else{
+            fileList= linuxFIleUtils.uploadFiles(files,book_idx);
+        }
         //List가 비었는지 확인한다. 비어있지 않다면
 //        if(CollectionUtils.isEmpty(fileList)==false){
         if(fileList.size()>1){

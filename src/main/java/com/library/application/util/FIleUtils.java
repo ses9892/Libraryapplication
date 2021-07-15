@@ -23,7 +23,7 @@ public class FIleUtils {
     /**오늘날짜*/
     private final String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
     /** 업로드 경로*/
-    private final String uploadPath = Paths.get("D:","library").toString();
+    private final String windowUploadPath = Paths.get("D:","library").toString();
 
     /** 서버에 생성할 파일명을 처리할 랜덤 문자열 반환*/
     private final String getRandomString(){
@@ -40,7 +40,7 @@ public class FIleUtils {
 
 
         /** uploadPath에 해당하는 폴더가 존재하지 않을시 부모 폴더에 해당 폴더 생성*/
-        File dir = new File(uploadPath);
+        File dir = new File(windowUploadPath);
         if(dir.exists()==false){
             dir.mkdirs(); //security 사용
         }
@@ -53,7 +53,7 @@ public class FIleUtils {
             String saveName = getRandomString()+"."+extenstion;
 
             /**업로드 경로에saveName과 동일한 이름을 가진 파일 생성*/
-            File target = new File(uploadPath,saveName); // 업로드 경로 , 이름
+            File target = new File(windowUploadPath,saveName); // 업로드 경로 , 이름
             file.transferTo(target);
             FileImgDto fileImgDto = null;
             if(extenstion.equals("pdf") || extenstion.equals("jpg") || extenstion.equals("png") || extenstion.equals("gif")){

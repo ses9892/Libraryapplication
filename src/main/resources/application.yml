@@ -46,6 +46,9 @@ custom:
   path:
     upload-imges: 'D:/library/'
     upload-pdf: 'D:/pdf/'
+  Linux:
+    upload-imges: 'home/ec2-user/Library-Data/img'
+    upload-pdf: 'home/ec2-user/Library-Data/pdf'
   location:
     bookSave: /library/booksave
     bookReturn: /library/bookreturn

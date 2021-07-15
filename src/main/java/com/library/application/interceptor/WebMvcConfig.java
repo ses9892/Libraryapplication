@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.core.env.Environment;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -15,15 +16,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     //토근을 복호화하고 유저의 토큰이맞는지 확인하는 클래스의 인스턴스
     private final BearerAuthInterceptor bearerAuthInterceptor;
-    private final String uploadImgesPath;
-    private final String uploadPdfPath;
+    private  String uploadImgesPath;
+    private  String uploadPdfPath;
+    private final Environment env;
 
     @Autowired
     public WebMvcConfig(BearerAuthInterceptor bearerAuthInterceptor, @Value("${custom.path.upload-imges}") String uploadImgesPath,
-                        @Value("${custom.path.upload-pdf}")String uploadPdfPath) {
+                        @Value("${custom.path.upload-pdf}")String uploadPdfPath,Environment env) {
         this.bearerAuthInterceptor = bearerAuthInterceptor;
         this.uploadImgesPath=uploadImgesPath;
         this.uploadPdfPath = uploadPdfPath;
+        this.env=env;
     }
 
     @Override
@@ -43,6 +46,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
      *  PDF , IMG , text 수정 할것*/
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.equals("win")){ }else{ LinuxChange(); }
         registry
                 .addResourceHandler("/img/**")
                 .addResourceLocations("file:/"+uploadImgesPath);
@@ -50,6 +55,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceHandler("/pdf/**")
                 .addResourceLocations("file:/"+uploadPdfPath);
         // img/filename , pdf/pdfFileName
+    }
+    public void LinuxChange(){
+        uploadPdfPath = env.getProperty("custom.Linux.upload-imges");
+        uploadPdfPath = env.getProperty("custom.Linux.upload-pdf");
     }
 
     @Bean

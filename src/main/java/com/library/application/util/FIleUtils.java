@@ -56,7 +56,7 @@ public class FIleUtils {
             File target = new File(windowUploadPath,saveName); // 업로드 경로 , 이름
             file.transferTo(target);
             FileImgDto fileImgDto = null;
-            if(extenstion.equals("pdf") || extenstion.equals("jpg") || extenstion.equals("png") || extenstion.equals("gif")){
+            if(extenstion.equalsIgnoreCase("pdf") || extenstion.equalsIgnoreCase("jpg") || extenstion.equalsIgnoreCase("png") || extenstion.equalsIgnoreCase("gif")){
                 fileImgDto = FileImgDto.builder()
                         .boardIdx(boardIdx)
                         .originalName(file.getOriginalFilename())

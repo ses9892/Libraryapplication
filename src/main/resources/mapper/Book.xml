@@ -69,8 +69,10 @@
         insert into `HyoHyunJinHo`.`Book`(name,author,publisher,userId,topic,topic2)
         values
             (#{name},#{author},#{publisher},#{userId},#{topic},#{topic2})
-
     </insert>
+    <select id="countBook" resultType="int" parameterType="com.library.application.dto.BookDto">
+        select count(*) from Book where name = #{name}
+    </select>
     <select id="selectAll" resultType="com.library.application.dto.BookDto" parameterType="String">
         <choose>
             <when test="flag=='all'">

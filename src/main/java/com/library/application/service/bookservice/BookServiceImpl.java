@@ -5,6 +5,7 @@ import com.library.application.dto.BookDto;
 import com.library.application.dto.BorrowedBookDto;
 import com.library.application.dto.FileImgDto;
 import com.library.application.dto.UserDto;
+import com.library.application.exception.BookDuplicationException;
 import com.library.application.exception.BookExtendException;
 import com.library.application.exception.BookNotFoundException;
 import com.library.application.mapper.BookMapper;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.awt.print.Book;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -70,8 +72,12 @@ public class BookServiceImpl implements BookService{
                 return false;
             }
         }
+        if(bookMapper.countBook(bookDto)>0){
+            throw new BookDuplicationException("<script>alert('현재 도서목록에 존재하는 도서입니다.'); history.go(-1);</script>");
+        }
         //책 정보 저장
         bookMapper.insertBook(bookDto);
+
         //책번호 가져오기
        long book_idx =  bookMapper.selectBookIdx(bookDto);
         //가져온 책번호로 파일명,책번호 이미지 저장 + 경로에 이미지 업로드 (정보가 List<dto>로 들어옴)

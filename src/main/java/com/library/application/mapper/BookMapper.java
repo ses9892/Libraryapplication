@@ -40,4 +40,6 @@ public interface BookMapper {
     void deleteByUserId(HashMap<String, Object> hashMap);
 
     String borrowCheck(HashMap<String, Object> hmap);
+
+    int countBook(BookDto bookDto);
 }

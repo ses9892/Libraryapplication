@@ -47,7 +47,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String os = System.getProperty("os.name").toLowerCase();
-        if(os.equals("windows 10")){ }else{ LinuxChange(); }
+        if(os.equals("windows 10")){
         registry
                 .addResourceHandler("/img/**")
                 .addResourceLocations("file:/"+uploadImgesPath);
@@ -55,10 +55,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceHandler("/pdf/**")
                 .addResourceLocations("file:/"+uploadPdfPath);
         // img/filename , pdf/pdfFileName
+        }else{ LinuxChange(registry); }
     }
-    public void LinuxChange(){
+    public void LinuxChange(ResourceHandlerRegistry registry){
         uploadPdfPath = env.getProperty("custom.Linux.upload-imges");
         uploadPdfPath = env.getProperty("custom.Linux.upload-pdf");
+        registry
+                .addResourceHandler("/img/**")
+                .addResourceLocations("file:/home/ec2-user/Library-Data/img");
+        registry
+                .addResourceHandler("/pdf/**")
+                .addResourceLocations("file:/home/ec2-user/Library-Data/pdf");
     }
 
     @Bean

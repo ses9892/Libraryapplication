@@ -20,7 +20,7 @@ var main = {
             _this.favorites(this);
         })
         $('#book-select').click(function (){
-            _this.bookSelect(this);
+            _this.bookSelect();
         })
 
     },
@@ -126,10 +126,11 @@ var main = {
                 'Authorization':'bearer'+localStorage.getItem('jwt')
             },
             contentType: 'application/json; charset=utf-8'
-        }).done(function (url){
-            window.open(url);
+        }).done(function (data){
+            window.open(data)
         }).error(function (emeg){
-            alert(emeg);
+            alert(emeg.responseText);
+            location.reload();
         })
     }
 

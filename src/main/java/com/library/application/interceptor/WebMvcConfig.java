@@ -62,10 +62,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         uploadPdfPath = env.getProperty("custom.Linux.upload-pdf");
         registry
                 .addResourceHandler("/img/**")
-                .addResourceLocations("file:/home/ec2-user/Library-Data/img");
+                .addResourceLocations("file://home/ec2-user/Library-Data/img");
         registry
                 .addResourceHandler("/pdf/**")
-                .addResourceLocations("file:/home/ec2-user/Library-Data/pdf");
+                .addResourceLocations("file://home/ec2-user/Library-Data/pdf");
     }
 
     @Bean

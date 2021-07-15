@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 
 public class LoginFailedHandler implements AuthenticationFailureHandler {
@@ -23,6 +24,7 @@ public class LoginFailedHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException e) throws IOException, ServletException {
+        String userId = request.getParameter("userId");
         ObjectMapper mapper = new ObjectMapper();	//JSON 변경용
         ResponseData responseData = new ResponseData();
         responseData.setCode(ResponseDataStatus.ERROR);
@@ -30,6 +32,7 @@ public class LoginFailedHandler implements AuthenticationFailureHandler {
         HashMap<String,Object> items = new HashMap<>();
         items.put("url" , "/");
         items.put("meg","아이디와 비밀번호를 확인해 주세요");
+        items.put("userId",userId);
         responseData.setItem(items);
         response.setCharacterEncoding("UTF-8");
         response.getWriter().print(mapper.writeValueAsString(responseData));

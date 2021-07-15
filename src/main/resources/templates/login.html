@@ -26,7 +26,7 @@
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input name="remember" type="checkbox" value="Remember Me"> Remember Me
+                                <input name="remember" type="checkbox" value="remember"> Remember Me
                             </label>
                             <a style="float: right" th:href="@{/register}">회원가입</a>
                         </div>
@@ -40,5 +40,13 @@
     </div>
 </div>
 <script th:src="@{/js/index.js}"></script>
+<script>
+    $(function (){
+        if(localStorage.getItem("remember") !=null){
+            $('input[name=remember]').prop('checked','checked');
+            $('#userId').val(localStorage.getItem("remember"));
+        }
+    })
+</script>
 </body>
 </html>

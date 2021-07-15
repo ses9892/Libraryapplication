@@ -49,6 +49,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler i
         items.put("url" , "/library?lang=kr");
         items.put("meg","반가워요^^");
         items.put("token",Token);
+        items.put("userId",request.getParameter("userId"));
         responseData.setItem(items);
         response.setCharacterEncoding("UTF-8");
         response.getWriter().print(mapper.writeValueAsString(responseData));

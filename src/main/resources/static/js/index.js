@@ -62,10 +62,14 @@ var main = {
             }
         }).done(function (token) {
             console.log(token)
+            if($('input[name=remember]').prop("checked")){
+                localStorage.setItem("remember",token.item.userId);
+            }else {
+                localStorage.clear()
+            }
                 localStorage.setItem("jwt",token.item.token);
                 alert(token.item.meg);
                 location.href=token.item.url
-
         }).error(function (error) {
         })
     },

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ import com.library.application.exception.UserRegisterErrorException;
 import com.library.application.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -55,5 +59,13 @@ public class MainRestController {
         String result = userService.duplication(idCheck);
         return result;
     }
-
+    @ResponseBody
+    @PostMapping(value = "/email")
+    public ResponseEntity<String> emailSend(@RequestBody HashMap<String,Object> data) throws MessagingException {
+        String email = data.get("id")+"@"+data.get("mail");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json;charset=utf-8");
+        String key =userService.emailSend(email);
+        return new ResponseEntity<String>(key,headers,HttpStatus.OK);
+    }
 }

@@ -2,7 +2,6 @@ package com.library.application.service;
 
 import com.library.application.dto.Role;
 import com.library.application.dto.UserDto;
-import com.library.application.exception.BookNotFoundException;
 import com.library.application.exception.UserLoginErrorException;
 import com.library.application.exception.UserNotDeleteException;
 import com.library.application.mapper.BookMapper;
@@ -21,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.util.*;
 
 @Service
@@ -35,15 +35,19 @@ public class UserServiceImpl implements UserService {
     Environment env;
 
     BCryptPasswordEncoder passwordEncoder;
+
+    MailService mailSender;
+
     @Autowired
     public UserServiceImpl(UserMapper userMapper, BookMapper bookMapper,
                            BorrowedBookMapper borrowedBookMapper, Environment env,
-                           BCryptPasswordEncoder passwordEncoder ) {
+                           BCryptPasswordEncoder passwordEncoder, MailService mailSender) {
         this.userMapper = userMapper;
         this.bookMapper = bookMapper;
         this.borrowedBookMapper = borrowedBookMapper;
         this.env = env;
         this.passwordEncoder = passwordEncoder;
+        this.mailSender = mailSender;
     }
     @Override
     public void save(String test) {
@@ -144,6 +148,41 @@ public class UserServiceImpl implements UserService {
 
 
     }
+
+    @Override
+    public String emailSend(String email) throws MessagingException{
+        String encryptKey = certified_key();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("<!DOCTYPE html>");
+        buffer.append("<html>");
+        buffer.append("<head>");
+        buffer.append("</head>");
+        buffer.append("<body>");
+        buffer.append(" <div"+
+                "style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 400px; height: 600px; border-top: 4px solid #02b875; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">"+
+                "	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">"+
+                "		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">Library</span><br />"+
+                "		<span style=\"color: #02b875\">메일인증</span> 안내입니다."+
+                "	</h1>\n"+
+                "	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">"+
+                "		Library에 오신걸 환영합니다.<br />"+
+                "		아래 <b style=\"color: #02b875\">'암호'</b> 를 보시고 회원가입 이메일 인증을 완료해 주세요.<br />"	+
+                "		감사합니다."+
+                "	</p>"+
+                "	<a style=\"color: #FFF; text-decoration: none; text-align: center;\""+
+                "	target=\"_blank\">"+
+                "		<p"+
+                "			style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #02b875; line-height: 45px; vertical-align: middle; font-size: 16px;\">"+
+                "			"+encryptKey+"</p>"+
+                "	</a>"+
+                "	<div style=\"border-top: 1px solid #DDD; padding: 5px;\"></div>"+
+                " </div>");
+        buffer.append("</body>");
+        buffer.append("</html>");
+        mailSender.sendMail(email,"[Library 이메일 인증]",buffer.toString());
+        return encryptKey;
+    }
+
     //UserDetail 인증
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -155,4 +194,21 @@ public class UserServiceImpl implements UserService {
         return new User(dto.getUserId(),dto.getPwd(),authorities);
         //리턴된 데이터(유저)는 SecurityContext 의 Authentication에 등록되어 인증정보를 갖춘다.
     }
+    private String certified_key() {
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        int num = 0;
+
+        do {
+            num = random.nextInt(75) + 48;
+            if ((num >= 48 && num <= 57) || (num >= 65 && num <= 90) || (num >= 97 && num <= 122)) {
+                sb.append((char) num);
+            } else {
+                continue;
+            }
+
+        } while (sb.length() < 10);
+        return sb.toString();
+    }
+
 }

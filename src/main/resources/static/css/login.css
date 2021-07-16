@@ -36,3 +36,12 @@
 .btn-facebook.active {
     background-color: #0d2456 \9 !important;
 }
+.email-group{
+    display: inline-block;width: 80%;
+}
+.auth-group{
+    width: 18%;
+}
+.form-control{
+    margin-top: 3px;
+}

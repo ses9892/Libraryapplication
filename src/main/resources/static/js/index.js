@@ -19,6 +19,12 @@ var main = {
         $('#passwordCheck').keyup(function (){
             _this.passwordCheck();
         })
+        $('#email-send').click(function (){
+            _this.emailSend();
+        })
+        $('#email-code-btn').click(function (){
+            _this.emailCodeCheck();
+        })
     },
     register : function (){
         var vo ={
@@ -106,7 +112,50 @@ var main = {
             $('#checkResult').html('<div ></div>');
         }
 
-    }//passwordCheck...end
+    //passwordCheck...end
+    },
+    emailSend : function (){
+        // email-code , email-code-btn
+        var email = $('#email').val().split('@');
+        var data = {id : email[0],mail : email[1]}
+        $.ajax({
+            type: "POST",
+            url: "/email",
+            dataType: 'text',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (authKey){
+            alert('메일이 발송 되었습니다.');
+            if($.cookie('authKey') !=null){
+                $.removeCookie('authKey');
+            }
+            $.cookie('authKey',authKey);
+            $('#email-code').prop("type","text");
+            $('#email-code-btn').prop("type","button");
+            $('#email').prop("readOnly","readOnly");
+        }).error(function (error){
+            console.log(error);
+
+        })
+    },
+    emailCodeCheck : function (){
+        var authKey = $.cookie('authKey');
+        var inputKey = $('#email-code').val().trim();
+        if(inputKey.length==0){
+            alert('인증번호를 입력해주세요');
+            return false;}
+        if(inputKey!=authKey) {
+            alert('인증번호가 올바르지 않습니다.');
+            return false;}
+        alert('인증완료 되었습니다.');
+        $('#email-code').prop("type","hidden");
+        $('#email-code-btn').prop("type","hidden");
+        $('#email').prop("readOnly","readOnly");
+        $('#email-send').prop("disabled","disabled");
+
+
+
+    }
 }  /**  main ...end*/
 
 main.init();

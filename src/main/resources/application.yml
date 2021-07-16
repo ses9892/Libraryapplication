@@ -33,6 +33,14 @@ spring:
     user:
       name: admin
       password: 1111
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ses1238@gmail.com
+    password: tdrrqd99
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
 
 mybatis:
   type-aliases-package: com/library/application/ResponseVo/**

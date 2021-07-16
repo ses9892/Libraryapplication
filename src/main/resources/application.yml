@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 10004
   servlet:
     encoding:
       charset: UTF-8
@@ -55,5 +55,6 @@ custom:
     userDelete: /user-service/user/
     autoReturn: /user-service/user/auto_return/
     bookSelect: /pdfview?file=
+    test: tt
 #http://localhost:10004/user-service/info/admin
 

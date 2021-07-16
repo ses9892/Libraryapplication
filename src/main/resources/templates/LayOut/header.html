@@ -42,9 +42,11 @@
                     </li>
                     <li><a name="myPage" th:text="${#messages.msg('library.mypage')}"></a></li>
                     <li>
-                        <a id="logOut" class="btn btn-default btn-outline btn-circle" onclick="logout()">
-                            LogOut
-                        </a>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" id="logOut" class="btn btn-default btn-outline btn-circle">
+                                LogOut
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>

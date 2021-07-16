@@ -21,11 +21,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
 
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     Environment env;
+
     @Autowired
     public LoginSuccessHandler(Environment env) {
         this.env = env;
@@ -54,6 +56,5 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler i
         response.setCharacterEncoding("UTF-8");
         response.getWriter().print(mapper.writeValueAsString(responseData));
         response.getWriter().flush();
-
     }
 }

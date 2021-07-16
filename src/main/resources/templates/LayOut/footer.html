@@ -11,13 +11,5 @@
 <script th:src="@{/js/Token.js}"></script>
 <script th:src="@{/js/bookAction.js}"></script>
 <script th:src="@{/js/userAction.js}"></script>
-<script>
-    function logout() {
-        localStorage.removeItem('jwt');
-        localStorage.removeItem('Type');
-        location.reload();
-        location.href = "/logout";
-    }
-</script>
 </body>
 </html>

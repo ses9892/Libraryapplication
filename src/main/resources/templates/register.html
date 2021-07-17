@@ -31,10 +31,10 @@
                                 <div class="form-control" id="checkResult"></div>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="이름" name="name" id="name" type="text" value="">
+                                <input class="form-control nP" placeholder="이름" name="name" id="name" type="text" value="">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="010-XXXX-XXXX" name="phone" id="phone" type="text" value="">
+                                <input class="form-control nP" placeholder="010-XXXX-XXXX" name="phone" id="phone" type="text" value="">
                             </div>
                             <div class="form-group">
                                 <input class="form-control email-group" placeholder="XXXX@XXXXX.XXX" name="email" id="email" type="text" value="">
@@ -55,5 +55,10 @@
 </div>
 <script th:src="@{/js/index.js}"></script>
 <script th:src="@{/js/jquery.cookie.js}"></script>
+<script>
+    var idcheck = false;
+    var pwdCheck = false;
+    var emailCheck = false;
+</script>
 </body>
 </html>

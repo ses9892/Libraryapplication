@@ -15,15 +15,21 @@ var main = {
         })
         $('#duplicate-check').click(function (){
             _this.duplication();
+            _this.btnEnable();
         })
         $('#passwordCheck').keyup(function (){
             _this.passwordCheck();
+            _this.btnEnable();
         })
         $('#email-send').click(function (){
             _this.emailSend();
         })
         $('#email-code-btn').click(function (){
             _this.emailCodeCheck();
+            _this.btnEnable();
+        })
+        $('.nP').keyup(function (){
+            _this.btnEnable();
         })
     },
     register : function (){
@@ -92,11 +98,13 @@ var main = {
         }).done(function (result){
             if(result){
                 alert('사용가능한 아이디 입니다.')
-                $('#register').attr("disabled",false)
+                idcheck=true;
+                // $('#register').attr("disabled",false)
             }
             if(!result){
                 alert('중복된 아이디입니다. 다시확인해주세요.')
-                $('#register').attr("disabled",true)
+                idcheck=false
+                // $('#register').attr("disabled",true)
             }
         })
     },
@@ -105,8 +113,10 @@ var main = {
         console.log(($('#passwordCheck').val().trim().length));
         if($('#password').val().trim()===$('#passwordCheck').val().trim()){
             $('#checkResult').html('<div style="color: #4cae4c">패스워드가 일치합니다</div>');
+            pwdCheck=true;
         }else{
             $('#checkResult').html('<div style="color: #b92c28">패스워드가 일치하지 않습니다.</div>')
+            pwdCheck=false;
         }
         if($('#passwordCheck').val().trim().length==0){
             $('#checkResult').html('<div ></div>');
@@ -148,13 +158,22 @@ var main = {
             alert('인증번호가 올바르지 않습니다.');
             return false;}
         alert('인증완료 되었습니다.');
+        emailCheck=true;
         $('#email-code').prop("type","hidden");
         $('#email-code-btn').prop("type","hidden");
         $('#email').prop("readOnly","readOnly");
         $('#email-send').prop("disabled","disabled");
 
-
-
+    },
+    btnEnable : function (){
+        var name = $('#name').val().trim()
+        var ph = $('#phone').val().trim()
+        if(name.length==0 || ph.length==0){
+            return false;
+        }
+        if(idcheck && pwdCheck && emailCheck){
+            $('#register').attr("disabled",false)
+        }
     }
 }  /**  main ...end*/
 

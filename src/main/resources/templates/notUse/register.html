@@ -39,11 +39,8 @@
                             <div class="form-group">
                                 <input class="form-control email-group" placeholder="XXXX@XXXXX.XXX" name="email" id="email" type="text" value="">
                                     <input type="button" class="btn btn-sm btn-danger auth-group" id="email-send" th:value="'발송'"/>
-                                <input class="form-control email-group" id="email-code" type="hidden" value="">
-                                <input type="hidden" class="btn btn-sm btn-default auth-group" id="email-code-btn" value="인증">
-                            </div>
-                            <div class="form-group">
-                                남<input type="checkbox" name="gender" value="men"> 여 <input type="checkbox" name="gender" value="women">
+                                <input class="email-group" id="email-code" type="hidden" value="">
+                                <input type="hidden" class="btn btn-sm btn-default auth-group" id="email-code-btn" value="인증" style="width: 20%">
                             </div>
                             <input class="btn btn-lg btn-success btn-block" id="register" type="button" value="회원가입" disabled="disabled">
                         </fieldset>

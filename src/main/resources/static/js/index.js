@@ -34,12 +34,11 @@ var main = {
     },
     register : function (){
         var vo ={
-            userId: $('#userId').val(),
-            pwd: $('#password').val(),
+            userId: $('#userId2').val(),
+            pwd: $('#password2').val(),
             name: $('#name').val(),
             phone: $('#phone').val(),
             email: $('#email').val(),
-            gender: $('input:checkbox[name=gender]:checked').val()
         }
         console.log(vo);
         $.ajax({
@@ -87,7 +86,7 @@ var main = {
     },
     duplication : function (){
         var data = {
-            userId: $('#userId').val()
+            userId: $('#userId2').val()
         }
         $.ajax({
             type: "POST",
@@ -111,11 +110,11 @@ var main = {
     passwordCheck : function (){
         console.log('d')
         console.log(($('#passwordCheck').val().trim().length));
-        if($('#password').val().trim()===$('#passwordCheck').val().trim()){
-            $('#checkResult').html('<div style="color: #4cae4c">패스워드가 일치합니다</div>');
+        if($('#password2').val().trim()===$('#passwordCheck').val().trim()){
+            $('#checkResult').html('<div style="color:black;font-weight: bold;font:inherit" >패스워드가 일치합니다</div>');
             pwdCheck=true;
         }else{
-            $('#checkResult').html('<div style="color: #b92c28">패스워드가 일치하지 않습니다.</div>')
+            $('#checkResult').html('<div style="color: red ;font-weight: bold;font:inherit">패스워드가 일치하지 않습니다.</div>')
             pwdCheck=false;
         }
         if($('#passwordCheck').val().trim().length==0){
@@ -172,7 +171,8 @@ var main = {
             return false;
         }
         if(idcheck && pwdCheck && emailCheck){
-            $('#register').attr("disabled",false)
+            $('#register').attr("disabled",false);
+            $('#register').attr("style","background:red;")
         }
     }
 }  /**  main ...end*/

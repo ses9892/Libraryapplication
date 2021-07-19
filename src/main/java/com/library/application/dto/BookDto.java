@@ -14,6 +14,7 @@ public class BookDto {
     private Boolean borrow;         //대출유무
     private String save_name;       //저장이미지
     private Boolean favorites;      //즐겨찾기 유무
+    private String detail;      //책 상세정보
 
     private BorrowedBookDto borrowedBookDto;        // 책 대출정보(대출일자,반납일자 등)
 

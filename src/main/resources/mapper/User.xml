@@ -6,8 +6,8 @@
         insert into users values (#{test})
     </insert>
     <insert id="register" parameterType="com.library.application.dto.UserDto">
-        insert into `HyoHyunJinHo`.`Users`(userId,name,pwd,phone,email,gender,role)
-        values (#{userId},#{name},#{pwd},#{phone},#{email},#{gender},#{role})
+        insert into `HyoHyunJinHo`.`Users`(userId,name,pwd,phone,email,role)
+        values (#{userId},#{name},#{pwd},#{phone},#{email},#{role})
     </insert>
 
     <select id="findByUserId" parameterType="java.util.HashMap" resultType="com.library.application.dto.UserDto">

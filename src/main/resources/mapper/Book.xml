@@ -20,7 +20,8 @@
         a1.userId,
         a1.topic2,
         a1.borrow,
-        a2.save_name
+        a2.save_name,
+        a1.detail
     </sql>
 
     <insert id="insertBookImg" parameterType="list">
@@ -66,9 +67,9 @@
     </select>
 
     <insert id="insertBook" parameterType="com.library.application.dto.BookDto">
-        insert into `HyoHyunJinHo`.`Book`(name,author,publisher,userId,topic,topic2)
+        insert into `HyoHyunJinHo`.`Book`(name,author,publisher,userId,topic,topic2,detail)
         values
-            (#{name},#{author},#{publisher},#{userId},#{topic},#{topic2})
+            (#{name},#{author},#{publisher},#{userId},#{topic},#{topic2},#{bookDetail})
     </insert>
     <select id="countBook" resultType="int" parameterType="com.library.application.dto.BookDto">
         select count(*) from Book where name = #{name}

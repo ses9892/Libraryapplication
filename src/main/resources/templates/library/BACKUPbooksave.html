@@ -3,7 +3,6 @@
 <div th:replace="LayOut/header"></div>
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
 <link rel="stylesheet" th:href="@{/css/booksave.css}">
-<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <div class="container">
     <form class="form-horizontal" th:action="@{/library/book}" method="post" enctype="multipart/form-data"onsubmit="return bookSaveCheck()">
         <div class="card-content">
@@ -52,14 +51,6 @@
                     </select>
                 </div>
             </div>
-            <div  class="form-group">
-                <label for="publisher" class="col-sm-2 control-label">상세정보</label>
-                <div class="col-sm-10">
-                    <textarea id="editor" class="ckeditor">
-                    </textarea>
-                    <input type="hidden" id="book-detail" name="detail"value="">
-                </div>
-            </div>
             <div class="form-group filebox bs3-primary">
                 <label for="file_0" class="col-sm-2 control-label">PDF</label>
                 <div class="col-sm-10">
@@ -89,18 +80,12 @@
             <div id="btnDiv" class="btn_wrap text-center">
                 <a onclick="history.back()" class="btn btn-default waves-effect waves-light">뒤로가기</a>
                 <button type="submit" class="btn btn-primary waves-effect waves-light">저장하기</button>
-                <button type="button" id="editorTest" class="btn btn-primary waves-effect waves-light">테스트</button>
             </div>
         </div>
     </form>
 </div>
 </div><!-- /.container-fluid -->
 <script>
-    $(function (){
-        $('#editorTest').click(function (){
-            console.log(CKEDITOR.instances.editor.getData());
-        })
-    })
     let fileIdx = 0; /*[- 파일 인덱스 처리용 전역 변수 -]*/
     let fileCnt = 1;
     function addFile(){
@@ -163,12 +148,8 @@
             alert('중복된 분야가 선택 되었습니다.')
             return false;
         }
-        $('#book-detail').val(CKEDITOR.instances.editor.getData());
         return true;
 
     }
-window.onload=function (){
-        CKEDITOR.replace('editor')
-}
 </script>
 </html>

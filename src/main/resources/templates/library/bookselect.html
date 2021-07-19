@@ -33,11 +33,11 @@
                         <div class="row">
                             <div class="col-sm-4 form-group">
                                 <label>저자</label>
-                                <p class="form-control" th:text="${data.author}"></p>
+                                <pre class="form-control" th:text="${data.author}"></pre>
                             </div>
                             <div class="col-sm-4 form-group">
                                 <label>출판사</label>
-                                <p class="form-control" th:text="${data.publisher}"></p>
+                                <pre class="form-control" th:text="${data.publisher}"></pre>
                             </div>
                             <div class="col-sm-4 form-group">
                                 <label>주제/주제2</label>
@@ -59,6 +59,10 @@
                                         <p style="color: green;float: right" th:if="${!data.borrow}">가능</p>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <pre th:utext="${data.detail}" style="background-color: white">
+                            </pre>
                         </div>
                         <hr size="2" class="bookline" style="margin-top: 0px">
                         <div class="col text-center">

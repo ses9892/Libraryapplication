@@ -13,9 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.library.application.ResponseVo.RequestUser;
 import com.library.application.dto.UserDto;
@@ -28,7 +26,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 
-@Controller
+@RestController
 @Slf4j
 public class MainRestController {
     @Autowired
@@ -37,7 +35,6 @@ public class MainRestController {
     UserService userService;
 
     //회원가입요청
-    @ResponseBody
     @PostMapping(value = "/register")
     public ResponseEntity<String> register(@RequestBody RequestUser user) throws JSONException {
         UserDto userDto = new ModelMapper().map(user,UserDto.class);
@@ -52,14 +49,12 @@ public class MainRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(jsonObject.toString());
     }
     //ID 중복확인
-    @ResponseBody
     @PostMapping(value = "/duplication")
     public String duplication(@RequestBody HashMap<String,Object> userId){
         String idCheck = (String) userId.get("userId");
         String result = userService.duplication(idCheck);
         return result;
     }
-    @ResponseBody
     @PostMapping(value = "/email")
     public ResponseEntity<String> emailSend(@RequestBody HashMap<String,Object> data) throws MessagingException {
         String email = data.get("id")+"@"+data.get("mail");
@@ -67,5 +62,14 @@ public class MainRestController {
         headers.add("Content-Type", "application/json;charset=utf-8");
         String key =userService.emailSend(email);
         return new ResponseEntity<String>(key,headers,HttpStatus.OK);
+    }
+    @PutMapping("/forgetPwd")
+    public ResponseEntity<String> forgetPwd(@RequestBody HashMap<String,Object> data) throws MessagingException, JSONException {
+        String email = userService.forgetPwd(data);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json;charset=utf-8");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("email",email);
+        return new ResponseEntity<String>(jsonObject.toString(),headers,HttpStatus.OK);
     }
 }

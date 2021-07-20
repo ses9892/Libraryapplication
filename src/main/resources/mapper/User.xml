@@ -62,6 +62,12 @@
         where userId = #{userId}
     </delete>
 
+    <update id="updateUserPwd" parameterType="HashMap">
+        update Users
+        set pwd = #{pwd}
+        where userId = #{userId}
+    </update>
+
 
 
 </mapper>

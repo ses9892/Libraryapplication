@@ -24,4 +24,6 @@ public interface UserService extends UserDetailsService {
     void deleteUser(String userId);
 
     String emailSend(String email) throws MessagingException;
+
+    String forgetPwd(HashMap<String, Object> data) throws MessagingException;
 }

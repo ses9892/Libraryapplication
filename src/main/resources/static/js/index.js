@@ -31,6 +31,9 @@ var main = {
         $('.nP').keyup(function (){
             _this.btnEnable();
         })
+        $('#idSerach').click(function (){
+            _this.PasswordReSet();
+        })
     },
     register : function (){
         var vo ={
@@ -174,6 +177,27 @@ var main = {
             $('#register').attr("disabled",false);
             $('#register').attr("style","background:red;")
         }
+    },
+    PasswordReSet: function (){
+        if($('#forgetId').val().trim().length==0){
+            alert('ID를 입력하고 다시 이용해주세요!');
+            location.reload();
+            return false;
+        }
+        var data =
+            {userId : $('#forgetId').val()}
+        $.ajax({
+            type: "PUT",
+            url: "/forgetPwd",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (succees){
+            $('#SearchingId').text(succees.email+"로 임시 비밀번호가 전송되었습니다.");
+        }).error(function (error){
+            $('#SearchingId').text(error.responseText);
+
+        })
     }
 }  /**  main ...end*/
 

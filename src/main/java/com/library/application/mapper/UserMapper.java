@@ -31,4 +31,6 @@ public interface UserMapper {
     void updateUserDate(UserDto userDto);
 
     void deleteByUserId(HashMap<String, Object> hashMap);
+
+    void updateUserPwd(HashMap<String, Object> data);
 }

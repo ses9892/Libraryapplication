@@ -1,6 +1,5 @@
 package com.library.application;
 
-import com.library.application.Handler.ChatHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

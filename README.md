@@ -14,7 +14,7 @@
 <li>Front : HTML , CSS , JS , BootStrap(3.xx) , JQuery , JSTL</li>
 <li>Back : SpringBoot(2.XX) , JSP , Mybatis , JWT </li>
 <li>DB : MySQL( AWS RDS )</li>
-<li>Server : Tomcat(WAR) , AWS</li>
+<li>Server : Tomcat(JAR) , AWS EC2</li>
 
 
 

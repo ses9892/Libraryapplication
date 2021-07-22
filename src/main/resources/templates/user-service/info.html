@@ -45,17 +45,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-3"><strong>대출 도서</strong></div>
-                    <div class="col-md-3"><strong>성별</strong></div>
+                    <div class="col-md-6"><strong>대출 도서</strong></div>
                     <div class="col-md-6"><strong>가입 날짜</strong></div>
-                    <div class="col-md-3"><input type="text" name="borrowed_book" class="form-control" th:value="${user.borrowed_book} +'권'"
+                    <div class="col-md-6"><input type="text" name="borrowed_book" class="form-control" th:value="${user.borrowed_book} +'권'"
                                                  readonly/></div>
-                    <div class="col-md-3">
-                        <select name="gender" class="form-control">
-                            <option value="men" th:if="${user.gender.equals('men')}" th:text="남"></option>
-                            <option value="women" th:if="${user.gender.equals('women')}" th:text="여"></option>
-                        </select>
-                    </div>
                     <div class="col-md-6">
                         <input type="text" class="form-control" th:value="${#dates.format(user.createdAt,'yyyy-MM-dd')}" readonly>
                     </div>

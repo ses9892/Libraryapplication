@@ -49,8 +49,7 @@
         <if test="autoReturn==null">
         set pwd = #{pwd},
             phone = #{phone},
-            email = #{email},
-            gender = #{gender}
+            email = #{email}
         </if>
         <if test="autoReturn!=null">
             set autoReturn = #{autoReturn}

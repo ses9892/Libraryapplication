@@ -1,0 +1,63 @@
+
+.chating h3{
+    text-align: left;
+    padding: 5px 5px 5px 15px;
+    color: #FFBB00;
+    border-left: 3px solid #FFBB00;
+    margin-bottom: 20px;
+}
+.chating{
+    background-color: #000;
+    height: 500px;
+    overflow: auto;
+}
+.chating p{
+    color: #fff;
+    text-align: left;
+}
+.chating input{
+    width: 330px;
+    height: 25px;
+}
+.chating .me{
+    color:white;
+}
+.chating .others{
+    color:white;
+}
+
+.wrapper {
+    padding: 40px 60px;
+}
+
+a[data-needpopup-show] {
+    display: inline-block;
+    margin: 0 10px 10px 0;
+    padding: 10px 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #fff;
+    background: #7B5207;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.chating p {
+    font-size: 1.2em;
+    line-height: 1.4;
+    color: #343638;
+    margin: 10px 0;
+}
+
+.needpopup {
+    border-radius: 6px;
+    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 1);
+}
+
+.needpopup p {
+    margin: 0;
+}
+.needpopup p + p {
+    margin-top: 10px;
+}

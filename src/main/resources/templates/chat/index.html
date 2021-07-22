@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{//code.jquery.com/jquery-1.11.1.min.js}"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .container{
+            width: 500px;
+            margin: 0 auto;
+            padding: 25px
+        }
+        .container h1{
+            text-align: left;
+            padding: 5px 5px 5px 15px;
+            color: #FFBB00;
+            border-left: 3px solid #FFBB00;
+            margin-bottom: 20px;
+        }
+        .chating{
+            background-color: #000;
+            width: 500px;
+            height: 500px;
+            overflow: auto;
+        }
+        .chating p{
+            color: #fff;
+            text-align: left;
+        }
+        input{
+            width: 330px;
+            height: 25px;
+        }
+        #yourMsg{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<input type="hidden" id="sessionId" value="">
+<input type="hidden" id="roomNumber" th:value="${roomName}">
+    <div id="container" class="container">
+        <h1>채팅</h1>
+        <div id="chating" class="chating">
+
+        </div>
+        <div id="yourMsg">
+            <table class="inputTable">
+                <tr>
+                    <th>메시지</th>
+                    <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
+                    <th><button onclick="send()" id="sendBtn">보내기</button></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+<script th:inline="javascript">
+    var ws;
+    var userId;
+
+    window.onload = function (){
+        $.ajax({
+            type: "GET",
+            url: "/chat/setnick",
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': 'bearer' + localStorage.getItem('jwt')
+            },
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (data){
+            // data = userId
+            userId = data;
+            wsOpen(userId);
+            $("#yourMsg").show();       //메세지창 보이게
+        }).error(function (error){
+            alert(error.responseJSON.message);
+            location.href="/logout";
+        })
+    }
+
+    function wsOpen(userName){
+        ws = new WebSocket("ws://" + location.host + "/chating/"+$('#roomNumber').val());   //ws 로딩
+        wsEvt();
+    }
+
+    function wsEvt() {
+        //onopen 소켓이 열리면 실행할 function
+        ws.onopen = function(data){
+        }
+        //메세지가 소켓에 담겨졌을때 실행할 function
+        ws.onmessage = function(data) {
+            var msg = data.data;
+            if(msg != null && msg.trim() != ''){
+                var d= JSON.parse(msg);
+                console.log(d);
+                if(d.type == "getId"){      // 채팅방입장일시
+                    //프로젝트에서는 ajax 통신 -> 토큰값 -> subject(userId) 등록예정
+                    var si = d.sessionId != null ? d.sessionId : "";
+                    if(si != ''){
+                        $("#sessionId").val(si);
+                    }
+                    // $("#chating").append("<p class='me'>me :" + d.msg + "</p>");
+                    $("#chating").append("<p class='me'>" +userId+": 채팅방에 입장하였습니다." + "</p>");
+                }else if(d.type == "message"){      //입장후 채팅을 입력할시
+                    if(d.sessionId == $("#sessionId").val()){
+                        $("#chating").append("<p class='me'>me :" + d.msg + "</p>");
+                    }else{
+                        $("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
+                    }
+
+                }else{
+                    console.warn("unknown type!")
+                }
+                // $("#chating").append("<p>" + msg + "</p>");
+            }
+        }
+
+        document.addEventListener("keypress", function(e){
+            if(e.keyCode == 13){ //enter press
+                send();
+            }
+        });
+        //엔터 칠시 되게하는것
+    }
+
+    function send() {
+        var option ={
+            type: "message",
+            sessionId : $("#sessionId").val(),
+            roomNumber: $("#roomNumber").val(),
+            userName : "관리자",
+            msg : $("#chatting").val()
+        }
+        ws.send(JSON.stringify(option))
+        // ws.send(uN+" : "+msg);      //ws웹소켓 send
+        $('#chatting').val("");     //텍스트창 리셋
+    }
+</script>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.application.mapper.ChatMapper">
+    <!--ref_userId 꼭바꾸기!!!!-->
+    <insert id="createRoom" parameterType="com.library.application.dto.RoomDto">
+        insert into ChatRoom(roomName,ref_userId,enterNum)
+        values (#{roomName},'admin',0);
+    </insert>
+
+    <select id="selectRoomList" resultType="com.library.application.dto.RoomDto">
+        select * from ChatRoom
+    </select>
+    <select id="selectByRoomName" resultType="int" parameterType="String">
+        select count(*) from ChatRoom where roomName = #{roomName}
+    </select>
+
+    <update id="enterRoom" parameterType="com.library.application.dto.RoomDto">
+        update ChatRoom
+        set enterNum = #{enterNum},
+            session_id1 = #{session_id1},
+            session_id2= #{session_id2}
+        where roomName = #{roomName}
+    </update>
+    <select id="selectRoomByRoomName" parameterType="HashMap" resultType="com.library.application.dto.RoomDto">
+        select * from ChatRoom
+        where roomName = #{roomName}
+    </select>
+    <select id="selectBySessionId" parameterType="HashMap" resultType="com.library.application.dto.RoomDto">
+        select * from ChatRoom
+        where session_id1 = #{sessionId} or session_id2 = #{sessionId}
+    </select>
+
+</mapper>

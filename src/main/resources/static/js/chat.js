@@ -10,6 +10,7 @@ function crR(){
     $.ajax({
         type: "GET",
         url: "/chat/setnick",
+        async: false,
         headers: {
             'content-type': 'application/json',
             'Authorization': 'bearer' + localStorage.getItem('jwt')
@@ -18,11 +19,11 @@ function crR(){
     }).success(function (data){
         userId = data;
         createRoom();
-        wsOpen(userId);
     }).error(function (error){
         alert(error.responseJSON.message);
         location.href="/logout";
     })
+    wsOpen(userId);
 }
 //방생성
 //생성버튼 클릭 -->  방이름 -> ajax -> 메모리에 생성 -> result -> 방생성메소드 실행

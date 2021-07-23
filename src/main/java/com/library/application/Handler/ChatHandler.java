@@ -94,15 +94,32 @@ public class ChatHandler extends TextWebSocketHandler {
 //        list.add(session);
         boolean flag = false;
         String url = session.getUri().toString();       // 클라이언트가 /ws 어디로 접속했는지
-        String roomNumber = url.split("/chating/")[1];  //  "/chating/{roomNumber}
-        String roomName = url.split("/chating/")[1];  //  "/chating/{roomNumber}
+        String roomNumber = url.split("/")[4];  //  "/chating/{roomNumber}
+        String roomName = url.split("/")[4]; //  "/chating/{roomNumber}
+        JSONObject obj = new JSONObject();
+        String locationKind=null;
+        try{
+            locationKind = url.split("/")[5];
+        //navber에서 실행시 현재 팝업에 채팅창이 켜져있나확인
+        if(locationKind.equals("toolbar")){
+            for (int i=0; i<list.size(); i++){
+                if(list.get(i).get("enterUserId").equals(roomName)){
+                    obj.put("type", "duplicatonSession");
+                    session.sendMessage(new TextMessage(obj.toJSONString()));
+                    return;
+                }// 켜져있으면 type : duplicationSession 메세지 전송 -> js에서 alert처리
+            }
+        }
+        }catch (ArrayIndexOutOfBoundsException e){
+        }
+
+
         HashMap<String,Object> hmap = new HashMap<>();
         hmap.put("roomName",roomName);
         hmap.put("session_id",session.getId());
         flag = chatService.enterRoom(hmap);
         //방입장
         if(!flag){
-            JSONObject obj = new JSONObject();
             obj.put("type", "overflow");
             obj.put("sessionId", session.getId());
             session.sendMessage(new TextMessage(obj.toJSONString()));
@@ -110,8 +127,14 @@ public class ChatHandler extends TextWebSocketHandler {
         }else{
             HashMap<String,Object> session_data = new HashMap<>();
             session_data.put(session.getId(),session);
+            if(locationKind!=null) {
+                if (locationKind.equals("admin")) {
+                    session_data.put("enterUserId", "admin");
+                }
+            }else{
+                session_data.put("enterUserId", roomName);
+            }
             list.add(session_data);
-            JSONObject obj = new JSONObject();
             obj.put("type", "getId");
             obj.put("sessionId", session.getId());
             session.sendMessage(new TextMessage(obj.toJSONString()));
@@ -156,7 +179,7 @@ public class ChatHandler extends TextWebSocketHandler {
             if(list.size()>0){
                 for (int i=0;i<list.size();i++){
                     if(list.get(i).containsKey(sessionId)){
-                        list.get(i).remove(sessionId);
+                        list.remove(i);
                     }
                 }
             }

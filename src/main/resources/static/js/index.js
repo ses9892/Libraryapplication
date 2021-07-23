@@ -84,6 +84,7 @@ var main = {
                 localStorage.setItem("jwt",token.item.token);
                 alert(token.item.meg);
                 location.href=token.item.url
+                window.open("/chat/","Library Chating","top=50,width=850,height=620,resizable=no,menubar=no,directories=no,toolbar=no,location=no");
         }).error(function (error) {
         })
     },

@@ -29,6 +29,11 @@ public class ChatController {
     @Autowired
     ChatService chatService;
 
+    @RequestMapping("/")
+    public String ClientRoom(){
+        return "chat/userRoom";
+    }
+
     @RequestMapping(value = "/room")
     public String room(){
         return "chat/room";

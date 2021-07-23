@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script th:src="@{//code.jquery.com/jquery-1.11.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h4 class="title" id="myModalLabelResult">1:1 상담</h4>
+    <div class="row">
+        <div class="col-xs-12 chating" style="overflow: overlay;">
+            <h3>채팅</h3>
+            <div id="chating" class="chating">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="yourMsg">
+        <div class="form-group">
+            <label style="display: block; font-family: Consolas">메세지</label>
+            <input class="form-control" id="chatting" placeholder="보내실 메시지를 입력하세요." style="width: 80%;margin-right: 5px; float: left">
+            <button class="btn btn-danger" onclick="send()" id="sendBtn" style="width: 18%">보내기</button>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/js/chat.js}"></script>
+</html>

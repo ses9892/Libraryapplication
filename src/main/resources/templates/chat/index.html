@@ -62,30 +62,15 @@
 
 <script th:inline="javascript">
     var ws;
-    var userId;
 
     window.onload = function (){
-        $.ajax({
-            type: "GET",
-            url: "/chat/setnick",
-            headers: {
-                'content-type': 'application/json',
-                'Authorization': 'bearer' + localStorage.getItem('jwt')
-            },
-            contentType: 'application/json; charset=utf-8'
-        }).done(function (data){
-            // data = userId
-            userId = data;
-            wsOpen(userId);
+            wsOpen();
             $("#yourMsg").show();       //메세지창 보이게
-        }).error(function (error){
-            alert(error.responseJSON.message);
-            location.href="/logout";
-        })
+
     }
 
-    function wsOpen(userName){
-        ws = new WebSocket("ws://" + location.host + "/chating/"+$('#roomNumber').val());   //ws 로딩
+    function wsOpen(){
+        ws = new WebSocket("ws://" + location.host + "/chating/"+$('#roomNumber').val()+"/admin");   //ws 로딩
         wsEvt();
     }
 

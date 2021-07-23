@@ -40,7 +40,7 @@
                         </a>
                     </li>
                     <li>
-                        <a th:text="채팅상담" data-toggle="modal" data-target="#chatwindow" data-backdrop="static" data-keyboard="false"></a>
+                        <a th:text="채팅상담" id="nav_chat"></a>
                     </li>
                     <li><a name="myPage" th:text="${#messages.msg('library.mypage')}"></a></li>
                     <li>
@@ -71,4 +71,47 @@
     </nav>
 </div><!-- /.container -->
 </body>
+<script>
+    var userId;
+    var ws;
+    $(function (){
+        $('#nav_chat').click(function (){
+            $.ajax({
+                type: "GET",
+                url: "/chat/setnick",
+                async: false,
+                headers: {
+                    'content-type': 'application/json',
+                    'Authorization': 'bearer' + localStorage.getItem('jwt')
+                },
+                contentType: 'application/json; charset=utf-8'
+            }).success(function (data){
+                userId = data;
+                wsOpen(userId);
+            }).error(function (error){
+                alert(error.responseJSON.message);
+                location.href="/logout";
+            })
+        })
+    })
+    function wsOpen(userName){
+        // ws = new WebSocket("ws://" + location.host + "/chating/"+$('#roomNumber').val());   //ws 로딩
+        ws = new WebSocket("ws://" + location.host + "/chating/"+userId+"/toolbar");   //ws 로딩
+        wsEvt();
+    }
+    function wsEvt() {
+        //메세지가 소켓에 담겨졌을때 실행할 function
+        ws.onmessage = function(data) {
+            console.log(data);
+            var msg = data.data;
+            var d= JSON.parse(msg);
+            if(d.type=='duplicatonSession'){
+                alert('채팅창이 이미 실행되어있습니다.');
+            }else{
+                location.reload();
+                window.open("/chat/","Library Chating","top=50,width=850,height=620,resizable=no,menubar=no,directories=no,toolbar=no,location=no");
+            }
+        }
+    }
+</script>
 </html>

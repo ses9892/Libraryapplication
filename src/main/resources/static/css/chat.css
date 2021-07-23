@@ -9,7 +9,6 @@
 .chating{
     background-color: #000;
     height: 500px;
-    overflow: auto;
 }
 .chating p{
     color: #fff;

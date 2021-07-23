@@ -2,6 +2,7 @@ package com.library.application.security;
 
 import com.library.application.dto.Role;
 import com.library.application.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,7 @@ import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class securityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService;
     private Environment env;
@@ -71,6 +73,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                                 request.getSession().invalidate();
                                 response.setStatus(HttpServletResponse.SC_OK);
                                 response.sendRedirect("/");
+                                log.info("로그아웃성공!");
                             }
                         })
                         .addLogoutHandler(new LogoutHandler() {

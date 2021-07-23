@@ -1,79 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:replace="LayOut/header"></div>
-<style>
-    .bookline{
-        border-top: 1px solid silver;
-    }
-</style>
-    <div class="container">
-        <h1 class="well text-center">도서 상세</h1>
-        <div class="col-lg-12 well">
-            <div class="row">
-                <form>
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-sm-12 form-group">
-                                <input type="hidden" id="book-idx" th:value="${data.idx}">
-                                <label>도서명</label>
-                                <div><p th:text="${data.name}" style="font-size: 3em; overflow:fragments "></p></div>
-                                <hr size="2" class="bookline">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-1 form-group">
-                            </div>
-                            <div class="form-group col-sm-10">
-                                <img th:src="@{'/img/'+${data.save_name}}" th:alt="${data.save_name}" class="img-rounded" style="width: 100%;max-height: 450px">
-                            </div>
-                            <div class="col-sm-1 form-group">
-                            </div>
-                        </div>
-                        <hr size="2" class="bookline">
-                        <div class="row">
-                            <div class="col-sm-4 form-group">
-                                <label>저자</label>
-                                <pre class="form-control" th:text="${data.author}"></pre>
-                            </div>
-                            <div class="col-sm-4 form-group">
-                                <label>출판사</label>
-                                <pre class="form-control" th:text="${data.publisher}"></pre>
-                            </div>
-                            <div class="col-sm-4 form-group">
-                                <label>주제/주제2</label>
-                                <select class="form-control">
-                                    <option th:value="${data.topic}" th:text="${data.topic}"></option>
-                                    <option th:value="${data.topic2}" th:text="${data.topic2}"></option>
-                                </select>
-                            </div>
-                            <hr size="2" color="pink">
-                        </div>
 
-                        <div class="row">
-                            <div class="col-sm-11 form-group">
-                            </div>
-                            <div class="col-sm-1 form-group">
-                                <div>
-                                    <label style="float: right">대출여부</label>
-                                        <p style="color: #b92c28; float: right" th:if="${data.borrow}">불가능</p>
-                                        <p style="color: green;float: right" th:if="${!data.borrow}">가능</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <pre th:utext="${data.detail}" style="background-color: white">
-                            </pre>
-                        </div>
-                        <hr size="2" class="bookline" style="margin-top: 0px">
-                        <div class="col text-center">
-                                    <button th:if="${data.borrow}" type="button" class="btn btn-lg btn-info disabled">대출하기</button>
-                                    <button th:unless="${data.borrow}" type="button" id="booklend" class="btn btn-lg btn-info">대출하기</button>
+<div th:replace="LayOut/header"></div>
+<link rel="stylesheet" th:href="@{/css/bookSelect.css}">
+<div class="container">
+    <div class="card">
+        <div class="text-center"><p class="bookDetailTitle">도서상세</p></div>
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6">
+                    <input type="hidden" id="book-idx" th:value="${data.idx}">
+                    <div class="preview-pic tab-content">
+                        <div class="tab-pane active" id="pic-1"><img th:src="@{'/img/'+${data.save_name}}" /></div>
+                    </div>
+
+                </div>
+                <div class="details col-md-6">
+                    <h3 class="product-title" th:text="${data.name}"></h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
                         </div>
                     </div>
-                </form>
+                    <h4 class="price">대출여부
+                        <span style="color: #b92c28; font-size: medium;" th:if="${data.borrow}">불가능</span>
+                        <span style="color: green; font-size: medium;"th:if="${!data.borrow}">가능</span>
+                    </h4>
+                    <select class="form-control">
+                        <option selected>주제1/주제2</option>
+                        <option th:value="${data.topic}" th:text="${data.topic}"></option>
+                        <option th:value="${data.topic2}" th:text="${data.topic2}"></option>
+                    </select>
+                    <h5 class="sizes">저자
+                        <span class="size" th:text="${data.author}"></span>
+                        <span class="size" th:text="${data.author}"></span>
+                    </h5>
+                    <h5 class="sizes">출판사
+                        <span class="size" th:text="${data.publisher}"></span>
+                    </h5>
+                    <pre class="product-description" th:utext="${data.detail}" style="background-color: white;height: 100%">
+                    </pre>
+                    <div class="action">
+                        <button th:if="${data.borrow}" type="button" class="add-to-cart btn btn-default disabled" style="background-color: #ff9f1a;">대출하기</button>
+                        <button th:unless="${data.borrow}" type="button" id="booklend" class="add-to-cart btn btn-default">대출하기</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div><!-- /.container-fluid -->
+</div>
+
 <div th:replace="LayOut/footer"></div>
 </html>

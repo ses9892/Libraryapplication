@@ -80,13 +80,13 @@
                 select <include refid="BookDto"/>
                 FROM
                 `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
-                WHERE a2.board_idx = a1.idx
+                WHERE a2.board_idx = a1.idx and borrow=0
             </when>
             <when test="flag!='all' and flag!='not'">
                 select <include refid="BookDto"/>
                 FROM
                 `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
-                WHERE a2.board_idx = a1.idx and (a1.topic =#{flag} or a1.topic2=#{flag})
+                WHERE a2.board_idx = a1.idx and (a1.topic =#{flag} or a1.topic2=#{flag}) and borrow=0
             </when>
             <when test="flag=='not'">
                 select <include refid="BookDto"/>

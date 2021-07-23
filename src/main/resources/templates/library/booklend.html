@@ -43,6 +43,9 @@
 <div class="container" style="padding-bottom: 20px">
     <hr style="margin-top: 0"/>
     <div class="row">
+        <th:block th:if="${bookList.size()==0}">
+            <marquee scrolldelay="5"><strong>대출가능한 도서가 존재하지 않습니다.</strong></marquee>
+        </th:block>
             <div class="col-md-4 col-sm-6" th:each="book:${bookList}">
                 <div th:with="bookSelect='/library/book?idx='+${book.idx}">
                     <div class="product-grid">

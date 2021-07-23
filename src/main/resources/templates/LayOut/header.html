@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
     <link rel="stylesheet" th:href="@{/css/chat.css}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
     <title>Title</title>
 </head>
 <body>
@@ -25,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Library-Service</a>
+                <a class="navbar-brand" href="/library" th:text="${#messages.msg('library.title')}"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -40,7 +41,7 @@
                         </a>
                     </li>
                     <li>
-                        <a th:text="채팅상담" id="nav_chat"></a>
+                        <a th:text="${#messages.msg('library.chat')}" id="nav_chat"></a>
                     </li>
                     <li><a name="myPage" th:text="${#messages.msg('library.mypage')}"></a></li>
                     <li>

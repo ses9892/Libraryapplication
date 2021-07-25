@@ -13,29 +13,12 @@
     </div>
 </div>
 <script>
-function logOut(){
-    $.ajax({
-        type:'POST',
-        url:'/logout',
-        dataType: 'text',
-        contentType: "application/json; charset=UTF-8",
-    }).success(function (){
-    })
-}
-    jQuery(document).ready(
-        function (){
-            jQuery(window).bind('unload',function (e){
-                if(self.screenTop > 9000) {
-                    logOut();
-                } else {
-                    if(document.readyState == "complete") {
-                    } else if(document.readyState == "loading") {
-                    }
-                }
-                // return "";
-            })
-        }
-    )
+    function tokCookReset(){
+        localStorage.removeItem("jwt");
+        localStorage.removeItem("rememberId");
+        return true;
+    }
+
 </script>
 <script th:src="@{/js/Token.js}"></script>
 <script th:src="@{/js/bookAction.js}"></script>

@@ -34,6 +34,7 @@ public class LoginFailedHandler implements AuthenticationFailureHandler {
         HashMap<String,Object> items = new HashMap<>();
         items.put("url" , "/");
         items.put("userId",userId);
+        items.put("type","failed");
         //오류별 메세징 처리
         if(e instanceof BadCredentialsException){
             items.put("meg","아이디와 비밀번호를 확인해 주세요");

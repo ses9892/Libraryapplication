@@ -61,18 +61,17 @@ var main = {
     login : function () {
         var data = {
             userId: $('#userId').val(),
-            password: $('#pwd').val()
+            password: $('#pwd').val(),
+            rememberMe : $('#remember-id').prop('checked')
         }
-        var new_data = "userId="+$('#userId').val()+"&password="+$('#pwd').val()
-        console.log(data);
         $.ajax({
             type: 'POST',
             url: '/login',
             dataType: 'json',
-            // data: JSON.stringify(data)
             data : {
                 userId: $('#userId').val(),
-                password: $('#pwd').val()
+                password: $('#pwd').val(),
+                rememberMe : $('#remember-id').prop('checked')
             }
         }).done(function (token) {
             console.log(token)
@@ -81,11 +80,20 @@ var main = {
             }else {
                 localStorage.clear()
             }
-                localStorage.setItem("jwt",token.item.token);
-                alert(token.item.meg);
+            if(token.item.type=='ok'){
+                localStorage.setItem("jwt",token.item.token);   //토큰저장
+                alert(token.item.meg);                          //환영메세지
+                if($('#remember-id').prop('checked')){
+                    localStorage.setItem("rememberId",true);
+                }
                 location.href=token.item.url
                 window.open("/chat/","Library Chating","top=50,width=850,height=620,resizable=no,menubar=no,directories=no,toolbar=no,location=no");
+            }else if(token.item.type=='failed'){
+                alert(token.item.meg);
+                location.reload();
+            }
         }).error(function (error) {
+            console.log(error)
         })
     },
     duplication : function (){

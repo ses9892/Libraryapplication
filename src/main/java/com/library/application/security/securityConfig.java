@@ -81,6 +81,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                             public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
                                 HttpSession session = request.getSession();
                                 session.invalidate();
+                                log.info("로갓");
                             }
                         })
                 .and()
@@ -89,8 +90,9 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                 .maxSessionsPreventsLogin(true)
                 .expiredUrl("/")
                 .sessionRegistry(sessionRegistry());
-                    //invalidateHttpSession = 브라우저가 종료될시 로그인했던 모든정보를 삭제하는것을 허용
-                    // 즉 , 세션 삭제
+        http.rememberMe().key("keepLogin").tokenValiditySeconds(86400)
+                            .rememberMeParameter("rememberMe");//초단위
+
     }
     @Bean
     public SessionRegistry sessionRegistry(){

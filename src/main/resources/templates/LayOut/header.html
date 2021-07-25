@@ -11,6 +11,22 @@
     <link rel="stylesheet" th:href="@{/css/chat.css}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
     <title>Title</title>
+    <script>
+        jQuery(document).ready(
+            function (){
+                jQuery(window).bind('unload',function (e){
+                    if(self.screenTop > 9000) {
+                        logOut();
+                    } else {
+                        if(document.readyState == "complete") {
+                        } else if(document.readyState == "loading") {
+                        }
+                    }
+                    // return "";
+                })
+            }
+        )
+    </script>
 </head>
 <body>
 <div class="container-fluid">
@@ -45,7 +61,7 @@
                     </li>
                     <li><a name="myPage" th:text="${#messages.msg('library.mypage')}"></a></li>
                     <li>
-                        <form th:action="@{/logout}" method="post">
+                        <form th:action="@{/logout}" method="post" onsubmit="return tokCookReset()">
                             <button type="submit" id="logOut" class="btn btn-default btn-outline btn-circle">
                                 LogOut
                             </button>

@@ -63,11 +63,13 @@
                         <label for="pwd">Password</label>
                         <input type="password" id="pwd" name="password" required="required"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="margin-bottom: 0px;">
                         <label class="form-remember">
-                            <input name="remember" type="checkbox" value="remember"> Remember Me
-                        </label><a href="#" class="form-recovery" data-toggle="modal" data-target="#myModal">Forgot Password?</a>
+                            <input name="remember"  type="checkbox" value="remember"> 아이디 저장
+                        </label>
+                        <a href="#" class="form-recovery" data-toggle="modal" data-target="#myModal">Forgot Password?</a>
                     </div>
+                            <input name="remember"  id="remember-id" type="hidden" value="remember" checked="checked">
                     <div class="form-group">
                         <button id="login" type="button">Log In</button>
                     </div>
@@ -175,9 +177,13 @@
 <script th:src="@{//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js}"></script>
 <script type="text/javascript">
     $(function (){
+        if(localStorage.getItem("rememberId")){
+         location.href="/library";
+        }
         if(localStorage.getItem("remember") !=null){
             $('input[name=remember]').prop('checked','checked');
             $('#userId').val(localStorage.getItem("remember"));
+
         }
     })
     var idcheck = false;

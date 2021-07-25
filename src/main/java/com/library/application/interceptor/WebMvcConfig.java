@@ -38,7 +38,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         .addPathPatterns("/library/book/*")
         .addPathPatterns("/library/book/favorites/**")
         .addPathPatterns("/user-service/pwdCheck")
-        .addPathPatterns("/chat/setnick");
+        .addPathPatterns("/chat/setnick")
+        .addPathPatterns("/user-service/user/info").addPathPatterns("/user-service/user/auto_return");
         //  user/login = 로그인 요청을 받으면 요청메소드를 처리전에 인터셉터에서 걸어둔 필터를 한번 거친다.
     }
 

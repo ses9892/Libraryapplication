@@ -46,13 +46,6 @@ public class UserServiceController {
         model.addAttribute("flag",request.getParameter("flag"));
         return "user-service/pwdCheck";
     }
-    //정보조회
-    @GetMapping(value = "/info/{userId}")
-    public String info(@PathVariable("userId") String userId, Model model) {
-        UserDto userDto = userService.selectUserId(userId);
-        model.addAttribute("user",userDto);
-        return "user-service/info";
-    }
     //정보조회 -> 수정
     //수정이필요함 alert() 라던지 확인창 이 아직없음
     @PostMapping(value = "/user/{userId}")
@@ -62,6 +55,7 @@ public class UserServiceController {
         Boolean result =  userService.updateUser(userDto);
         return "redirect:/user-service/mypage";
     }
+    //회원탈퇴
     @ResponseBody
     @DeleteMapping(value = "/user/{userId}")
     public String deleteUser(@PathVariable("userId") String userId) {
@@ -81,24 +75,36 @@ public class UserServiceController {
         String url =null;
         switch (flag){
             case "infoChange":
-                url = env.getProperty("custom.location.userInfo") + userDto.getUserId();
+                url = env.getProperty("custom.location.userInfo");
                 break;
             case "userDelete":
                 url = env.getProperty("custom.location.userDelete") + userDto.getUserId();
                 break;
             case "autoReturn":
-                url = env.getProperty("custom.location.autoReturn") + userDto.getUserId();
+                url = env.getProperty("custom.location.autoReturn");
         }
         return ResponseEntity.status(HttpStatus.OK).body(url);
     }
+
+
+
     //자동반납설정 페이지 이동
-    @GetMapping(value = "/user/auto_return/{userId}")
-    public String autoReturnChange(@PathVariable("userId") String userId , Model model){
+    @GetMapping(value = "/user/auto_return")
+    public String autoReturnChange(HttpServletRequest request , Model model){
+        String userId=""+request.getAttribute("userId");
         UserDto userDto = userService.selectUserId(userId);
         model.addAttribute("user",userDto);
         return "user-service/autoReturnChange";
     }
-    //대출받은 도서 조회
+
+    //정보조회
+    @GetMapping(value = "/user/info")
+    public String info(HttpServletRequest request, Model model) {
+        String userId=""+request.getAttribute("userId");
+        UserDto userDto = userService.selectUserId(userId);
+        model.addAttribute("user",userDto);
+        return "user-service/info";
+    }
 
 
 

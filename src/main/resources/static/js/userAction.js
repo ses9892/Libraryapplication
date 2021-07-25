@@ -43,7 +43,7 @@ var main = {
                     }
                 }
                 if($('input[name="flag"]' ).val()=='infoChange' || $('input[name="flag"]' ).val()=='autoReturn' ){
-                 location.href= data
+                 location.href= data+"?key=bearer"+localStorage.getItem("jwt");
                 }
             }
         }).complete(function (){

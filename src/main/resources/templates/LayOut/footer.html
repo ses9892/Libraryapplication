@@ -16,9 +16,19 @@
 </div>
 <script>
     $(function (){
-        console.log(window.location.pathname)
+        var size = $('a[name=lang]').length;
         if(window.location.pathname.match("/user-service/")){
             $('#footer').prop("class","col-xs-12 col-md-10 text-center")
+        }
+        for(i=0; i<size;i++){
+            if($('a[name=lang]')[i].classList.contains("active")){
+                $('a[name=lang]')[i].classList.remove("active");
+            }
+        }
+        for(i=0; i<size;i++){
+            if(window.location.search.match($('a[name=lang]')[i].id)){
+                $('a[name=lang]')[i].classList.add('active');
+            }
         }
     })
     function tokCookReset(){

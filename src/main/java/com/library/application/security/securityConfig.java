@@ -66,32 +66,26 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                         .and()
                     .logout()
                         .logoutUrl("/logout")
-                        .deleteCookies("JSESSIONID")
+                        .deleteCookies("JSESSIONID","remember-me")
+                        .invalidateHttpSession(true)
                         .logoutSuccessHandler(new LogoutSuccessHandler() {
                             @Override
                             public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                                request.getSession().invalidate();
                                 response.setStatus(HttpServletResponse.SC_OK);
                                 response.sendRedirect("/");
                                 log.info("로그아웃성공!");
                             }
-                        })
-                        .addLogoutHandler(new LogoutHandler() {
-                            @Override
-                            public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-                                HttpSession session = request.getSession();
-                                session.invalidate();
-                                log.info("로갓");
-                            }
-                        })
-                .and()
-                .sessionManagement()
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(true)
-                .expiredUrl("/")
-                .sessionRegistry(sessionRegistry());
-        http.rememberMe().key("keepLogin").tokenValiditySeconds(86400)
-                            .rememberMeParameter("rememberMe");//초단위
+                        });
+//                .and()
+//                .sessionManagement()
+//                .maximumSessions(1)
+//                .maxSessionsPreventsLogin(true)
+//                .expiredUrl("/")
+//                .sessionRegistry(sessionRegistry());
+        http.rememberMe().tokenValiditySeconds(86400)
+                            .rememberMeParameter("rememberMe")
+                            .alwaysRemember(true)
+                            .userDetailsService(userService);//초단위
 
     }
     @Bean
@@ -104,8 +98,10 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
-    @Bean public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
-        return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
+    @Bean
+    public static ServletListenerRegistrationBean httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
     }
+
 
 }

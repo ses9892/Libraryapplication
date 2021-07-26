@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<div class="row">
+</div>
 <div class="container" style="margin-top: 4px;">
 <hr>
     <div class="row">
-        <div class="col-xs-12 col-md-offset-1 col-md-10 text-center">
+        <div id="footer" class="col-xs-12 col-md-offset-1 col-md-10 text-center">
             <p>The website owner is Jinho Jang.
                 / <strong>COPYRIGHT &copy; 2021. JinHo Jang</strong><br>
                 <code style="cursor: pointer" onclick="window.open('https://github.com/ses9892/Libraryapplication');">
@@ -13,9 +15,24 @@
     </div>
 </div>
 <script>
+    $(function (){
+        console.log(window.location.pathname)
+        if(window.location.pathname.match("/user-service/")){
+            $('#footer').prop("class","col-xs-12 col-md-10 text-center")
+        }
+    })
     function tokCookReset(){
         localStorage.removeItem("jwt");
         localStorage.removeItem("rememberId");
+        return true;
+    }
+    function myPage (){
+        if(localStorage.getItem("jwt")==null){
+            alert('정상적인 로그인후 마이페이지를 이용해주세요!');
+            $('#logOut').click();
+            return false;
+        }
+        $('#Token').val(localStorage.getItem('jwt'));
         return true;
     }
 

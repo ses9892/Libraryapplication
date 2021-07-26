@@ -43,7 +43,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler i
         //토큰 response
 
         ObjectMapper mapper = new ObjectMapper();	//JSON 변경용
-
+        request.getSession();
         ResponseData responseData = new ResponseData();
         responseData.setCode(ResponseDataStatus.SUCCESS);
         responseData.setStatus(ResponseDataStatus.SUCCESS);

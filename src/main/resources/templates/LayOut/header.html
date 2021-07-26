@@ -59,7 +59,12 @@
                     <li>
                         <a th:text="${#messages.msg('library.chat')}" id="nav_chat"></a>
                     </li>
-                    <li><a name="myPage" th:text="${#messages.msg('library.mypage')}"></a></li>
+                    <li>
+                        <form action="/user-service/mypage" method="post" id="mypageForm" onsubmit="return myPage()">
+                            <input type="hidden" name="key" id="Token" value="">
+                        </form>
+                            <a th:text="${#messages.msg('library.mypage')}" onclick="$('#mypageForm').submit()"></a>
+                    </li>
                     <li>
                         <form th:action="@{/logout}" method="post" onsubmit="return tokCookReset()">
                             <button type="submit" id="logOut" class="btn btn-default btn-outline btn-circle">

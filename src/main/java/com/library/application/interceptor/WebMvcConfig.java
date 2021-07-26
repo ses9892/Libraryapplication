@@ -39,7 +39,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         .addPathPatterns("/library/book/favorites/**")
         .addPathPatterns("/user-service/pwdCheck")
         .addPathPatterns("/chat/setnick")
-        .addPathPatterns("/user-service/user/info").addPathPatterns("/user-service/user/auto_return");
+        .addPathPatterns("/user-service/user/info").addPathPatterns("/user-service/user/auto_return")
+        .addPathPatterns("/user-service/mypage");
         //  user/login = 로그인 요청을 받으면 요청메소드를 처리전에 인터셉터에서 걸어둔 필터를 한번 거친다.
     }
 
@@ -56,6 +57,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry
                 .addResourceHandler("/pdf/**")
                 .addResourceLocations("file:/"+uploadPdfPath);
+        registry
+                .addResourceHandler("/resource/**")
+                .addResourceLocations("/img/**");
         // img/filename , pdf/pdfFileName
         }else{ LinuxChange(registry); }
     }

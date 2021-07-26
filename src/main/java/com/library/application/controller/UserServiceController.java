@@ -11,6 +11,7 @@ import org.springframework.core.env.Environment;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +35,11 @@ public class UserServiceController {
 
     //마이페이지 이동
     //현재 seesionStorage에만 userId가 저장되있기때문에 추후 mypage 구성할때 userId로 받아와야할 무언가을 개발 해야함
-    @GetMapping(value = "/mypage")
-    public String myPage(){
+    @PostMapping(value = "/mypage")
+    public String myPage(HttpServletRequest request,Model model){
+        String userId = (String) request.getAttribute("userId");
+        UserDto dto = userService.selectUserId(userId);
+        model.addAttribute("user",dto);
         return "user-service/mypage";
     }
 

@@ -21,8 +21,12 @@ import java.util.List;
 @Slf4j
 public class ChatHandler extends TextWebSocketHandler {
 
-    @Autowired
     ChatService chatService;
+
+    @Autowired
+    public ChatHandler(ChatService chatService) {
+        this.chatService = chatService;
+    }
 
     private static List<HashMap<String,Object>> list = new ArrayList<>();
     //웹소켓 세션을 담는 리스트 = > 방1개에 참여한 사람들의 세션

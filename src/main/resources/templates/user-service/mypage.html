@@ -4,11 +4,45 @@
 <div th:replace="LayOut/mypage"></div>
 </div><!-- /.container-fluid -->
 <div class='span8 main' style="padding-left: 40px;">
-    <h2>Main Content Section</h2>
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.<p>
-
-    <p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-md-3"></div>
+            <div class="[ col-sm-6 col-md-4 ]">
+                <div class="[ info-card ]">
+                    <img style="width: 100%" th:src="@{/img/userImg.png}" alt="tq">
+                    <div class="[ info-card-details ] animate">
+                        <div class="[ info-card-header ]">
+                            <h1 th:text="${user.userId}"></h1>
+                            <h3 th:if="${user.role.equals('ROLE_USER')}">일반 사용자</h3>
+                            <h3 th:if="${user.role.equals('ROLE_ADMIN')}">운영자</h3>
+                        </div>
+                        <div class="[ info-card-detail ]">
+                            <!-- Description -->
+                            <p>
+                                가입일자 : <strong th:text="${user.createdAt}"></strong>
+                            </p>
+                            <p>
+                                P.H : <strong th:text="${user.phone}"></strong>
+                            </p>
+                            <p>
+                                이메일 : <strong th:text="${user.email}"></strong>
+                            </p>
+                            <p>
+                                대여도서 : <strong th:text="${user.borrowed_book}+'권'"></strong>
+                            </p>
+                            <p>
+                                자동반납 :
+                                <strong th:if="${user.autoReturn}" th:text="허용"></strong>
+                                <strong th:if="${!user.autoReturn}" th:text="거부"></strong>
+                            </p>
+                            <input class="btn btn-default btn-circle" type="button" value="프로필 사진 변경">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div th:replace="LayOut/footer"></div>
-<link rel="stylesheet" th:href="@{/css/mypage.css}">
 </div>
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
 </html>

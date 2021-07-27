@@ -1,14 +1,14 @@
 
 # Library-Project
-
-### 도서관프로젝트
+### 도서관 프로젝트
 ***
-### 인원구성
+#### 인원구성
 - 장진호(개인)
 #### 프로젝트 기간
 - 21-06-16(수)  ~  2021-07-27(화)
 #### 개요
-- 객체 지향을 이해하며 Spring Boot 환경설정과 그에맞는 도서관 웹으로서의 기능을 추가한다.
+- 객체 지향을 이해하며 Spring Boot 환경설정과 그에맞는 도서관 웹으로서의 기능을<br>
+  &nbsp;&nbsp;&nbsp;&nbsp; 추가한다.</li>
 - RestFul API 설계방식을 이해하며 요청,응답되는 Resource를 처리한다.
 #### 목표
 - Spring Boot와 객체지향을 이해하며 ,
@@ -29,11 +29,20 @@
 #### Resource
 ![img_3.png](img_3.png)
 ***
-### 개발내역
--[예시1](#예시1)
-
+###개발내역
+- [환경설정](#환경설정)
+- [인터셉터,JWT](#인터셉터,JWT)
+- [ExceptionHandler](#ExceptionHandler)
+- [Security](#Security)
+- [jwt](#jwt)
+- [Email](#Email)
+- [Upload](#Upload)
+- [SocketChating](#SocketChating)
+- [AWS EC2](#EC2)
+- [mybatis](#mybatis)
+- [배포URL](#URL)
 ***
-### ✨예시1
+### ✨환경설정
 asdsad
 sad
 sad

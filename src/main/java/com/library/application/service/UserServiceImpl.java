@@ -181,6 +181,9 @@ public class UserServiceImpl implements UserService {
         HashMap<String,Object> hmap = new HashMap<>();
         hmap.put("userId",s);
         UserDto dto = userMapper.findByUserId(hmap);
+        if(dto==null){
+            throw new UsernameNotFoundException("해당 아이디는 존재하지 않습니다.");
+        }
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(dto.getRole()));
         return new User(dto.getUserId(),dto.getPwd(),authorities);

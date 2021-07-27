@@ -69,7 +69,7 @@
     <insert id="insertBook" parameterType="com.library.application.dto.BookDto">
         insert into `HyoHyunJinHo`.`Book`(name,author,publisher,userId,topic,topic2,detail)
         values
-            (#{name},#{author},#{publisher},#{userId},#{topic},#{topic2},#{bookDetail})
+            (#{name},#{author},#{publisher},#{userId},#{topic},#{topic2},#{detail})
     </insert>
     <select id="countBook" resultType="int" parameterType="com.library.application.dto.BookDto">
         select count(*) from Book where name = #{name}

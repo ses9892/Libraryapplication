@@ -58,6 +58,10 @@ var main = {
     //반납하기 버튼 -->  체크박스 검사 --> 책반납
     bookReturn : function (){
         var idx = $('input[type=checkbox]:checked').val();
+        if(idx==null){
+            alert('반납할 항목을 체크해주세요')
+            return null;
+        }
 
         $.ajax({
             type: "DELETE",
@@ -80,7 +84,10 @@ var main = {
 
     bookExtend : function (){
         var idx = $('input[type=checkbox]:checked').val();
-
+        if(idx==null){
+            alert('연장할 항목을 체크해주세요')
+            return null;
+        }
         $.ajax({
             type: "PUT",
             // url: "/library/book/return/"+idx,
@@ -118,6 +125,10 @@ var main = {
     },
     bookSelect : function (){
         var idx = $('input[type=checkbox]:checked').val();
+        if(idx==null){
+            alert('조회할 도서를 체크해주세요')
+            return null;
+        }
         $.ajax({
             type: "GET",
             url: "/library/book/"+idx,

@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 import java.util.Optional;
 
 @Component
@@ -29,6 +30,7 @@ public class    BearerAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // HandlerInterceptor의 메소드이며, 인터셉터로 해당 메소드의 재정의한 기능이 수행된다.
         log.info("preHandle Start ( JWT Token Valid)");
+        String lang = request.getParameter("lang");
         String Token = null;
         if(request.getParameter("key")!=null){
             Token = request.getParameter("key");

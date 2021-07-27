@@ -87,10 +87,17 @@ public class ChatServiceImpl implements ChatService{
      if(dto==null){
         return false;
      }
-     if(dto.getSession_id1().matches(session.getId())){
-         dto.setSession_id1(null);
-     }else if(dto.getSession_id2().matches(session.getId())){
-         dto.setSession_id2(null);
+     try{
+         if(dto.getSession_id1().equals(session.getId())){
+             dto.setSession_id1(null);
+         }else if(dto.getSession_id2().equals(session.getId())){
+             dto.setSession_id2(null);
+         }
+     }catch (NullPointerException e){
+         //id1 이 바로 null 이라서 에러가남 ->
+         if(dto.getSession_id2().equals(session.getId())){
+             dto.setSession_id2(null);
+         }
      }
      if(dto.getEnterNum()-1<0){
          return false;

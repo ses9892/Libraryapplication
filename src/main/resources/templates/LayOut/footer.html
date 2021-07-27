@@ -14,8 +14,10 @@
         </div>
     </div>
 </div>
-<script>
+<script th:inline="javascript">
+    //번역 버튼 toggle + 번역 location
     $(function (){
+        var lang = /*[[${#locale.getLanguage()}]]*/
         var size = $('a[name=lang]').length;
         if(window.location.pathname.match("/user-service/")){
             $('#footer').prop("class","col-xs-12 col-md-10 text-center")
@@ -26,10 +28,31 @@
             }
         }
         for(i=0; i<size;i++){
-            if(window.location.search.match($('a[name=lang]')[i].id)){
+            if(lang.match($('a[name=lang]')[i].id)){
                 $('a[name=lang]')[i].classList.add('active');
             }
         }
+        $('a[name=lang]').on('click',function (){
+            var param=window.location.search
+            console.log(this);
+            if(param.length>0){
+                var location;
+                if(param.match("lang")) {
+                    if (param.match("kr")) {
+                        location=param.replace("lang=kr", "lang="+this.id);
+                    } else if (param.match("en")) {
+                        location=param.replace("lang=en", "lang="+this.id);
+                    } else if (param.match("ja")) {
+                        location = param.replace("lang=ja", "lang="+this.id);
+                    }
+                window.location.href=window.location.pathname+location;
+                    return null;
+                }
+                window.location.href=window.location.href+'&lang='+this.id;
+                return null;
+            }
+            window.location.href='?lang='+this.id;
+        })
     })
     function tokCookReset(){
         localStorage.removeItem("jwt");
@@ -45,7 +68,6 @@
         $('#Token').val(localStorage.getItem('jwt'));
         return true;
     }
-
 </script>
 <script th:src="@{/js/Token.js}"></script>
 <script th:src="@{/js/bookAction.js}"></script>

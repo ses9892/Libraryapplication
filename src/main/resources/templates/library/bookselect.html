@@ -17,15 +17,15 @@
                 </div>
                 <div class="details col-md-6">
                     <h3 class="product-title" th:text="${data.name}"></h3>
-                    <div class="rating">
-                        <div class="stars">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                    </div>
+<!--                    <div class="rating">-->
+<!--                        <div class="stars">-->
+<!--                            <span class="fa fa-star checked"></span>-->
+<!--                            <span class="fa fa-star checked"></span>-->
+<!--                            <span class="fa fa-star checked"></span>-->
+<!--                            <span class="fa fa-star"></span>-->
+<!--                            <span class="fa fa-star"></span>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <h4 class="price">대출여부
                         <span style="color: #b92c28; font-size: medium;" th:if="${data.borrow}">불가능</span>
                         <span style="color: green; font-size: medium;"th:if="${!data.borrow}">가능</span>

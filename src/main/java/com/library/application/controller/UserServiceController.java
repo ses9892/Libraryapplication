@@ -23,7 +23,7 @@ import java.util.Optional;
 
 //User에 맞는 기능을 제공하는 요청을 받는 컨트롤러
 @Controller
-@RequestMapping(value = "/user-service/")
+@RequestMapping(value = "/user-service")
 @Slf4j
 public class UserServiceController {
 
@@ -35,7 +35,7 @@ public class UserServiceController {
 
     //마이페이지 이동
     //현재 seesionStorage에만 userId가 저장되있기때문에 추후 mypage 구성할때 userId로 받아와야할 무언가을 개발 해야함
-    @PostMapping(value = "/mypage")
+    @GetMapping(value = "/mypage")
     public String myPage(HttpServletRequest request,Model model){
         String userId = (String) request.getAttribute("userId");
         UserDto dto = userService.selectUserId(userId);

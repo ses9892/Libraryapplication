@@ -60,7 +60,7 @@
                         <a th:text="${#messages.msg('library.chat')}" id="nav_chat"></a>
                     </li>
                     <li>
-                        <form action="/user-service/mypage" method="post" id="mypageForm" onsubmit="return myPage()">
+                        <form action="/user-service/mypage" method="get" id="mypageForm" onsubmit="return myPage()">
                             <input type="hidden" name="key" id="Token" value="">
                         </form>
                             <a th:text="${#messages.msg('library.mypage')}" onclick="$('#mypageForm').submit()"></a>
@@ -78,9 +78,9 @@
                 <form class="navbar-form" role="search">
                     <ul class="centered text-center">
                         <div class="form-group">
-                            <a href="?lang=kr" name="lang" id="kr" class="btn btn-default btn-circle active">한국어</a>
-                            <a href="?lang=ja" name="lang" id="ja" class="btn btn-default btn-circle">日本</a>
-                            <a href="?lang=en" name="lang" id="en" class="btn btn-default btn-circle">English</a>
+                            <a  name="lang" id="kr" class="btn btn-default btn-circle active" >한국어</a>
+                            <a  name="lang" id="ja" class="btn btn-default btn-circle" >日本</a>
+                            <a  name="lang" id="en" class="btn btn-default btn-circle" >English</a>
                         </div>
                         <div class="form-group" style="float: right">
                             <a class="btn btn-danger collapsed"  data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3">닫기</a>

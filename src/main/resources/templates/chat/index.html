@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css}"/>
     <title>Title</title>
     <script th:src="@{//code.jquery.com/jquery-1.11.1.min.js}"></script>
     <style>
@@ -43,23 +44,26 @@
 <body>
 <input type="hidden" id="sessionId" value="">
 <input type="hidden" id="roomNumber" th:value="${roomName}">
-    <div id="container" class="container">
-        <h1>채팅</h1>
-        <div id="chating" class="chating">
-
-        </div>
-        <div id="yourMsg">
-            <table class="inputTable">
-                <tr>
-                    <th>메시지</th>
-                    <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-                    <th><button onclick="send()" id="sendBtn">보내기</button></th>
-                </tr>
-            </table>
+<div class="container">
+    <h4 class="title" id="myModalLabelResult">1:1 상담</h4>
+    <div class="row">
+        <div class="col-xs-12 chating" style="overflow: overlay;">
+            <h3>채팅</h3>
+            <div id="chating" class="chating">
+            </div>
         </div>
     </div>
+    <hr>
+    <div id="yourMsg">
+        <div class="form-group">
+            <label style="display: block; font-family: Consolas">메세지</label>
+            <input class="form-control" id="chatting" placeholder="보내실 메시지를 입력하세요." style="width: 80%;margin-right: 5px; float: left">
+            <button class="btn btn-danger" onclick="send()" id="sendBtn" style="width: 18%;float: right">보내기</button>
+            <button class="btn btn-primary text-center" onclick="history.back()" style="width: 18%;float: right;margin-top: 10px;">보내기</button>
+        </div>
+    </div>
+</div>
 </body>
-
 <script th:inline="javascript">
     var ws;
 

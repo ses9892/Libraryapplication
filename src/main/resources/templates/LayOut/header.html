@@ -112,7 +112,7 @@
                 wsOpen(userId);
             }).error(function (error){
                 alert(error.responseJSON.message);
-                location.href="/logout";
+                $('#logOut').click()
             })
         })
     })

@@ -29,7 +29,7 @@
 #### Resource
 ![img_3.png](img_3.png)
 ***
-###개발내역
+### 개발내역
 - [환경설정](#환경설정)
 - [인터셉터,JWT](#인터셉터,JWT)
 - [ExceptionHandler](#ExceptionHandler)

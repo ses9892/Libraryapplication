@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 10004
   servlet:
     encoding:
       charset: UTF-8
@@ -18,13 +18,10 @@ spring:
     #oracle.jdbc.driver.OracleDriver
     url:
       jdbc:mysql://gyguswlsgh.ciiiy3dtxwx4.ap-northeast-2.rds.amazonaws.com:1521/HyoHyunJinHo?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
-    #jdbc:oracle:thin:@localhost:1521/xe
     username:
       gyguswlsgh
-    #ses9892
     password:
       gyguswlsgh
-    #1234
   h2:
     console:
       enabled: true

@@ -1,8 +1,8 @@
-<<<<<<< HEAD
+
 # Library-Project
-<h3>도서관 프로젝트</h3>
-<h4>인원 구성</h4>
-<li>장진호 </li>
+###도서관 프로젝트
+####인원 구성
+*장진호
 <h4>프로젝트 기간</h4>
 <li>21-06-16(수)  ~  NOW( )</li>
 <h4>개요</h4>
@@ -15,14 +15,3 @@
 <li>Back : SpringBoot(2.XX) , JSP , Mybatis , JWT </li>
 <li>DB : MySQL( AWS RDS )</li>
 <li>Server : Tomcat(JAR) , AWS EC2</li>
-
-
-
-
-
-
-
-=======
-# Libraryapplication
-도서관프로젝트
->>>>>>> github/master

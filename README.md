@@ -32,13 +32,13 @@
 - DB : MySQL( AWS RDS )
 - Server : AWS EC2
 #### 6️⃣ ERD
-![img.png](img.png)
+![img](https://user-images.githubusercontent.com/82253939/127321662-8068a01b-07b5-4f9d-bafc-80d8ec9d287d.png)
 ***
 ###  7️⃣  Package
 #### main
-![img_2.png](img_2.png)
+![img_2](https://user-images.githubusercontent.com/82253939/127321700-1283bf0a-7ff0-49e6-b136-192a04c360c9.png)
 #### Resource
-![img_3.png](img_3.png)
+![img_3](https://user-images.githubusercontent.com/82253939/127321728-f4c0ea2a-a7bd-4513-aa83-9515d5cdf76a.png)
 ***
 ###  8️⃣ 개발내역부록
 - [환경설정](#환경설정)
@@ -135,13 +135,13 @@ custom:
 ### :cd: Service
 - InterFace : UserService 
   - implement : [UserServiceImpl](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/service/UserServiceImpl.java)
-  ![img_4.png](img_4.png)
+    ![image](https://user-images.githubusercontent.com/82253939/127321768-01ec28ca-9582-4cab-9075-a999fef13863.png)
 - InterFace : BookService 
   - implement : [BookServiceImpl](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/service/bookservice/BookServiceImpl.java)
-  ![img_5.png](img_5.png)
+    ![img_5](https://user-images.githubusercontent.com/82253939/127321799-3a60b132-048b-40c6-b8cd-6ff504be5373.png)
 - InterFace : ChatService 
   - implement : [ChatServiceImpl](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/service/chatservice/ChatServiceImpl.java)
-  ![img_6.png](img_6.png)
+    ![img_6](https://user-images.githubusercontent.com/82253939/127321836-c8dada29-8e8c-4ec0-a539-2982c5fe318a.png)
 - Class : [MailService](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/service/MailService.java)
   <pre>
     //메일 인증에 관한 서비스
@@ -169,7 +169,7 @@ custom:
 ---
 ### :cd: dto
 #### [DTO(Data Transfer Object)](https://github.com/ses9892/Libraryapplication/tree/master/src/main/java/com/library/application/dto) 는 계층간 데이터 교환을 위한 자바빈즈
-![img_8.png](img_8.png)
+![img_8](https://user-images.githubusercontent.com/82253939/127321879-6083382d-c29c-450f-918a-04995c1f8a92.png)
 - ROLE (유저별 권한을 지정하기위한 enum class)
 <pre>
   @Getter
@@ -317,11 +317,11 @@ protected void configure(HttpSecurity http) throws Exception {
 
 #### Login Success Handler
 - 로그인 성공시 JWT 토큰을 발급하며 HashMap items Response
-![img_9.png](img_9.png)
+  ![img_9](https://user-images.githubusercontent.com/82253939/127321924-fffc1c7c-b351-4c9a-a294-d055336a491a.png)
 ![로긴](https://user-images.githubusercontent.com/82253939/127280056-6c54741a-4ef7-4684-88e3-6ff58d43b9a6.gif)
 #### Login Failed Handler
 - 에러타입으로 로그인실패의 메세지와 에러 코드를 Response
-![img_11.png](img_11.png)
+  ![img_11](https://user-images.githubusercontent.com/82253939/127321952-f7d3e7a3-9f7f-4671-b586-5ca5cddf7e5c.png)
 ![로긴실패](https://user-images.githubusercontent.com/82253939/127280605-ee43b242-3a0e-4ea0-a51c-590286f18ecb.gif)
 ### :cd: RememberMe
 - Spring Security의 Remember Me를 이용하여 인터넷창 종료시 쿠키를 발급하여
@@ -380,7 +380,7 @@ protected void configure(HttpSecurity http) throws Exception {
 ![비로그인 메인홈페이지](https://user-images.githubusercontent.com/82253939/127284502-a73ae454-4ab4-4f6a-9a7b-3a40e8a2a5d0.gif)
 ***
 ### ✨ JWT
-![img_12.png](img_12.png)
+![img_12](https://user-images.githubusercontent.com/82253939/127321977-b60011fc-fc5e-4ab6-a1ec-90f680ade90e.png)
 - 특정 URL 요청시 Login 이후 SessionStorage 에 등록된 Token을 헤더값에 넣고 요청하며 바로 컨트롤러로 가지않고 인터셉터를 거쳐 Token inVaild 검사를 실행하며 ```
 Return true;```일경우 컨트롤러로 요청을 보낸다.
 - #### application.yml
@@ -490,7 +490,7 @@ public class MailService {
 ```
 ***
 ### ✨ Upload
-![img_14.png](img_14.png)
+![img_14](https://user-images.githubusercontent.com/82253939/127322071-b18dd94c-b85e-41a6-9e38-12cad874715b.png)
 - 파일업로드시 인터셉터에서 Encoding과 Size를 체크한다.
 - FileUtils.java 에서 확장자명을 체크하여 JPG,PDF 별로 파일을 저장공간에 저장한다.
 - 저장한 파일의 DTO를 DB에 저장한다.
@@ -566,10 +566,10 @@ public class FIleUtils {
 }
 ```
 - #### DB insert
-![img_15.png](img_15.png)
+![img_15](https://user-images.githubusercontent.com/82253939/127322090-5e305cd8-ccaf-43fc-8166-a18e32fefa5c.png)
 ***
 ### ✨ SocketChating
-![img_16.png](img_16.png)
+![img_16](https://user-images.githubusercontent.com/82253939/127322113-57246c7e-b2c8-4456-a102-abe6514353b4.png)
 - Spring Boot WebSocket 사용
 - Socket InterCeptor을 활용하여 세션연결 , 메세지 전송 , 세션아웃
 #### Pom.xml
@@ -604,9 +604,9 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
 #### DB
 - 채팅방입장시 채팅방 session_id에 소켓에 연결된 세션이 저장된다.
-![img_17.png](img_17.png)
+  ![img_17](https://user-images.githubusercontent.com/82253939/127322138-27c9333a-b728-4c3b-a1e2-8587a65f9412.png)
 - 채팅방 퇴장시 퇴장한 session_id를 찾아 데이터를 삭제한다.
-![img_18.png](img_18.png)
+  ![img_18](https://user-images.githubusercontent.com/82253939/127322169-a222d48a-0b75-4dd1-8184-2cba217036a5.png)
   
 #### 사용환경
 ![솤켓채팅](https://user-images.githubusercontent.com/82253939/127297903-ecfe9c8a-159b-46ae-b1dc-a049f016bec5.gif)

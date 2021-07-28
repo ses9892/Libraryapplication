@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Locale;
 
+// 로그인  & 회원기입 페이지 이동 로그인완료후 요청 URL 대한 컨트롤러
 @Controller
 @Slf4j
 public class StartController {
@@ -22,20 +23,17 @@ public class StartController {
     @Autowired
     MessageSource messageSource;
 
-
     @RequestMapping(value = "/")
     public String home() {
         log.info("tq");
         return "login";
     }
+
     @GetMapping("/pdfview")
     public String viewTest(){
         return "viewer";
     }
-    @GetMapping("/compressed.tracemonkey-pldi-09.pdf")
-    public String testt(){
-        return "viewer";
-    }
+
     @RequestMapping(value = "/preview")
     public void pdfStreamHandler(HttpServletResponse response) {
 
@@ -61,10 +59,6 @@ public class StartController {
             }
         }
     }
-    @RequestMapping(value = "/view")
-    public void pdfViewHandler(HttpServletResponse response) {
-
-    }
 
 
     @RequestMapping(value = "/library")
@@ -72,6 +66,7 @@ public class StartController {
         model.addAttribute("clientLocale",locale);
         return "library/home";
     }
+
     @RequestMapping(value = "/register")
     public String register() { ;
         return "register";

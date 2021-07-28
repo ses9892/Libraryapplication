@@ -26,16 +26,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+// 도서관 서비스 이용에 대한 컨트롤러
 @Controller
 @Slf4j
 @RequestMapping(value = "/library")
 public class LibraryController {
-    @Autowired
     Environment env;
-
-    @Autowired
     BookService bookService;
-
+    @Autowired
+    public LibraryController(Environment env, BookService bookService) {
+        this.env = env;
+        this.bookService = bookService;
+    }
 
     @RequestMapping("/save/{userId}")
     public String bookSave(@PathVariable("userId")String userId,Model model){
@@ -44,8 +46,6 @@ public class LibraryController {
     }
 
     //도서 등록페이지 이동
-//    @RequestMapping(value = "/booksave/{userId/}")
-    //restController 이동예정
     @ResponseBody
     @RequestMapping(value = "/save")
     public String savePage(HttpServletRequest request,Model model){
@@ -53,6 +53,7 @@ public class LibraryController {
         return userId;
     }
 
+    //도서 조회 페이지 이동
     @ResponseBody
     @RequestMapping(value = "/return")
     public String returnPage(HttpServletRequest request){
@@ -68,6 +69,7 @@ public class LibraryController {
         return "library/booklend";
     }
 
+    //도서 상세조회
     @GetMapping(value = "/book")
     public String bookSelect(HttpServletRequest request,Model model){
         BookDto bookDto = Optional.ofNullable(bookService.selectByIdx(Integer.parseInt(request.getParameter("idx"))))
@@ -94,6 +96,7 @@ public class LibraryController {
         return "library/booksave";
     }
 
+    //도서 대출
     @ResponseBody
     @PostMapping(value = "/book/{idx}")
     public String booklend(@PathVariable("idx") int book_idx, Model model, HttpServletRequest request){
@@ -107,10 +110,6 @@ public class LibraryController {
         return "현재 미 반납 도서이거나,이미 대출하신 도서입니다.";
     }
 
-    //책삭제 delete "library/book"
-    //책수정 PUT "library/book"
-
-
     //도서반납 -> 유저의 대출목록 가져오기
     @GetMapping(value = "/return/{userId}")
     public String returnBook(@PathVariable("userId") String userId,Model model){
@@ -121,7 +120,6 @@ public class LibraryController {
     }
     //도서반납OK
     @ResponseBody
-//    @DeleteMapping(value = "/book/return/{idx}")
     @DeleteMapping(value = "/book/{idx}")
     public ResponseEntity<String> returnBookOK(@PathVariable("idx") int Book_idx, HttpServletRequest request,Model model){
         ResponseEntity<String> entity = null;
@@ -140,7 +138,6 @@ public class LibraryController {
     }
     //도서 연장 OK
     @ResponseBody
-//    @PutMapping(value = "/book/return/{idx}")
     @PutMapping(value = "/book/{idx}")
     public ResponseEntity<String> extendBookOK(@PathVariable("idx") int Book_idx, HttpServletRequest request,Model model){
         ResponseEntity<String> entity = null;
@@ -174,7 +171,6 @@ public class LibraryController {
         String url = env.getProperty("custom.location.bookSelect")+"/img/"+fileName;
         return ResponseEntity.status(HttpStatus.OK).body(url);
     }
-
 
 
     @ResponseBody

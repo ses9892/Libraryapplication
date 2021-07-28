@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import javax.mail.MessagingException;
 import java.util.HashMap;
 
+//로그인 & 회원가입 & 정보 수정 & 삭제 에 대한 기능을 수행하는 메소드를 정의해놓은 인터페이스
 public interface UserService extends UserDetailsService {
-    public void save(String test);
 
     Boolean register(UserDto user);
 

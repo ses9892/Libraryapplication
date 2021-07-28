@@ -25,10 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
-
+//회원가입 요청 & 중복체크 & 이메일인증 & 비밀번호찾기 요청에 대한 RestController
 @RestController
 @Slf4j
-public class MainRestController {
+public class StartRestController {
     @Autowired
     Environment env;
     @Autowired

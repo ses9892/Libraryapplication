@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
+//도서 등록 & 삭제 & 조회 & 상세조회 & 연장 & 반납 & 즐겨찾기 에 대한 메소드를 구현하는 인터페이스
 public interface BookService {
 
     public boolean saveBook(BookDto bookDto, MultipartFile[] files);

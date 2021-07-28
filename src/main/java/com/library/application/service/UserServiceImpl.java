@@ -49,10 +49,6 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
         this.mailSender = mailSender;
     }
-    @Override
-    public void save(String test) {
-        userMapper.save(test);
-    }
     //회원가입
     @Override
     public Boolean register(UserDto user) {

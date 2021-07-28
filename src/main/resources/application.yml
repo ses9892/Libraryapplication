@@ -10,26 +10,30 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+#Thymeleaf
   thymeleaf:
     prefix: classpath:/templates/
+# Database
   datasource:
     driver-class-name:
       com.mysql.cj.jdbc.Driver
-    #oracle.jdbc.driver.OracleDriver
     url:
       jdbc:mysql://gyguswlsgh.ciiiy3dtxwx4.ap-northeast-2.rds.amazonaws.com:1521/HyoHyunJinHo?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
     username:
       gyguswlsgh
     password:
       gyguswlsgh
+# H2 enable
   h2:
     console:
       enabled: true
       path: /h2-console
+#Security id & pw
   security:
     user:
       name: admin
       password: 1111
+#Google Mail Send
   mail:
     host: smtp.gmail.com
     port: 587
@@ -38,18 +42,19 @@ spring:
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
+#Auto Reload
   devtools:
     livereload:
       enabled: true
-
-
+#mybatis
 mybatis:
   type-aliases-package: com/library/application/ResponseVo/**
   mapper-locations: mapper/**.xml
-
+#Token
 token:
   expiration_time: 864000000 #10 days
   secret: user_login
+#Linux & window  path
 custom:
   path:
     upload-imges: 'D:/library/'
@@ -57,6 +62,7 @@ custom:
   Linux:
     upload-imges: 'home/ec2-user/Library-Data/img'
     upload-pdf: 'home/ec2-user/Library-Data/pdf'
+#URL location
   location:
     bookSave: /library/booksave
     bookReturn: /library/bookreturn
@@ -64,7 +70,4 @@ custom:
     userDelete: /user-service/user/
     autoReturn: /user-service/user/auto_return
     bookSelect: /pdfview?file=
-    test: tt
-
-#http://localhost:10004/user-service/info/admin
 

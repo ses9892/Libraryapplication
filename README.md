@@ -1,54 +1,55 @@
 # Library-Project
 ### 도서관 프로젝트
 ***
-## 목차
-- #### [인원구성](#인원구성)
-- #### [기간](#기간)
-- #### [개요](#개요)
-- #### [목표](#목표)
-- #### [개발환경](#개발환경)
-- #### [ERD](#Server)
-- #### [Package](#Package)
-- #### [개발내역부록](#개발내역부록-1)
+### 🏫 [도서관이동하기](http://ec2-3-15-99-108.us-east-2.compute.amazonaws.com:8080/)
 ***
-#### 인원구성
+##  📚 목차
+#### 1️⃣ [인원구성](#인원구성)
+#### 2️⃣ [기간](#기간)
+#### 3️⃣ [개요](#개요)
+#### 4️⃣ [목표](#목표)
+#### 5️⃣ [개발환경](#개발환경)
+#### 6️⃣ [ERD](#ERD)
+#### 7️⃣ [Package](#Package)
+#### 8️⃣ [개발내역부록](#개발내역부록-1)
+***
+#### 1️⃣ 인원구성
 - 장진호(개인)
-#### 프로젝트 기간
+####  2️⃣ 프로젝트 기간
 - 21-06-16(수)  ~  2021-07-27(화)
-#### 개요
+####  3️⃣ 개요
 - 객체 지향을 이해하며 Spring Boot 환경설정과 그에맞는 도서관 웹으로서의 기능을<br>
   &nbsp;&nbsp;&nbsp;&nbsp; 추가한다.</li>
 - RestFul API 설계방식을 이해하며 요청,응답되는 Resource를 처리한다.
-#### 목표
+#### 4️⃣ 목표
 - Spring Boot와 객체지향을 이해하며 ,
   궁극적인 목표는 AWS를 이용한 배포환경을 설계한다.
-#### 개발환경
+####  5️⃣ 개발환경
 - Tool : IntelliJ IDEA , STS , QueryBox
 - Front : HTML , CSS , JS , BootStrap(3.xx) , JQuery
 - Template : Thymeleaf
 - Back : SpringBoot(2.3.11) , Mybatis , JWT
 - DB : MySQL( AWS RDS )
 - Server : AWS EC2
-#### ERD
+#### 6️⃣ ERD
 ![img.png](img.png)
 ***
-### Package
+###  7️⃣  Package
 #### main
 ![img_2.png](img_2.png)
 #### Resource
 ![img_3.png](img_3.png)
 ***
-### 개발내역부록
+###  8️⃣ 개발내역부록
 - [환경설정](#환경설정)
 - [인터셉터,JWT](#인터셉터jwt)
-- [Security](#Security)
-- [jwt](#JWT)
-- [Email](#Email)
-- [Upload](#Upload)
-- [SocketChating](#SocketChating)
-- [AWS EC2](#EC2)
-- [mybatis](#mybatis)
-- [배포URL](#URL)
+- [Security](#-security)
+- [jwt](#-jwt)
+- [Email](#-email)
+- [Upload](#-upload)
+- [SocketChating](#-socketchating)
+- [Scheduling](#-scheduling)
+- [AWS EC2](#-ec2)
 ***
 ### ✨환경설정 
 :one:[Application.yml](#cd-yml)
@@ -186,10 +187,10 @@ custom:
 </pre>
 ***
 ### ✨인터셉터,JWT
-- ####[인터셉터 바로가기](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/interceptor/WebMvcConfig.java)
-- ####[Resource 경로 (os별)](#cd-Resource-Handler)
-- ####[파일업로드 인코딩 및 크기제한 설정](#cd-FileUpload)
-- ####[URL 요청별 JWT 토큰 처리](#cd-JWT)
+- #### [인터셉터 바로가기](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/interceptor/WebMvcConfig.java)
+- #### [Resource 경로 (os별)](#cd-resource-handler)
+- #### [파일업로드 인코딩 및 크기제한 설정](#cd-fileupload)
+- #### [URL 요청별 JWT 토큰 처리](#cd-jwt)
 ***
 ### :cd: Resource-Handler
 - 윈도우 & 리눅스 를 나누어 리소스들을 읽어올 경로를 설정
@@ -279,15 +280,15 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
 </pre>
 ***
 ### ✨ Security
-- #### [Login / Logout Handling](#Login/Logout Handling)
-- #### [RememberMe](#RememberMe)
-- #### [ROLE](#ROLE)
+- #### [Login / Logout Handling](#cd-loginlogout-handling)
+- #### [RememberMe](#cd-rememberme)
+- #### [ROLE](#cd-role)
 ***
 ### :cd: Login/Logout Handling
 - LoginSuccessHandler , LoginFailedHandler 
 - LogoutSuccessHandler 핸들링 처리
 
-### [Spring Security Config](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/security/securityConfig.java)
+#### [Spring Security Config](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/security/securityConfig.java)
 <pre>
 @Override
 protected void configure(HttpSecurity http) throws Exception {
@@ -315,11 +316,11 @@ protected void configure(HttpSecurity http) throws Exception {
                     });
 </pre>
 
-### Login Success Handler
+#### Login Success Handler
 - 로그인 성공시 JWT 토큰을 발급하며 HashMap items Response
 ![img_9.png](img_9.png)
 ![로긴](https://user-images.githubusercontent.com/82253939/127280056-6c54741a-4ef7-4684-88e3-6ff58d43b9a6.gif)
-### Login Failed Handler
+#### Login Failed Handler
 - 에러타입으로 로그인실패의 메세지와 에러 코드를 Response
 ![img_11.png](img_11.png)
 ![로긴실패](https://user-images.githubusercontent.com/82253939/127280605-ee43b242-3a0e-4ea0-a51c-590286f18ecb.gif)
@@ -611,6 +612,55 @@ public class WebSocketConfig implements WebSocketConfigurer {
 #### 사용환경
 ![솤켓채팅](https://user-images.githubusercontent.com/82253939/127297903-ecfe9c8a-159b-46ae-b1dc-a049f016bec5.gif)
 ***
+### ✨ Scheduling
+#### Spring Scheduling 을 이용한 00시 00분 자동반납 api
+
+#### Application.java
+- @EnableScheduling 을 이용해 스케쥴링을 활성화
+```
+@EnableAsync
+@SpringBootApplication
+@EnableScheduling
+public class Application  {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    
+    ...
+    }
+```
+#### BookServiceImpl.java
+- @Scheduled 를이용해 Borrowed_Book Table return_date 칼럼이 오늘날짜인 데이터를 삭제시키고 반납처리
+```
+  // 1일기준 00시00분 자동실행
+  @Scheduled(cron = "0 0 0 * * *")
+  @Override
+  public void AutoBookReturn() {      
+      List<BorrowedBookDto> list = borrowedBookMapper.autoBookReturn();
+      log.info(list.toString());
+      if(list.size()>0){
+      //Borrowed_book 해당데이터삭제
+      borrowedBookMapper.deleteByBookIdxList(list);
+      bookMapper.autoBookReturn(list);
+      userMapper.autoBookReturn(list);
+      //book_idx 와 userIdx로 반납
+      }
+      int size = list.size();
+      SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+      log.info(size+"개의 책이"+sdf.format(new Date(System.currentTimeMillis()))+" 반납 완료되었습니다.");
+  }
+```
+#### Borrowed_book.xml
+- Java 로 처리하는것이아닌 DDL 작성으로 오늘날짜와 반납날짜를 비교하여 처리한다.
+```
+<select id="autoBookReturn" resultType="com.library.application.dto.BorrowedBookDto">
+    select a1.ref_idx,a1.borrower
+    from Borrowed_book a1 , Users a2
+    where DATE_FORMAT(return_date,'%Y-%m-%d') = DATE_FORMAT(now(),'%Y-%m-%d')
+      and a2.idx = a1.borrower and a2.autoReturn=true;
+</select>
+```
+
+
 
 
 

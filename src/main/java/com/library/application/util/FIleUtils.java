@@ -76,6 +76,4 @@ public class FIleUtils {
         }
         return imgDtoList;
     }
-
-
 }

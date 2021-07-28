@@ -58,12 +58,12 @@ public class BookServiceImpl implements BookService{
     public boolean saveBook(BookDto bookDto, MultipartFile[] files) {
         String os = System.getProperty("os.name").toLowerCase();
         int result =1;
-        //파일이 업로드 되기전 확장자명 검사
-        //첫번째 pdf 검사
+
+        //첫번째 파일 확장자 검사
         if(!FilenameUtils.getExtension(files[0].getOriginalFilename()).equalsIgnoreCase("pdf")){
             return false;
         }
-        //그이후 다중업로드되는 그림파일검사
+        //그이후 다중업로드되는 이미지 파일 확장자 검사
         for (int i=1;i< files.length;i++){
             if(FilenameUtils.getExtension(files[i].getOriginalFilename()).equals("jpg")||
                     FilenameUtils.getExtension(files[i].getOriginalFilename()).equals("png")||
@@ -72,6 +72,7 @@ public class BookServiceImpl implements BookService{
                 return false;
             }
         }
+
         if(bookMapper.countBook(bookDto)>0){
             throw new BookDuplicationException("<script>alert('현재 도서목록에 존재하는 도서입니다.'); history.go(-1);</script>");
         }

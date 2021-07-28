@@ -42,15 +42,15 @@
 - [배포URL](#URL)
 ***
 ### ✨환경설정 
-:one:[Application.yml](yml)
+:one:[Application.yml](#cd-yml)
 
-:two:[Controller](#controller)
+:two:[Controller](#cd-controller)
 
-:three: [Service](#service)
+:three: [Service](#cd-service)
 
-:four: [dto](#dto)
+:four: [dto](#cd-dto)
 
-
+---
 ### :cd: yml
 - DB
 <pre>
@@ -106,7 +106,7 @@ custom:
     autoReturn: /user-service/user/auto_return
     bookSelect: /pdfview?file=
 </pre>
-
+---
 ### :cd: Controller
 
 - [StartController](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/controller/StartController.java)
@@ -122,7 +122,7 @@ custom:
   
 - [ChatController](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/controller/ChatController.java)
   - 채팅 서비스에 요청을 받는 컨트롤러
-
+---
 ### :cd: Service
 - InterFace : UserService 
   - implement : [UserServiceImpl](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/service/UserServiceImpl.java)
@@ -157,8 +157,27 @@ custom:
       }
   }
   </pre>
-
+---
+### :cd: dto
+#### [DTO(Data Transfer Object)](https://github.com/ses9892/Libraryapplication/tree/master/src/main/java/com/library/application/dto) 는 계층간 데이터 교환을 위한 자바빈즈
+![img_8.png](img_8.png)
+- ROLE (유저별 권한을 지정하기위한 enum class)
+<pre>
+  @Getter
+  @RequiredArgsConstructor
+  public enum Role {
+      //스프링 시큐리티에서 권한에 사용되는 클래스 , 무조건 ROLE을 붙여야함
   
+      GUEST("ROLE_ADMIN", "운영자"),
+      USER("ROLE_USER", "일반 사용자");
+  
+      public final String key;
+      public final String title;
+  }
+</pre>
+
+
+
   
 
 

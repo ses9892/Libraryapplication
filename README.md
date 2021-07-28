@@ -380,16 +380,16 @@ protected void configure(HttpSecurity http) throws Exception {
 - 비 로그인 메인홈페이지 접속시도
 ![비로그인 메인홈페이지](https://user-images.githubusercontent.com/82253939/127284502-a73ae454-4ab4-4f6a-9a7b-3a40e8a2a5d0.gif)
 ***
-###✨ JWT
+### ✨ JWT
 ![img_12.png](img_12.png)
 - 특정 URL 요청시 Login 이후 SessionStorage 에 등록된 Token을 헤더값에 넣고 요청하며 바로 컨트롤러로 가지않고 인터셉터를 거쳐 Token inVaild 검사를 실행하며 ```
 Return true;```일경우 컨트롤러로 요청을 보낸다.
-- ####application.yml
+- #### application.yml
 ```token:
   expiration_time: 864000000 #10 days
   secret: user_login
   ```
-- ####TokenVaild
+- #### TokenVaild
 ```
 public class JwtTokenProvider {
     private String secretKey;   //Token 키 내용
@@ -417,7 +417,7 @@ public class JwtTokenProvider {
         }
     }
 ```
-- ####BearerAuthInterceptor.java
+- #### BearerAuthInterceptor.java
 ```
 @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -441,12 +441,12 @@ public class JwtTokenProvider {
         return true;
     }
 ```
-- ####토큰을 전달하지 않을경우
+- #### 토큰을 전달하지 않을경우
 ![토큰전달x](https://user-images.githubusercontent.com/82253939/127287423-4df59884-d672-426e-a15d-735e08c69a3f.gif)
 ***
-###✨ Email
-###✨ Upload
-###✨ SocketChating
+### ✨ Email
+### ✨ Upload
+### ✨ SocketChating
 
 
 

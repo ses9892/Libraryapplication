@@ -1,15 +1,15 @@
 # Library-Project
 ### 도서관 프로젝트
 ***
-##목차
-- ####[인원구성](#인원구성)
-- ####[기간](#기간)
-- ####[개요](#개요)
-- ####[목표](#목표)
-- ####[개발환경](#개발환경)
-- ####[ERD](#Server)
-- ####[Package](#Package)
-- ####[개발내역부록](#개발내역부록)
+## 목차
+- #### [인원구성](#인원구성)
+- #### [기간](#기간)
+- #### [개요](#개요)
+- #### [목표](#목표)
+- #### [개발환경](#개발환경)
+- #### [ERD](#Server)
+- #### [Package](#Package)
+- #### [개발내역부록](#개발내역부록)
 ***
 #### 인원구성
 - 장진호(개인)
@@ -445,8 +445,57 @@ public class JwtTokenProvider {
 ![토큰전달x](https://user-images.githubusercontent.com/82253939/127287423-4df59884-d672-426e-a15d-735e08c69a3f.gif)
 ***
 ### ✨ Email
+- #### Spring Boot mail 사용
+```
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+```
+- #### application.yml
+  - smtp 환경설정
+```
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ###
+    password: ###
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+```
+- #### MailSender 역할을 수행할 [MailService](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/service/MailService.java)
+```
+@Service
+public class MailService {
+
+    @Autowired
+    public JavaMailSender javaMailSender;
+
+    //동기
+    @Async
+    public void sendMail(String email,String subject, String message) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,"utf-8");
+
+        helper.setFrom("Library-Service");
+        helper.setTo(email); //받는사람
+        helper.setSubject(subject);
+        helper.setText(message,true);
+        //HTML 코드를 작성하여 메일을 보낸다.
+        javaMailSender.send(mimeMessage);
+
+    }
+}
+```
+***
 ### ✨ Upload
+
+***
 ### ✨ SocketChating
+
+***
 
 
 

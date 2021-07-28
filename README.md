@@ -1,6 +1,16 @@
 # Library-Project
 ### 도서관 프로젝트
 ***
+##목차
+- ####[인원구성](#인원구성)
+- ####[기간](#기간)
+- ####[개요](#개요)
+- ####[목표](#목표)
+- ####[개발환경](#개발환경)
+- ####[ERD](#Server)
+- ####[Package](#Package)
+- ####[개발내역부록](#개발내역부록)
+***
 #### 인원구성
 - 장진호(개인)
 #### 프로젝트 기간
@@ -28,12 +38,12 @@
 #### Resource
 ![img_3.png](img_3.png)
 ***
-### 개발내역
+### 개발내역부록
 - [환경설정](#환경설정)
 - [인터셉터,JWT](#인터셉터,JWT)
 - [ExceptionHandler](#ExceptionHandler)
 - [Security](#Security)
-- [jwt](#jwt)
+- [jwt](#JWT)
 - [Email](#Email)
 - [Upload](#Upload)
 - [SocketChating](#SocketChating)
@@ -175,6 +185,277 @@ custom:
       public final String title;
   }
 </pre>
+***
+### ✨인터셉터,JWT
+- ####[인터셉터 바로가기](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/interceptor/WebMvcConfig.java)
+- ####[Resource 경로 (os별)](#cd-Resource-Handler)
+- ####[파일업로드 인코딩 및 크기제한 설정](#cd-FileUpload)
+- ####[URL 요청별 JWT 토큰 처리](#cd-JWT)
+***
+### :cd: Resource-Handler
+- 윈도우 & 리눅스 를 나누어 리소스들을 읽어올 경로를 설정
+<pre>
+//WebMvcConfig.class
+// Window10 & Linux Resource Handle
+@Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.equals("windows 10")){
+        registry
+                .addResourceHandler("/img/**")
+                .addResourceLocations("file:/"+uploadImgesPath);
+        registry
+                .addResourceHandler("/pdf/**")
+                .addResourceLocations("file:/"+uploadPdfPath);
+        registry
+                .addResourceHandler("/resource/**")
+                .addResourceLocations("/img/**");
+        // img/filename , pdf/pdfFileName
+        }else{ LinuxChange(registry); }
+    }
+</pre>
+***
+### :cd: FileUpload
+- 인터셉터 클래스에 CommonsMultipartResolver Bean을 등록하여 
+  MultipartResolver 의 파일설정
+<pre>
+//WebMvcConfig.class
+@Bean
+public CommonsMultipartResolver multipartResolver() {
+    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+    multipartResolver.setDefaultEncoding("UTF-8"); // 파일 인코딩 설정
+    multipartResolver.setMaxUploadSizePerFile(5 * 1024 * 1024*100); // 파일당 업로드 크기 제한 (5MB)
+    return multipartResolver;
+}
+</pre>
+***
+
+### :cd: JWT
+- 요청할 URL에서 Header로 넘어온 JWT 토큰의 유효성검사를 요청하는 경로 설정
+- bearerAuthInterceptor 클래스의 preHandle() 에서 토큰의 유효성을 검사 한다.
+
+[userAction.js → pwdCheck()](https://github.com/ses9892/Libraryapplication/blob/master/src/main/resources/static/js/userAction.js)
+<pre>
+pwdCheck : function (){
+        var pwd= $('#user-password').val();
+        $.ajax({
+            type: "GET",
+            url: "/user-service/pwdCheck",
+            headers:{
+                'content-type':'application/json',
+                'Authorization':'bearer'+localStorage.getItem('jwt')
+            }
+</pre>
+<pre>
+//WebMvcConfig.class
+   @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(bearerAuthInterceptor).addPathPatterns("/check/book")
+        .addPathPatterns("/user-service/pwdCheck")
+        ...;
+    }
+</pre>
+<pre>
+@Override
+public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    // HandlerInterceptor의 메소드이며, 인터셉터로 해당 메소드의 재정의한 기능이 수행된다.
+    log.info("preHandle Start ( JWT Token Valid)");
+    String lang = request.getParameter("lang");
+    String Token = null;
+    if(request.getParameter("key")!=null){
+        Token = request.getParameter("key");
+    }else{
+        Token = request.getHeader("Authorization");
+    }
+    String flag = request.getHeader("flag");
+    Token = Token.replace("bearer","");
+    if(!jwtTokenProvider.validateToken(Token) || Token==null){
+         throw new IllegalAccessException("로그인 상태가 유효 하지 않습니다.");
+    }
+    String userId = jwtTokenProvider.getSubject(Token);     //토큰에담긴 subject = userId
+    request.setAttribute("userId",userId);
+
+    return true;
+}
+</pre>
+***
+###✨ Security
+- ####[Login / Logout Handling](#Login/Logout Handling)
+- ####[RememberMe](#RememberMe)
+- ####[ROLE](#ROLE)
+***
+### :cd: Login/Logout Handling
+- LoginSuccessHandler , LoginFailedHandler 
+- LogoutSuccessHandler 핸들링 처리
+
+### [Spring Security Config](https://github.com/ses9892/Libraryapplication/blob/master/src/main/java/com/library/application/security/securityConfig.java)
+<pre>
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+            ...
+                .formLogin()
+                    .loginPage("/")
+                    .loginProcessingUrl("/login")
+                    .usernameParameter("userId")
+                    .passwordParameter("password")
+                    .successHandler(new LoginSuccessHandler(env))
+                    .failureHandler(new LoginFailedHandler(env))
+                    .permitAll()
+                    .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .deleteCookies("JSESSIONID","remember-me")
+                    .invalidateHttpSession(true)
+                    .logoutSuccessHandler(new LogoutSuccessHandler() {
+                        @Override
+                        public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            response.sendRedirect("/");
+                            log.info("로그아웃성공!");
+                        }
+                    });
+</pre>
+
+### Login Success Handler
+- 로그인 성공시 JWT 토큰을 발급하며 HashMap items Response
+![img_9.png](img_9.png)
+![로긴](https://user-images.githubusercontent.com/82253939/127280056-6c54741a-4ef7-4684-88e3-6ff58d43b9a6.gif)
+### Login Failed Handler
+- 에러타입으로 로그인실패의 메세지와 에러 코드를 Response
+![img_11.png](img_11.png)
+![로긴실패](https://user-images.githubusercontent.com/82253939/127280605-ee43b242-3a0e-4ea0-a51c-590286f18ecb.gif)
+### :cd: RememberMe
+- Spring Security의 Remember Me를 이용하여 인터넷창 종료시 쿠키를 발급하여
+  암호화된 쿠키로 자동로그인이 됩니다.
+```
+<input name="remember"  id="remember-id" type="hidden" value="remember" checked="checked">
+```
+```
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+  ...
+  ...
+  http.rememberMe().tokenValiditySeconds(86400)
+                      .rememberMeParameter("rememberMe")
+                      .alwaysRemember(true)
+                      .userDetailsService(userService);//초단위
+}
+```
+![자동로그인](https://user-images.githubusercontent.com/82253939/127281609-991cca0c-5f8c-4bd9-a6ae-f427bf4f4212.gif)
+### :cd: ROLE
+- Login 시 UserDetail에 등록된 authorities를 비교하여 권한 등급에 따라 요청가능한 페이지가 달라집니다.
+- 권한에 맞지 않을경우 403에러 또는 권한이 없을경우 Login페이지로 돌아게됩니다.
+
+```
+ @Override
+    protected void configure(HttpSecurity http) throws Exception {
+    // 권한 처리  권한X -> loginPage Redirect
+        http.authorizeRequests().antMatchers("/test","/","/register","/duplication","/email","/forgetPwd").permitAll()
+                .antMatchers("/admin-service/**","/chat/room").hasRole("ADMIN")
+                .anyRequest().authenticated() 
+                .and()
+                    .formLogin()
+                        .loginPage("/")
+                        .loginProcessingUrl("/login")
+                        ...
+```
+#### UserDetails loadUserByUsername()
+- Login 후 Request된 Parameter에서 DB와 비교후 UserDetails 하위 클래스인
+  User 객체로 리턴해 줌으로써 Login 요청을 하게된 ID,PW,ID의권한이 세션에 저장된다.
+```
+  @Override
+  public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+      HashMap<String,Object> hmap = new HashMap<>();
+      hmap.put("userId",s);
+      UserDto dto = userMapper.findByUserId(hmap);
+      if(dto==null){
+          throw new UsernameNotFoundException("해당 아이디는 존재하지 않습니다.");
+      }
+      List<GrantedAuthority> authorities = new ArrayList<>();
+      authorities.add(new SimpleGrantedAuthority(dto.getRole()));
+      return new User(dto.getUserId(),dto.getPwd(),authorities);
+      //리턴된 데이터(유저)는 SecurityContext 의 Authentication에 등록되어 인증정보를 갖춘다.
+  }
+```
+- 비 로그인 메인홈페이지 접속시도
+![비로그인 메인홈페이지](https://user-images.githubusercontent.com/82253939/127284502-a73ae454-4ab4-4f6a-9a7b-3a40e8a2a5d0.gif)
+***
+###✨ JWT
+![img_12.png](img_12.png)
+- 특정 URL 요청시 Login 이후 SessionStorage 에 등록된 Token을 헤더값에 넣고 요청하며 바로 컨트롤러로 가지않고 인터셉터를 거쳐 Token inVaild 검사를 실행하며 ```
+Return true;```일경우 컨트롤러로 요청을 보낸다.
+- ####application.yml
+```token:
+  expiration_time: 864000000 #10 days
+  secret: user_login
+  ```
+- ####TokenVaild
+```
+public class JwtTokenProvider {
+    private String secretKey;   //Token 키 내용
+    private long validityInMilliseconds;    //Token의 유지시간
+
+    //@Value() = 매개변수에사용되며 해당매개변수는 JwtTokenProvider의 생성자가 실행될때
+    //application.yml 환경설정파일의 적어둔 내용을 읽어서 매개변수에 저장한다.
+    public JwtTokenProvider(@Value("${token.secret}") String secretKey, @Value("${token.expiration_time}") long validityInMilliseconds) {
+        this.secretKey = secretKey;
+        this.validityInMilliseconds = validityInMilliseconds;
+    }
+    ...
+    ...
+    //유효한 토큰인지 확인
+    public boolean validateToken(String token) {
+        try {
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            String subject = this.getSubject(token);
+            if (claims.getBody().getSubject()==null || claims.getBody().getSubject().isEmpty()) {
+                return false;
+            }
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+    }
+```
+- ####BearerAuthInterceptor.java
+```
+@Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // HandlerInterceptor의 메소드이며, 인터셉터로 해당 메소드의 재정의한 기능이 수행된다.
+        log.info("preHandle Start ( JWT Token Valid)");
+        String lang = request.getParameter("lang");
+        String Token = null;
+        if(request.getParameter("key")!=null){
+            Token = request.getParameter("key");
+        }else{
+            Token = request.getHeader("Authorization");
+        }
+        String flag = request.getHeader("flag");
+        Token = Token.replace("bearer","");
+        if(!jwtTokenProvider.validateToken(Token) || Token==null){
+             throw new IllegalAccessException("로그인 상태가 유효 하지 않습니다.");
+        }
+        String userId = jwtTokenProvider.getSubject(Token);     //토큰에담긴 subject = userId
+        request.setAttribute("userId",userId);
+
+        return true;
+    }
+```
+- ####토큰을 전달하지 않을경우
+![토큰전달x](https://user-images.githubusercontent.com/82253939/127287423-4df59884-d672-426e-a15d-735e08c69a3f.gif)
+***
+###✨ Email
+###✨ Upload
+###✨ SocketChating
+
+
+
+
+
+
+
+
+
 
 
 

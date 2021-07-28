@@ -36,23 +36,24 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler i
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+        //토큰 response
         String Token = Jwts.builder()
                 .setSubject(authentication.getName())
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(env.getProperty("token.expiration_time"))))
                 .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret")).compact();
-        //토큰 response
 
         ObjectMapper mapper = new ObjectMapper();	//JSON 변경용
-        request.getSession();
         ResponseData responseData = new ResponseData();
         responseData.setCode(ResponseDataStatus.SUCCESS);
         responseData.setStatus(ResponseDataStatus.SUCCESS);
+
         HashMap<String,Object> items = new HashMap<>();
         items.put("url" , "/library?lang=kr");
         items.put("meg","반가워요^^");
         items.put("type","ok");
         items.put("token",Token);
         items.put("userId",request.getParameter("userId"));
+
         responseData.setItem(items);
         response.setCharacterEncoding("UTF-8");
         response.getWriter().print(mapper.writeValueAsString(responseData));

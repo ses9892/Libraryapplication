@@ -25,7 +25,7 @@
     </sql>
 
     <insert id="insertBookImg" parameterType="list">
-        insert into `HyoHyunJinHo`.`Book_img`(
+        insert into Book_img(
                     <include refid="BookImgColums"/>
         )values
         <foreach collection="list" item="img" separator=",">
@@ -42,12 +42,12 @@
         </foreach>
     </insert>
     <select id="selectBookIdx" resultType="int" parameterType="com.library.application.dto.BookDto">
-        select idx from `HyoHyunJinHo`.`Book` where userId =#{userId} and name = #{name}
+        select idx from `Book` where userId =#{userId} and name = #{name}
     </select>
 
     <select id="selectByIdx" resultType="com.library.application.dto.BookDto" parameterType="int">
         select  <include refid="BookDto"/>
-        from `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
+        from `Book` a1 , `Book_img` a2
         where a2.board_idx = a1.idx and a1.idx = #{idx}
         and a2.extenstion != 'pdf';
     </select>
@@ -67,7 +67,7 @@
     </select>
 
     <insert id="insertBook" parameterType="com.library.application.dto.BookDto">
-        insert into `HyoHyunJinHo`.`Book`(name,author,publisher,userId,topic,topic2,detail)
+        insert into `Book`(name,author,publisher,userId,topic,topic2,detail)
         values
             (#{name},#{author},#{publisher},#{userId},#{topic},#{topic2},#{detail})
     </insert>
@@ -79,19 +79,19 @@
             <when test="flag=='all'">
                 select <include refid="BookDto"/>
                 FROM
-                `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
+                `Book` a1 , `Book_img` a2
                 WHERE a2.board_idx = a1.idx and borrow=0
             </when>
             <when test="flag!='all' and flag!='not'">
                 select <include refid="BookDto"/>
                 FROM
-                `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
+                `Book` a1 , `Book_img` a2
                 WHERE a2.board_idx = a1.idx and (a1.topic =#{flag} or a1.topic2=#{flag}) and borrow=0
             </when>
             <when test="flag=='not'">
                 select <include refid="BookDto"/>
                 FROM
-                `HyoHyunJinHo`.`Book` a1 , `HyoHyunJinHo`.`Book_img` a2
+                `Book` a1 , `Book_img` a2
                 WHERE a2.board_idx = a1.idx and a1.borrow=1
             </when>
         </choose>
@@ -100,20 +100,20 @@
     </select>
 
     <update id="borrowBook" parameterType="HashMap">
-        update `HyoHyunJinHo`.`Book`
+        update `Book`
         set borrow =
                 if(
-                            (select count(*) from `HyoHyunJinHo`.`Borrowed_book` where ref_idx=#{book_idx}) > 0,1,0
+                            (select count(*) from `Borrowed_book` where ref_idx=#{book_idx}) > 0,1,0
                     )
         where idx= #{book_idx};
     </update>
 
     <update id="autoBookReturn" parameterType="java.util.Map">
         <foreach collection="list" item="i" index="index" open="" separator=";" close=";">
-        update `HyoHyunJinHo`.`Book`
+        update `Book`
         set borrow =
                 if(
-                            (select count(*) from `HyoHyunJinHo`.`Borrowed_book` where ref_idx=#{i.ref_idx}) > 0,1,0
+                            (select count(*) from `Borrowed_book` where ref_idx=#{i.ref_idx}) > 0,1,0
                     )
         where idx = #{i.ref_idx}
         </foreach>

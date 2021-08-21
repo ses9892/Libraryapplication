@@ -109,6 +109,7 @@
                 contentType: 'application/json; charset=utf-8'
             }).success(function (data){
                 userId = data;
+                console.log("userId = "+data)
                 wsOpen(userId);
             }).error(function (error){
                 alert(error.responseJSON.message);
@@ -127,11 +128,13 @@
             console.log(data);
             var msg = data.data;
             var d= JSON.parse(msg);
+            console.log(d.type);
             if(d.type=='duplicatonSession'){
                 alert('채팅창이 이미 실행되어있습니다.');
             }else{
-                location.reload();
+                ws.close();
                 window.open("/chat/","Library Chating","top=50,width=850,height=620,resizable=no,menubar=no,directories=no,toolbar=no,location=no");
+                location.reload();
             }
         }
     }

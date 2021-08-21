@@ -18,12 +18,11 @@ function crR(){
         contentType: 'application/json; charset=utf-8'
     }).success(function (data){
         userId = data;
-        createRoom();
     }).error(function (error){
         alert(error.responseJSON.message);
         location.href="/logout";
     })
-    wsOpen(userId);
+        wsOpen(userId);
 }
 //방생성
 //생성버튼 클릭 -->  방이름 -> ajax -> 메모리에 생성 -> result -> 방생성메소드 실행
@@ -31,6 +30,7 @@ function createRoom(){
     var msg = {	roomName : userId};
     commonAjax('/chat/createRoom', msg, 'post', function(result){
     });
+    return true;
 }
 function commonAjax(url, parameter, type, calbak, contentType){
     $.ajax({

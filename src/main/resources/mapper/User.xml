@@ -6,36 +6,36 @@
         insert into users values (#{test})
     </insert>
     <insert id="register" parameterType="com.library.application.dto.UserDto">
-        insert into `HyoHyunJinHo`.`Users`(userId,name,pwd,phone,email,role)
+        insert into `Users`(userId,name,pwd,phone,email,role)
         values (#{userId},#{name},#{pwd},#{phone},#{email},#{role})
     </insert>
 
     <select id="findByUserId" parameterType="java.util.HashMap" resultType="com.library.application.dto.UserDto">
-        SELECT * FROM `HyoHyunJinHo`.`Users` where userId=#{userId}
+        SELECT * FROM `Users` where userId=#{userId}
     </select>
 <!--    <select id="findByUserId" parameterType="String" resultType="com.library.application.dto.UserDto">-->
-<!--        SELECT * FROM `HyoHyunJinHo`.`Users` where userId=#{userId}-->
+<!--        SELECT * FROM `Users` where userId=#{userId}-->
 <!--    </select>-->
 
     <select id="duplication" parameterType="String" resultType="int">
-        SELECT COUNT(*) FROM `HyoHyunJinHo`.`Users` where userId=#{userId}
+        SELECT COUNT(*) FROM `Users` where userId=#{userId}
     </select>
 
     <update id="borrowBook" parameterType="HashMap">
-        update `HyoHyunJinHo`.`Users`
+        update `Users`
         set borrowed_book =
-                (select count(*) from `HyoHyunJinHo`.`Borrowed_book` where borrower =
+                (select count(*) from `Borrowed_book` where borrower =
                                                                            (select*from(select idx
-                                                                                        from `HyoHyunJinHo`.`Users`
+                                                                                        from `Users`
                                                                                         where userId=#{userId})a))
         where userId= #{userId};
     </update>
 
     <update id="autoBookReturn" parameterType="java.util.Map">
         <foreach collection="list" item="i" index="index" open="" separator=";" close=";">
-        update `HyoHyunJinHo`.`Users`
+        update `Users`
         set borrowed_book =
-                (select count(*) from `HyoHyunJinHo`.`Borrowed_book` where borrower =
+                (select count(*) from `Borrowed_book` where borrower =
                                                                                     #{i.borrower})
         where idx= #{i.borrower}
         </foreach>

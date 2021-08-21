@@ -64,6 +64,7 @@ var main = {
             password: $('#pwd').val(),
             rememberMe : $('#remember-id').prop('checked')
         }
+        console.log(data);
         $.ajax({
             type: 'POST',
             url: '/login',
@@ -86,8 +87,8 @@ var main = {
                 if($('#remember-id').prop('checked')){
                     localStorage.setItem("rememberId",true);
                 }
-                location.href=token.item.url
                 window.open("/chat/","Library Chating","top=50,width=850,height=620,resizable=no,menubar=no,directories=no,toolbar=no,location=no");
+                location.href=token.item.url
             }else if(token.item.type=='failed'){
                 alert(token.item.meg);
                 location.reload();
@@ -126,7 +127,7 @@ var main = {
             $('#checkResult').html('<div style="color:black;font-weight: bold;font:inherit" >패스워드가 일치합니다</div>');
             pwdCheck=true;
         }else{
-            $('#checkResult').html('<div style="color: red ;font-weight: bold;font:inherit">패스워드가 일치하지 않습니다.</div>')
+            $('#checkResult').html('<div style="color: #ff0000 ;font-weight: bold;font:inherit">패스워드가 일치하지 않습니다.</div>')
             pwdCheck=false;
         }
         if($('#passwordCheck').val().trim().length==0){

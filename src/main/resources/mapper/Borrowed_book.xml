@@ -15,14 +15,14 @@
               borrower = (select idx from Users where userId = #{userId})
     </select>
     <insert id="borrow" parameterType="java.util.HashMap">
-        insert into `HyoHyunJinHo`.`Borrowed_book`(
+        insert into `Borrowed_book`(
         <include refid="Borrowed_Book_Colums"/>
         )values(
                 #{book_idx},
-                (select name from `HyoHyunJinHo`.`Book` where idx=#{book_idx}),
+                (select name from `Book` where idx=#{book_idx}),
                 Now(),
                 (select DATE_ADD(NOW(),INTERVAL 1 Month)),
-                (select idx from  `HyoHyunJinHo`.`Users` WHERE userId=#{userId})
+                (select idx from  `Users` WHERE userId=#{userId})
         )
     </insert>
 
@@ -34,7 +34,7 @@
     </select>
     <delete id="deleteByBookIdxList" parameterType="list">
       <foreach collection="list" item="i" index="index" open="" separator=";" close=";">
-        delete from `HyoHyunJinHo`.`Borrowed_book`
+        delete from `Borrowed_book`
         where ref_idx =#{i.ref_idx}
       </foreach>
     </delete>

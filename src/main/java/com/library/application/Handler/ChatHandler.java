@@ -41,6 +41,7 @@ public class ChatHandler extends TextWebSocketHandler {
         String roomName = (String) obj.get("roomNumber"); //내가입장한 방
 //        String roomNum = obj.get("roomNumber");
 
+
         RoomDto roomData = chatService.selectRoomByRoomName(roomName);
         HashMap<String,Object> temp = new HashMap<>();
 
@@ -100,6 +101,13 @@ public class ChatHandler extends TextWebSocketHandler {
         String url = session.getUri().toString();       // 클라이언트가 /ws 어디로 접속했는지
         String roomNumber = url.split("/")[4];  //  "/chating/{roomNumber}
         String roomName = url.split("/")[4]; //  "/chating/{roomNumber}
+
+        if(chatService.selectRoomByRoomName(roomName)==null){
+            HashMap<String,Object> hashMap = new HashMap<>();
+            hashMap.put("roomName",roomName);
+            Boolean aBoolean = chatService.createRoom(hashMap);
+        }
+
         JSONObject obj = new JSONObject();
         String locationKind=null;
         try{

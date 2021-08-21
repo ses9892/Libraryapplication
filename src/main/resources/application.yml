@@ -1,5 +1,5 @@
 server:
-  port: 10004
+  port: 10040
   servlet:
     encoding:
       charset: UTF-8
@@ -17,13 +17,11 @@ spring:
   datasource:
     driver-class-name:
       com.mysql.cj.jdbc.Driver
+    username: ses9892
+    password: 11111111
     url:
-      jdbc:mysql://gyguswlsgh.ciiiy3dtxwx4.ap-northeast-2.rds.amazonaws.com:1521/HyoHyunJinHo?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
-    username:
-      gyguswlsgh
-    password:
-      gyguswlsgh
-# H2 enable
+      jdbc:mysql://shopapplication.ch5yswrkfhkp.us-east-2.rds.amazonaws.com:3306/library?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+  # H2 enable
   h2:
     console:
       enabled: true

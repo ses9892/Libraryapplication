@@ -4,7 +4,7 @@
 ### 🏫 [도서관이동하기](http://ec2-3-15-99-108.us-east-2.compute.amazonaws.com:10040/)
 - 관리자 ID 
 - admin/1111
-### 🏫 [Web 기능 사진Wiki](http://ec2-3-15-99-108.us-east-2.compute.amazonaws.com:10040/)
+### 🏫 [Web 기능 사진Wiki](https://github.com/ses9892/Libraryapplication/wiki/Login-&-Resgister-Page)
 ***
 ##  📚 목차
 #### 1️⃣ [인원구성](#1%EF%B8%8F⃣-인원구성-1)
